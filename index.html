@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P&O - Pesquisa & Opiniões</title>
+
+<meta name="monetag" content="0c835788143dfe6396a31a416769ee27">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b3c5d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<script src="https://sdk.cloud.unity3d.com/js/unityads.js"></script>
+
+<style>
+:root{
+  --azul-claro:#e6f0fa;
+  --azul-escuro:#0b3c5d;
+  --dourado:#f1c40f;
+  --verde:#1e8e3e;
+  --cinza:#f5f5f5;
+}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--azul-claro);color:#333;padding-top:70px}
+.hidden{display:none}
+.screen{padding:20px;padding-bottom:100px}
+h1,h2,h3{color:var(--azul-escuro)}
+button{width:100%;padding:14px;border:none;border-radius:8px;font-size:16px;cursor:pointer}
+button:disabled{background:#ccc;cursor:not-allowed}
+.primary{background:var(--azul-escuro);color:#fff}
+.card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:16px}
+input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6px;border:1px solid #ccc}
+.video-box{background:#000;height:200px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:28px;position:relative}
+.video-box small{position:absolute;top:8px;left:8px;background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:4px;font-size:12px}
+.actions{display:flex;gap:20px;justify-content:center}
+.actions button{width:60px;height:60px;font-size:28px;border-radius:50%}
+.counter{text-align:center;font-size:14px;margin-bottom:8px}
+.nav{position:fixed;bottom:0;left:0;width:100%;height:60px;background:#fff;border-top:1px solid #ccc;display:flex}
+.nav button{flex:1;border:none;background:none;font-size:14px}
+#topBar{display:none;position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,0.2)}
+
+#bannerContainer {
+    position: fixed;
+    bottom: 65px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 998;
+}
+</style>
+</head>
+
+<body>
+
+<div id="topBar">
+    <span style="font-weight:bold; font-size:18px;">P&O - Pesquisa & Opiniões</span>
+    <span style="color:var(--dourado); font-weight:bold; font-size:18px;">R$ <span id="valSaldo">0,00</span></span>
+</div>
+
+<div id="welcome" class="screen">
+  <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" style="width:100%;border-radius:10px;margin-bottom:15px">
+  <h1>P&O - Pesquisa & Opiniões</h1>
+  <h3>Seu tempo e sua opinião têm valor</h3>
+  <div class="card" style="background:var(--azul-claro)">
+    <p>Avalie marcas e ganhe recompensas trimestrais por sua consultoria.</p>
+  </div>
+  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO</button>
+</div>
+
+<div id="cadastro" class="screen hidden">
+  <h2>P&O - Cadastro</h2>
+  <div class="card">
+    <label>E-mail</label>
+    <input id="regEmail" placeholder="Seu melhor e-mail">
+    <label>Chave PIX</label>
+    <input id="regPix" placeholder="Chave PIX">
+    <button class="primary" onclick="finalizarCadastro()">SALVAR E ENTRAR</button>
+  </div>
+</div>
+
+<div id="perfil" class="screen hidden">
+  <h2>P&O - Perfil</h2>
+  <div class="card">
+    <p><strong>E-mail:</strong> <span id="pEmail"></span></p>
+    <p><strong>PIX:</strong> <span id="pPix"></span></p>
+    <button class="primary" style="background:#c0392b" onclick="logout()">SAIR DA CONTA</button>
+  </div>
+</div>
+
+<div id="videos" class="screen hidden">
+  <h2>1ª Etapa: Consultoria</h2>
+  <div class="video-box">
+    <small>ANÚNCIO PARCEIRO</small>
+    📺
+  </div>
+  <div class="counter" id="counter">Aguarde 30s</div>
+  <div class="actions">
+    <button id="like" disabled onclick="passo1()">👍</button>
+    <button id="dislike" disabled onclick="passo1()">👎</button>
+  </div>
+  <p style="text-align:center; font-size: 12px; color:#666; margin-top:10px;">Opine após o tempo para avançar.</p>
+</div>
+
+<div id="pesquisa" class="screen hidden">
+  <h2>2ª Etapa: Pesquisa</h2>
+  <div class="card">
+    <p>Você recomendaria este produto/marca para um amigo?</p>
+    <button class="primary" onclick="passo2()">SIM, RECOMENDO</button><br><br>
+    <button class="primary" onclick="passo2()" style="background:#777">NÃO RECOMENDO</button>
+  </div>
+</div>
+
+<div id="resgate" class="screen hidden">
+  <h2>Etapa Final</h2>
+  <div class="card" style="text-align:center">
+    <p>Consultoria finalizada!</p>
+    <h3 style="color:var(--verde)">Recompensa disponível: R$ 0,01</h3>
+    <button id="btnResgate" class="primary" style="background:var(--verde)" onclick="tentarResgate()">RESGATAR AGORA</button>
+  </div>
+</div>
+
+<div id="bannerContainer" class="hidden">
+    <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</div>
+
+<div id="navBar" class="nav hidden">
+  <button onclick="showScreen('videos')">🎬 Início</button>
+  <button onclick="showScreen('perfil')">👤 Perfil</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
+    authDomain: "atitude-solidaria.firebaseapp.com",
+    projectId: "atitude-solidaria",
+    storageBucket: "atitude-solidaria.firebasestorage.app",
+    messagingSenderId: "651411468618",
+    appId: "1:651411468618:web:3c4e77ba3b99634469d1b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// --- REGISTRO DO SERVICE WORKER (PWA) ---
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => console.log("Erro SW", err));
+  });
+}
+
+// --- FUNÇÕES DO APP ---
+function abrirMonetag() {
+    window.open("https://otieu.com/4/10454714", "_blank");
+}
+
+window.tentarResgate = () => {
+    const btn = document.getElementById('btnResgate');
+    btn.disabled = true;
+    btn.textContent = "Carregando...";
+    UnityAds.init('6024544', true, {
+        onComplete: () => {
+            UnityAds.show('Rewarded_Android', {
+                onComplete: (state) => {
+                    if (state === 'COMPLETED') { finalizarCiclo(); } 
+                    else { alert("Assista o vídeo até o final!"); btn.disabled = false; btn.textContent = "RESGATAR AGORA"; }
+                },
+                onError: (error) => { abrirMonetag(); finalizarCiclo(); }
+            });
+        },
+        onError: (error) => { abrirMonetag(); finalizarCiclo(); }
+    });
+};
+
+window.passo1 = () => { abrirMonetag(); showScreen('pesquisa'); };
+window.passo2 = () => { abrirMonetag(); showScreen('resgate'); };
+
+window.finalizarCiclo = async () => {
+    const email = localStorage.getItem('user_email');
+    if(!email) return;
+    try {
+        const docRef = doc(db, "usuarios", email);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            let novoSaldo = (parseFloat(docSnap.data().saldo) || 0) + 0.01;
+            await updateDoc(docRef, { saldo: novoSaldo });
+            alert("Sucesso! R$ 0,01 adicionados.");
+            document.getElementById('btnResgate').disabled = false;
+            document.getElementById('btnResgate').textContent = "RESGATAR AGORA";
+            carregarPerfil(); 
+            showScreen('videos');
+        }
+    } catch(e) { alert("Erro ao atualizar saldo."); }
+};
+
+window.showScreen = (id) => {
+    document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    const logado = (id !== 'welcome' && id !== 'cadastro');
+    document.getElementById('topBar').style.display = logado ? 'flex' : 'none';
+    document.getElementById('navBar').style.display = logado ? 'flex' : 'none';
+    const banner = document.getElementById('bannerContainer');
+    if(logado) { banner.classList.remove('hidden'); } else { banner.classList.add('hidden'); }
+    if(id === 'videos') iniciarTimer();
+    if(id === 'perfil') carregarPerfil();
+};
+
+window.finalizarCadastro = async () => {
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const pix = document.getElementById('regPix').value.trim();
+    if (!email || !pix) return alert("Preencha e-mail e PIX!");
+    const userRef = doc(db, "usuarios", email);
+    await setDoc(userRef, { email, pix, saldo: 0 }, { merge: true });
+    localStorage.setItem('user_email', email);
+    showScreen('videos');
+};
+
+function carregarPerfil(){
+    const email = localStorage.getItem('user_email');
+    if(!email) return;
+    getDoc(doc(db, "usuarios", email)).then(docSnap => {
+        if(docSnap.exists()){
+            const data = docSnap.data();
+            document.getElementById('pEmail').textContent = data.email;
+            document.getElementById('pPix').textContent = data.pix;
+            document.getElementById('valSaldo').textContent = data.saldo.toFixed(2).replace('.',',');
+        }
+    });
+}
+
+window.logout = () => { localStorage.clear(); showScreen('welcome'); };
+
+let timer;
+function iniciarTimer(){
+    clearInterval(timer);
+    let time = 30;
+    document.getElementById('like').disabled = true;
+    document.getElementById('dislike').disabled = true;
+    document.getElementById('counter').textContent = 'Aguarde 30s';
+    timer = setInterval(()=>{
+        time--;
+        document.getElementById('counter').textContent = `Aguarde ${time}s`;
+        if(time <= 0){
+            clearInterval(timer);
+            document.getElementById('counter').textContent = 'Pode opinar';
+            document.getElementById('like').disabled = false;
+            document.getElementById('dislike').disabled = false;
+        }
+    },1000);
+}
+
+window.onload = () => {
+    const emailSalvo = localStorage.getItem('user_email');
+    if(emailSalvo) { carregarPerfil(); showScreen('videos'); }
+    else { showScreen('welcome'); }
+};
+</script>
+</body>
+</html>
