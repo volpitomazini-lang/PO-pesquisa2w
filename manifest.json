@@ -2,11 +2,22 @@
   "background_color": "#ffffff",
   "dir": "ltr",
   "display": "standalone",
-  "name": "volpitomazini-lang.github",
+  "name": "P&O Project",
+  "short_name": "P&O",
+  "description": "Aplicação oficial do projeto P&O.",
   "orientation": "any",
   "scope": "/",
-  "short_name": "volpitomazini-lang.github",
   "start_url": "/",
   "theme_color": "#ffffff",
-  "icons":
+  "icons": [
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "method": "GET"
+  }
 }
