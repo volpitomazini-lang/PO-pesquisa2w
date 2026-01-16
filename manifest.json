@@ -1,11 +1,11 @@
 {
-  "name": "P&O Project",
+  "name": "P&O - Pesquisa e Opiniões",
   "short_name": "P&O",
-  "description": "Aplicativo oficial do projeto P&O.",
+  "description": "Ganhe recompensas respondendo pesquisas rápidas no projeto P&O.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#0b3c5d",
   "orientation": "any",
   "scope": "/",
   "icons": [
