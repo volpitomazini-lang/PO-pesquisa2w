@@ -1,14 +1,13 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "display": "standalone",
   "name": "P&O Project",
   "short_name": "P&O",
-  "description": "Aplicação oficial do projeto P&O.",
+  "description": "Aplicativo oficial do projeto P&O.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "orientation": "any",
   "scope": "/",
-  "start_url": "/",
-  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "icon-512x512.png",
@@ -16,8 +15,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "share_target": {
-    "method": "GET"
-  }
+  ]
 }
