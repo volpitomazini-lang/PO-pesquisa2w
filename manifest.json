@@ -2,13 +2,20 @@
   "name": "P&O - Pesquisa e Opiniões",
   "short_name": "P&O",
   "description": "Ganhe recompensas respondendo pesquisas rápidas no projeto P&O.",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0b3c5d",
   "orientation": "any",
-  "scope": "/",
+  "lang": "pt-BR",
   "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
     {
       "src": "icon-512x512.png",
       "sizes": "512x512",
