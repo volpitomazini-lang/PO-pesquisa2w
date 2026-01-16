@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P e O - Pesquisa e Opinioes</title>
-<meta name="monetag" content="0c835788143dfe6396a31a416769ee27">
+<meta name="monetag" content="d26d9bd450c596ece045b5d4672c7257">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b3c5d">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +30,6 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
 .nav button{flex:1;border:none;background:none;font-size:14px}
 #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
 
-/* Estilo dos Banners Estáticos */
 .banner-fixed { width: 100%; text-align: center; background: #fff; display: none; overflow: hidden; }
 #banner-top { margin-top: -5px; margin-bottom: 10px; }
 #banner-bottom { position: fixed; bottom: 0; left: 0; height: 60px; z-index: 1001; border-top: 1px solid #ddd; }
@@ -103,8 +102,7 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
   <button onclick="showScreen('perfil')">👤 Perfil</button>
 </div>
 
-<div id="banner-bottom" class="banner-fixed">
-    </div>
+<div id="banner-bottom" class="banner-fixed"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -114,9 +112,7 @@ const firebaseConfig = { apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA", auth
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// FUNÇÃO PARA MOSTRAR ANÚNCIO (DIRECT LINK OU SMART TAG)
 window.gatilhoAnuncio = (proximaTela) => {
-    // Abre o anúncio em nova aba (Alta conversão)
     window.open("https://otieu.com/4/10454714", "_blank"); 
     if(proximaTela) showScreen(proximaTela);
 };
@@ -146,7 +142,6 @@ function iniciarTimer(){
         time--;
         document.getElementById('counter').textContent = `Aguarde ${time}s`;
         
-        // ANÚNCIO AUTOMÁTICO AOS 10 SEGUNDOS (Gatilho 1)
         if(time === 20) {
             window.open("https://otieu.com/4/10454714", "_blank");
         }
@@ -172,7 +167,7 @@ window.finalizarCadastro = async () => {
 };
 
 window.tentarResgate = () => {
-    gatilhoAnuncio(); // Anúncio ao clicar no Resgate (Gatilho 3)
+    gatilhoAnuncio(); 
     const btn = document.getElementById('btnResgate');
     btn.disabled = true;
     btn.textContent = "Processando PIX...";
@@ -187,8 +182,6 @@ async function finalizarCiclo() {
         if (docSnap.exists()) {
             let novoSaldo = (parseFloat(docSnap.data().saldo) || 0) + 0.01;
             await updateDoc(docRef, { saldo: novoSaldo });
-            
-            // Anúncio final ao dar OK (Gatilho 4)
             alert("R$ 0,01 enviado para sua conta!");
             gatilhoAnuncio('videos'); 
         }
