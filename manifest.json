@@ -1,10 +1,12 @@
 {
-  "name": "P e O - Pesquisa e Opinioes",
-  "short_name": "P e O",
-  "description": "Avalie marcas e ganhe recompensas.",
-  "start_url": "index.html",
+  "background_color": "#ffffff",
+  "dir": "ltr",
   "display": "standalone",
-  "background_color": "#0b3c5d",
-  "theme_color": "#0b3c5d",
+  "name": "volpitomazini-lang.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "volpitomazini-lang.github",
+  "start_url": "/",
+  "theme_color": "#ffffff",
   "icons":
 }
