@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P e O - Pesquisa e Opiniões</title>
+<meta name="description" content="Ganhe recompensas respondendo pesquisas rápidas no projeto P&O.">
 <meta name="monetag" content="d26d9bd450c596ece045b5d4672c7257">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="./manifest.json?v=2">
 <meta name="theme-color" content="#0b3c5d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,7 +30,6 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
 .nav{position:fixed;bottom:60px;left:0;width:100%;height:50px;background:#fff;border-top:1px solid #ccc;display:flex;z-index:999}
 .nav button{flex:1;border:none;background:none;font-size:14px}
 #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
-
 .banner-fixed { width: 100%; text-align: center; background: #fff; display: none; overflow: hidden; }
 #banner-top { margin-top: -5px; margin-bottom: 10px; }
 #banner-bottom { position: fixed; bottom: 0; left: 0; height: 60px; z-index: 1001; border-top: 1px solid #ddd; }
@@ -42,9 +42,7 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
     <span style="color:var(--dourado); font-weight:bold; font-size:18px;">R$ <span id="valSaldo">0,00</span></span>
 </div>
 
-<div id="banner-top" class="banner-fixed">
-    <small style="color:#999">Publicidade</small>
-</div>
+<div id="banner-top" class="banner-fixed"><small style="color:#999">Publicidade</small></div>
 
 <div id="welcome" class="screen">
   <h1>P e O - Pesquisa e Opiniões</h1>
@@ -102,8 +100,7 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
   <button onclick="showScreen('perfil')">👤 Perfil</button>
 </div>
 
-<div id="banner-bottom" class="banner-fixed">
-    </div>
+<div id="banner-bottom" class="banner-fixed"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -113,7 +110,6 @@ const firebaseConfig = { apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA", auth
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// LINK DE ANÚNCIO (DIRECT LINK)
 const ADS_LINK = "https://otieu.com/4/10454714";
 
 window.gatilhoAnuncio = (proximaTela) => {
@@ -124,13 +120,11 @@ window.gatilhoAnuncio = (proximaTela) => {
 window.showScreen = (id) => {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
-    
     const logado = (id !== 'welcome' && id !== 'cadastro');
     document.getElementById('topBar').style.display = logado ? 'flex' : 'none';
     document.getElementById('navBar').style.display = logado ? 'flex' : 'none';
     document.getElementById('banner-top').style.display = logado ? 'block' : 'none';
     document.getElementById('banner-bottom').style.display = logado ? 'block' : 'none';
-
     if(id === 'videos') iniciarTimer();
     if(id === 'perfil') carregarPerfil();
 };
@@ -141,15 +135,10 @@ function iniciarTimer(){
     let time = 30;
     document.getElementById('like').disabled = true;
     document.getElementById('dislike').disabled = true;
-    
     timer = setInterval(()=>{
         time--;
         document.getElementById('counter').textContent = `Aguarde ${time}s`;
-        
-        if(time === 20) {
-            window.open(ADS_LINK, "_blank");
-        }
-
+        if(time === 20) window.open(ADS_LINK, "_blank");
         if(time <= 0){
             clearInterval(timer);
             document.getElementById('counter').textContent = 'O que achou deste anúncio?';
@@ -216,9 +205,9 @@ window.onload = () => {
 
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log("SW Registrado!"))
-      .catch(err => console.log("Erro SW:", err));
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then(() => console.log("SW Registrado com sucesso!"))
+      .catch(err => console.log("Erro ao registrar SW:", err));
   }
 </script>
 
