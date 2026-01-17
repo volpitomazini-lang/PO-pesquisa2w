@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P e O - Pesquisa e Opiniões</title>
-<meta name="description" content="Avalie produtos e ganhe recompensas no projeto P&O.">
+<title>P e O - Pesquisa e Opini&otilde;es</title>
 <meta name="monetag" content="d26d9bd450c596ece045b5d4672c7257">
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0b3c5d">
 
 <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
@@ -21,82 +19,64 @@ h1,h2{color:var(--azul-escuro); font-size: 22px;}
 button{width:100%;padding:16px;border:none;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold}
 .primary{background:var(--azul-escuro);color:#fff}
 .card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);margin-bottom:16px;text-align:left; line-height: 1.6;}
-input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6px;border:1px solid #ccc}
 .video-box{background:#000;height:200px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:20px; border: 2px solid var(--azul-escuro)}
 .counter{text-align:center;font-size:18px;margin-bottom:10px;font-weight:bold;color:#e74c3c}
 #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
-.info-box { background: #f9f9f9; padding: 10px; border-left: 4px solid var(--azul-escuro); font-size: 13px; margin-top: 10px; }
 </style>
 </head>
 <body>
 
 <div id="topBar">
     <span style="font-weight:bold;">P e O</span>
-    <span style="color:var(--dourado);">Acumulado: R$ <span id="valSaldo">0,00</span></span>
+    <span style="color:var(--dourado);">R$ <span id="valSaldo">0,00</span></span>
 </div>
 
 <div id="welcome" class="screen">
-  <h1>Contrato de Participação P&O</h1>
+  <h1>Contrato de Participa&ccedil;&atilde;o P&O</h1>
   <div class="card">
-    <p><strong>Veja os produtos de nossos parceiros:</strong></p>
-    <div class="info-box">
-        <strong>Ciclo de Resgate:</strong><br>
-        O pagamento das recompensas acumuladas é processado de forma <strong>trimestral</strong>.
-    </div>
-    <p style="margin-top:15px;"><strong>Resumo do Processo:</strong><br>
-    • Visualize o produto por 10 segundos.<br>
-    • Emita sua opinião sincera.<br>
-    • Acumule para o próximo resgate.</p>
+    <p><strong>Analise os produtos de nossos parceiros:</strong></p>
+    <p>O pagamento das recompensas &eacute; processado de forma <strong>trimestral</strong>.</p>
+    <p>&bull; Visualize por 10 segundos.<br>&bull; D&ecirc; sua opini&atilde;o.<br>&bull; Acumule saldo.</p>
   </div>
-  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO COM OS TERMOS</button>
+  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO</button>
 </div>
 
 <div id="cadastro" class="screen hidden">
-  <h2>Identificação do Consultor</h2>
+  <h2>Identifica&ccedil;&atilde;o</h2>
   <div class="card">
-    <label>Seu melhor E-mail:</label>
-    <input id="regEmail" type="email" placeholder="E-mail para avisos">
-    <label>Chave para Resgate Futuro:</label>
-    <input id="regPix" placeholder="Informe sua chave PIX">
-    <button class="primary" onclick="finalizarCadastro()">SALVAR E ACESSAR</button>
+    <input id="regEmail" type="email" placeholder="Seu E-mail">
+    <input id="regPix" placeholder="Sua Chave PIX">
+    <button class="primary" onclick="finalizarCadastro()">ENTRAR</button>
   </div>
 </div>
 
 <div id="videos" class="screen hidden">
-  <div class="video-box">PRODUTO EM ANÁLISE </div>
+  <div class="video-box">PRODUTO EM AN&Aacute;LISE &#128202;</div>
   <div class="counter" id="counter">Aguarde 10s</div>
   <div style="display:flex; gap:10px;">
     <button id="like" disabled onclick="gatilhoAnuncio('pesquisa')" style="background:var(--verde); color:white">GOSTEI</button>
-    <button id="dislike" disabled onclick="gatilhoAnuncio('pesquisa')" style="background:#c0392b; color:white">NÃO GOSTEI</button>
+    <button id="dislike" disabled onclick="gatilhoAnuncio('pesquisa')" style="background:#c0392b; color:white">N&Atilde;O GOSTEI</button>
   </div>
 </div>
 
 <div id="pesquisa" class="screen hidden">
-  <h2>Opinião Consultiva</h2>
+  <h2>Opini&atilde;o</h2>
   <div class="card">
-    <p>Este produto atende às suas necessidades atuais?</p>
-    <button class="primary" onclick="gatilhoAnuncio('resgate')">ATENDE PLENAMENTE</button><br><br>
-    <button class="primary" onclick="gatilhoAnuncio('resgate')" style="background:#777">NÃO ATENDE</button>
+    <p>Este produto atende voc&ecirc;?</p>
+    <button class="primary" onclick="gatilhoAnuncio('resgate')">SIM</button><br><br>
+    <button class="primary" onclick="gatilhoAnuncio('resgate')" style="background:#777">N&Atilde;O</button>
   </div>
 </div>
 
 <div id="resgate" class="screen hidden">
-  <h2>Saldo Atualizado</h2>
+  <h2>Saldo Salvo</h2>
   <div class="card" style="text-align:center">
-    <p>Sua opinião foi registrada com sucesso.</p>
-    <h3 style="color:var(--verde)">Saldo em processamento trimestral.</h3>
-    <button id="btnResgate" class="primary" onclick="gatilhoAnuncio('videos')">AVALIAR PRÓXIMO PRODUTO</button>
+    <h3 style="color:var(--verde)">Processando pagamento trimestral...</h3>
+    <button class="primary" onclick="gatilhoAnuncio('videos')">PR&Oacute;XIMO PRODUTO</button>
   </div>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = { apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA", authDomain: "atitude-solidaria.firebaseapp.com", projectId: "atitude-solidaria", storageBucket: "atitude-solidaria.firebasestorage.app", messagingSenderId: "651411468618", appId: "1:651411468618:web:3c4e77ba3b99634469d1b3" };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
+<script>
 const DIRECT_LINK = "https://otieu.com/4/10454714";
 
 window.showScreen = (id) => {
@@ -104,7 +84,6 @@ window.showScreen = (id) => {
     document.getElementById(id).classList.remove('hidden');
     document.getElementById('topBar').style.display = (id !== 'welcome' && id !== 'cadastro') ? 'flex' : 'none';
     if(id === 'videos') iniciarTimer();
-    if(id === 'resgate') carregarSaldo();
 };
 
 function iniciarTimer(){
@@ -112,53 +91,32 @@ function iniciarTimer(){
     const btnL = document.getElementById('like');
     const btnD = document.getElementById('dislike');
     btnL.disabled = true; btnD.disabled = true;
-    
     let countdown = setInterval(()=>{
         time--;
         document.getElementById('counter').textContent = `Analisando: ${time}s`;
         if(time <= 0){
             clearInterval(countdown);
-            document.getElementById('counter').textContent = 'O que achou do produto?';
+            document.getElementById('counter').textContent = 'O que achou?';
             btnL.disabled = false; btnD.disabled = false;
         }
     },1000);
 }
 
 window.gatilhoAnuncio = (proxima) => {
-    // O Vignette da Monetag abre sozinho por script, 
-    // mas mantemos o window.open para garantir o clique extra se o script falhar
     window.open(DIRECT_LINK, "_blank"); 
     if(proxima) showScreen(proxima);
 };
 
-window.finalizarCadastro = async () => {
-    const email = document.getElementById('regEmail').value.trim().toLowerCase();
-    const pix = document.getElementById('regPix').value.trim();
-    if(!email || !pix) return alert("Preencha seus dados.");
-    await setDoc(doc(db, "usuarios", email), { email, pix, saldo: 0 }, { merge: true });
+window.finalizarCadastro = () => {
+    const email = document.getElementById('regEmail').value;
+    if(!email) return alert("Digite seu e-mail");
     localStorage.setItem('user_email', email);
     showScreen('videos');
 };
-
-async function carregarSaldo(){
-    const email = localStorage.getItem('user_email');
-    if(!email) return;
-    const docSnap = await getDoc(doc(db, "usuarios", email));
-    if(docSnap.exists()){
-        document.getElementById('valSaldo').textContent = (docSnap.data().saldo || 0).toFixed(2).replace('.',',');
-    }
-}
 
 window.onload = () => {
     if(localStorage.getItem('user_email')) showScreen('videos');
 };
 </script>
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js', { scope: './' });
-  }
-</script>
-
 </body>
 </html>
