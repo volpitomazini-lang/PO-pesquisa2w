@@ -1,153 +1,201 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P&O</title>
-<style>
-:root{--bg:#f6f8fb;--card:#ffffff;--primary:#4a7cff;--text:#2c2c2c;--muted:#777;}
-*{box-sizing:border-box;font-family:Arial,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.card{width:95%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;padding-bottom:70px;}
-.card.active{display:block}
-.user-icon{position:absolute;bottom:15px;right:15px;cursor:pointer;background:#eef2ff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:20px;border:1px solid #ddd;}
-h2,h3{text-align:center;margin:10px 0;}
-button{width:100%;padding:14px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;cursor:pointer;margin-top:10px;}
-button[disabled]{opacity:.5;cursor:not-allowed}
-input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;}
-.timer{font-size:32px;text-align:center;margin:15px 0}
-.page3-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);}
-.actions{display:flex;gap:10px}
-.actions button{flex:1}
-.banner{background:#eef2ff;text-align:center;padding:10px;border-radius:10px;margin:10px 0;font-size:12px;min-height:50px;display:flex;align-items:center;justify-content:center;}
-.points-display{font-size:48px;font-weight:bold;color:var(--primary);text-align:center;margin:10px 0}
-.user-box{background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px}
-.muted{color:var(--muted);font-size:13px;text-align:center}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P&O</title>
+    <style>
+        :root{--bg:#f6f8fb;--card:#ffffff;--primary:#4a7cff;--text:#2c2c2c;--muted:#777;}
+        *{box-sizing:border-box;font-family:Arial,sans-serif}
+        body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .card{width:95%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;padding-bottom:80px;}
+        .card.active{display:block}
+        .user-icon{position:absolute;bottom:15px;right:15px;cursor:pointer;background:#eef2ff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:20px;border:1px solid #ddd;}
+        h2,h3{text-align:center;margin:10px 0;}
+        button{width:100%;padding:14px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;cursor:pointer;margin-top:10px;}
+        button[disabled]{opacity:.5;cursor:not-allowed}
+        input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;}
+        .timer{font-size:32px;text-align:center;margin:15px 0}
+        .page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);margin-bottom:10px}
+        .actions{display:flex;gap:10px}
+        .actions button{flex:1}
+        .banner{background:#eef2ff;text-align:center;padding:10px;border-radius:10px;margin:10px 0;font-size:12px;min-height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+        .points-display{font-size:48px;font-weight:bold;color:var(--primary);text-align:center;margin:10px 0}
+        .user-box{background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px}
+        .muted{color:var(--muted);font-size:13px;text-align:center}
+    </style>
 </head>
 <body>
 
 <div id="t1" class="card active">
     <h2>Bem-vindo</h2>
-    <label><input type="checkbox" id="agree"> Li e concordo</label>
+    <p class="muted">Você receberá pontos por avaliar anúncios e produtos.</p>
+    <label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
     <button onclick="goLogin()">Continuar</button>
 </div>
 
 <div id="t2" class="card">
     <h2>Identificação</h2>
-    <input id="email" type="email" placeholder="E-mail"><input id="pix" type="text" placeholder="Chave PIX">
+    <input id="email" type="email" placeholder="E-mail">
+    <input id="pix" type="text" placeholder="Chave PIX">
     <button onclick="login()">Entrar</button>
 </div>
 
 <div id="t3" class="card">
-    <div id="valPontosNav" class="page3-points">0000</div>
-    <div class="banner">ANÚNCIO TOPO (COLE O CÓDIGO AQUI)</div>
+    <div id="valPontosNav" class="page-points">0000</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <h3>Aguarde</h3>
     <div id="timer30" class="timer">30</div>
     <div class="actions">
         <button id="like" disabled onclick="nextUtil()">Gostei</button>
         <button id="dislike" disabled onclick="nextUtil()">Não gostei</button>
     </div>
-    <div class="banner">ANÚNCIO RODAPÉ (COLE O CÓDIGO AQUI)</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
 <div id="t4" class="card">
-    <div class="banner">ANÚNCIO TOPO</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <h3>Achou útil?</h3>
     <div id="timer10a" class="timer">10</div>
     <div class="actions">
-        <button id="utilSim" disabled onclick="clickUtil()">Sim</button>
-        <button id="utilNao" disabled onclick="clickUtil()">Não</button>
+        <button id="utilSim" disabled onclick="nextIndicaria()">Sim</button>
+        <button id="utilNao" disabled onclick="nextIndicaria()">Não</button>
     </div>
-    <div class="banner">ANÚNCIO RODAPÉ</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
 <div id="t5" class="card">
-    <div class="banner">ANÚNCIO TOPO</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <h3>Indicaria?</h3>
     <div id="timer10b" class="timer">10</div>
     <div class="actions">
-        <button id="indSim" disabled onclick="clickInd()">Sim</button>
-        <button id="indNao" disabled onclick="clickInd()">Não</button>
+        <button id="indSim" disabled onclick="nextResgate()">Sim</button>
+        <button id="indNao" disabled onclick="nextResgate()">Não</button>
     </div>
-    <div class="banner">ANÚNCIO RODAPÉ</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
 <div id="t6" class="card">
-    <div class="banner">ANÚNCIO TOPO</div>
-    <h3>Resgatar</h3>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
+    <h3>Resgatar Recompensa</h3>
     <div id="timer10c" class="timer">10</div>
     <button id="resgatar" disabled onclick="clickResgatar()">Resgatar</button>
-    <div class="banner">ANÚNCIO RODAPÉ</div>
+    <div class="banner">
+        <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    </div>
     <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
 <div id="tUser" class="card">
     <h2>Minha Conta</h2>
     <div class="points-display" id="valPontos">0000</div>
-    <p class="muted">A cada 1.000 pontos ≈ R$ 10,00.</p>
-    <div class="user-box"><strong>E-mail:</strong> <span id="uEmail"></span><br><strong>PIX:</strong> <span id="uPix"></span></div>
+    <p style="text-align:center; font-size:14px; padding:0 10px; font-weight:bold;">A cada 1.000 pontos acumulados, sua recompensa equivale a R$ 10,00.</p>
+    <div class="user-box">
+        <strong>E-mail:</strong> <span id="uEmail">---</span><br>
+        <strong>PIX:</strong> <span id="uPix">---</span>
+    </div>
     <button onclick="clickOkResgate()">OK (Voltar)</button>
-    <button style="background:#dc3545;margin-top:10px" onclick="logout()">Sair</button>
+    <button style="background:#dc3545; margin-top:10px" onclick="logout()">Sair / Deslogar</button>
 </div>
 
 <script>
 let pontos = Number(localStorage.getItem("pontos") || 0);
 let timerAtivo;
-const DIRECT_LINK = "https://otieu.com/4/10454714"; // Seu Direct Link
+const DIRECT_LINK = "https://otieu.com/4/10454714";
 
-function show(id){document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));document.getElementById(id).classList.add("active");}
-function vignette(){try{window.open(DIRECT_LINK, "_blank");}catch(e){}}
-function updatePoints(){const p=pontos.toString().padStart(4,'0');if(valPontosNav)valPontosNav.innerText=p;if(valPontos)valPontos.innerText=p;}
+function show(id){
+    document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
 
-function goLogin(){if(agree.checked)show("t2");else alert("Concorde");}
-function login(){if(email.value&&pix.value){localStorage.setItem("email",email.value);localStorage.setItem("pix",pix.value);updatePoints();show("t3");start30();}else alert("Preencha");}
+function updatePoints(){
+    const p = pontos.toString().padStart(4, '0');
+    if(document.getElementById("valPontosNav")) document.getElementById("valPontosNav").innerText = p;
+    if(document.getElementById("valPontos")) document.getElementById("valPontos").innerText = p;
+}
+
+function vignette(){ try{ window.open(DIRECT_LINK, "_blank"); } catch(e){} }
+
+function goLogin(){ if(document.getElementById("agree").checked) show("t2"); else alert("Aceite os termos"); }
+
+function login(){
+    const e = document.getElementById("email").value;
+    const p = document.getElementById("pix").value;
+    if(e && p){
+        localStorage.setItem("email", e);
+        localStorage.setItem("pix", p);
+        updatePoints();
+        show("t3");
+        start30();
+    } else alert("Preencha os campos");
+}
 
 function start30(){
-    clearInterval(timerAtivo); let t=30; like.disabled=dislike.disabled=true; timer30.innerText=t;
-    timerAtivo=setInterval(()=>{
-        t--; timer30.innerText=t;
-        if(t===20) vignette(); // Anúncio com 10s de página (30-10=20)
-        if(t<=0){clearInterval(timerAtivo);like.disabled=dislike.disabled=false;}
+    clearInterval(timerAtivo);
+    let t=30;
+    const l=document.getElementById("like"), d=document.getElementById("dislike");
+    l.disabled = d.disabled = true;
+    document.getElementById("timer30").innerText = t;
+    timerAtivo = setInterval(()=>{
+        t--; document.getElementById("timer30").innerText = t;
+        if(t===20) vignette(); 
+        if(t<=0){ clearInterval(timerAtivo); l.disabled = d.disabled = false; }
     },1000);
 }
 
-function start10(timerId, btns){
-    clearInterval(timerAtivo); let t=10; btns.forEach(b=>document.getElementById(b).disabled=true); document.getElementById(timerId).innerText=t;
-    timerAtivo=setInterval(()=>{
-        t--; document.getElementById(timerId).innerText=t;
-        if(t<=0){clearInterval(timerAtivo);btns.forEach(b=>document.getElementById(b).disabled=false);}
+function start10(timerId, btnIds){
+    clearInterval(timerAtivo);
+    let t=10;
+    btnIds.forEach(id => document.getElementById(id).disabled = true);
+    document.getElementById(timerId).innerText = t;
+    timerAtivo = setInterval(()=>{
+        t--; document.getElementById(timerId).innerText = t;
+        if(t<=0){ clearInterval(timerAtivo); btnIds.forEach(id => document.getElementById(id).disabled = false); }
     },1000);
 }
 
-// Transição 3 -> 4
-function nextUtil(){ vignette(); show("t4"); setTimeout(()=>start10("timer10a",["utilSim","utilNao"]),100); }
+function nextUtil(){ vignette(); show("t4"); setTimeout(()=>start10("timer10a", ["utilSim","utilNao"]), 100); }
+function nextIndicaria(){ vignette(); show("t5"); setTimeout(()=>start10("timer10b", ["indSim","indNao"]), 100); }
+function nextResgate(){ vignette(); show("t6"); setTimeout(()=>start10("timer10c", ["resgatar"]), 100); }
 
-// Ao clicar se achou útil (4 -> 5)
-function clickUtil(){ vignette(); show("t5"); setTimeout(()=>start10("timer10b",["indSim","indNao"]),100); }
-
-// Ao clicar se indicaria (5 -> 6)
-function clickInd(){ vignette(); show("t6"); setTimeout(()=>start10("timer10c",["resgatar"]),100); }
-
-// Ao clicar em resgatar (6 -> Perfil)
 function clickResgatar(){
-    pontos++; localStorage.setItem("pontos", pontos);
-    vignette(); // Anúncio ao resgatar
+    pontos++;
+    localStorage.setItem("pontos", pontos);
+    vignette();
     showUserPage();
 }
 
-// Ao dar OK no resgate (Perfil -> 3)
-function clickOkResgate(){
-    vignette(); // Anúncio ao dar OK
-    restart();
+function clickOkResgate(){ vignette(); restart(); }
+
+function showUserPage(){
+    clearInterval(timerAtivo);
+    updatePoints();
+    document.getElementById("uEmail").innerText = localStorage.getItem("email") || "---";
+    document.getElementById("uPix").innerText = localStorage.getItem("pix") || "---";
+    show("tUser");
 }
 
-function showUserPage(){clearInterval(timerAtivo);updatePoints();uEmail.innerText=localStorage.getItem("email");uPix.innerText=localStorage.getItem("pix");show("tUser");}
-function logout(){localStorage.clear();location.reload();}
-function restart(){updatePoints();show("t3");start30();}
+function logout(){ localStorage.clear(); location.reload(); }
+function restart(){ updatePoints(); show("t3"); start30(); }
+
+updatePoints();
 </script>
 </body>
 </html>
