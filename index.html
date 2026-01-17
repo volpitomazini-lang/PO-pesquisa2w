@@ -9,6 +9,8 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b3c5d">
 
+<script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 <style>
 :root{ --azul-claro:#f0f4f8; --azul-escuro:#0b3c5d; --dourado:#f1c40f; --verde:#1e8e3e; }
 *{box-sizing:border-box;font-family:Arial, sans-serif}
@@ -37,26 +39,23 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
   <h1>Contrato de Participação P&O</h1>
   <div class="card">
     <p><strong>Veja os produtos de nossos parceiros:</strong></p>
-    <p>Ao utilizar nossa plataforma, você se compromete a avaliar e opinar sobre os anúncios exibidos de forma honesta.</p>
-    
     <div class="info-box">
         <strong>Ciclo de Resgate:</strong><br>
-        O acúmulo de recompensas por visualização e opinião é contabilizado em conta e o <strong>pagamento é realizado trimestralmente</strong>.
+        O pagamento das recompensas acumuladas é processado de forma <strong>trimestral</strong>.
     </div>
-    
     <p style="margin-top:15px;"><strong>Resumo do Processo:</strong><br>
     • Visualize o produto por 10 segundos.<br>
     • Emita sua opinião sincera.<br>
     • Acumule para o próximo resgate.</p>
   </div>
-  <button class="primary" onclick="gatilhoAnuncio('cadastro')">LI E CONCORDO COM OS TERMOS</button>
+  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO COM OS TERMOS</button>
 </div>
 
 <div id="cadastro" class="screen hidden">
   <h2>Identificação do Consultor</h2>
   <div class="card">
     <label>Seu melhor E-mail:</label>
-    <input id="regEmail" type="email" placeholder="Para avisos e suporte">
+    <input id="regEmail" type="email" placeholder="E-mail para avisos">
     <label>Chave para Resgate Futuro:</label>
     <input id="regPix" placeholder="Informe sua chave PIX">
     <button class="primary" onclick="finalizarCadastro()">SALVAR E ACESSAR</button>
@@ -64,7 +63,7 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
 </div>
 
 <div id="videos" class="screen hidden">
-  <div class="video-box">ANÁLISE DE PRODUTO </div>
+  <div class="video-box">PRODUTO EM ANÁLISE </div>
   <div class="counter" id="counter">Aguarde 10s</div>
   <div style="display:flex; gap:10px;">
     <button id="like" disabled onclick="gatilhoAnuncio('pesquisa')" style="background:var(--verde); color:white">GOSTEI</button>
@@ -75,7 +74,7 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
 <div id="pesquisa" class="screen hidden">
   <h2>Opinião Consultiva</h2>
   <div class="card">
-    <p>Este produto atende às suas necessidades atuais ou de sua família?</p>
+    <p>Este produto atende às suas necessidades atuais?</p>
     <button class="primary" onclick="gatilhoAnuncio('resgate')">ATENDE PLENAMENTE</button><br><br>
     <button class="primary" onclick="gatilhoAnuncio('resgate')" style="background:#777">NÃO ATENDE</button>
   </div>
@@ -86,29 +85,30 @@ input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6p
   <div class="card" style="text-align:center">
     <p>Sua opinião foi registrada com sucesso.</p>
     <h3 style="color:var(--verde)">Saldo em processamento trimestral.</h3>
-    <button id="btnResgate" class="primary" onclick="showScreen('videos')">AVALIAR PRÓXIMO PRODUTO</button>
+    <button id="btnResgate" class="primary" onclick="gatilhoAnuncio('videos')">AVALIAR PRÓXIMO PRODUTO</button>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = { apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA", authDomain: "atitude-solidaria.firebaseapp.com", projectId: "atitude-solidaria", storageBucket: "atitude-solidaria.firebasestorage.app", messagingSenderId: "651411468618", appId: "1:651411468618:web:3c4e77ba3b99634469d1b3" };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const ADS_LINK = "https://otieu.com/4/10454714";
+const DIRECT_LINK = "https://otieu.com/4/10454714";
 
 window.showScreen = (id) => {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
     document.getElementById('topBar').style.display = (id !== 'welcome' && id !== 'cadastro') ? 'flex' : 'none';
     if(id === 'videos') iniciarTimer();
+    if(id === 'resgate') carregarSaldo();
 };
 
 function iniciarTimer(){
-    let time = 10; // TIMER DE 10 SEGUNDOS
+    let time = 10;
     const btnL = document.getElementById('like');
     const btnD = document.getElementById('dislike');
     btnL.disabled = true; btnD.disabled = true;
@@ -125,18 +125,29 @@ function iniciarTimer(){
 }
 
 window.gatilhoAnuncio = (proxima) => {
-    window.open(ADS_LINK, "_blank"); // DISPARA O ANÚNCIO
+    // O Vignette da Monetag abre sozinho por script, 
+    // mas mantemos o window.open para garantir o clique extra se o script falhar
+    window.open(DIRECT_LINK, "_blank"); 
     if(proxima) showScreen(proxima);
 };
 
 window.finalizarCadastro = async () => {
     const email = document.getElementById('regEmail').value.trim().toLowerCase();
     const pix = document.getElementById('regPix').value.trim();
-    if(!email || !pix) return alert("Por favor, preencha seus dados.");
+    if(!email || !pix) return alert("Preencha seus dados.");
     await setDoc(doc(db, "usuarios", email), { email, pix, saldo: 0 }, { merge: true });
     localStorage.setItem('user_email', email);
     showScreen('videos');
 };
+
+async function carregarSaldo(){
+    const email = localStorage.getItem('user_email');
+    if(!email) return;
+    const docSnap = await getDoc(doc(db, "usuarios", email));
+    if(docSnap.exists()){
+        document.getElementById('valSaldo').textContent = (docSnap.data().saldo || 0).toFixed(2).replace('.',',');
+    }
+}
 
 window.onload = () => {
     if(localStorage.getItem('user_email')) showScreen('videos');
@@ -145,9 +156,7 @@ window.onload = () => {
 
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js', { scope: './' })
-      .then(() => console.log("SW Registrado!"))
-      .catch(err => console.log("Erro SW:", err));
+    navigator.serviceWorker.register('./sw.js', { scope: './' });
   }
 </script>
 
