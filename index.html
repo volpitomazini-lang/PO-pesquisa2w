@@ -1,219 +1,153 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P e O - Pesquisa e Opiniões</title>
-<meta name="monetag" content="d26d9bd450c596ece045b5d4672c7257">
+<title>P&O</title>
 <style>
-    :root{ --azul-claro:#f0f4f8; --azul-escuro:#0b3c5d; --dourado:#f1c40f; --verde:#1e8e3e; }
-    *{box-sizing:border-box;font-family:Arial, sans-serif}
-    body{margin:0;background:var(--azul-claro);color:#333;padding-top:70px;padding-bottom: 110px;}
-    .hidden{display:none}
-    .screen{padding:20px; text-align:center;}
-    h1,h2{color:var(--azul-escuro); font-size: 22px;}
-    button{width:100%;padding:16px;border:none;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold}
-    button:disabled{background:#ccc !important; cursor:not-allowed}
-    .primary{background:var(--azul-escuro);color:#fff}
-    .card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);margin-bottom:16px;text-align:left; line-height: 1.6;}
-    input{width:100%;padding:15px;margin-bottom:12px;border:1px solid #ccc;border-radius:8px;font-size:16px}
-    .video-box{background:#000;height:180px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:20px; border: 2px solid var(--azul-escuro)}
-    .counter{text-align:center;font-size:18px;margin-bottom:10px;font-weight:bold;color:#e74c3c}
-    #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
-    .anuncio-topo { text-align: center; margin: 10px 0; min-height: 50px; width: 100%; background:#f9f9f9; }
-    .anuncio-rodape { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; background: rgba(240, 244, 248, 0.95); padding: 5px 0; z-index: 999; border-top: 1px solid #ccc; min-height: 50px; }
-    ul { padding-left: 20px; }
+:root{--bg:#f6f8fb;--card:#ffffff;--primary:#4a7cff;--text:#2c2c2c;--muted:#777;}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.card{width:95%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;padding-bottom:70px;}
+.card.active{display:block}
+.user-icon{position:absolute;bottom:15px;right:15px;cursor:pointer;background:#eef2ff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:20px;border:1px solid #ddd;}
+h2,h3{text-align:center;margin:10px 0;}
+button{width:100%;padding:14px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;cursor:pointer;margin-top:10px;}
+button[disabled]{opacity:.5;cursor:not-allowed}
+input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;}
+.timer{font-size:32px;text-align:center;margin:15px 0}
+.page3-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);}
+.actions{display:flex;gap:10px}
+.actions button{flex:1}
+.banner{background:#eef2ff;text-align:center;padding:10px;border-radius:10px;margin:10px 0;font-size:12px;min-height:50px;display:flex;align-items:center;justify-content:center;}
+.points-display{font-size:48px;font-weight:bold;color:var(--primary);text-align:center;margin:10px 0}
+.user-box{background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px}
+.muted{color:var(--muted);font-size:13px;text-align:center}
 </style>
 </head>
 <body>
 
-<div id="topBar">
-    <button onclick="showScreen('perfil')" style="background:none; border:1px solid #fff; color:#fff; border-radius:4px; padding:4px 8px; font-size:12px; cursor:pointer; width:auto;">Perfil</button>
-    <span style="color:var(--dourado); font-weight:bold;">R$ <span id="valSaldo">0,00</span></span>
+<div id="t1" class="card active">
+    <h2>Bem-vindo</h2>
+    <label><input type="checkbox" id="agree"> Li e concordo</label>
+    <button onclick="goLogin()">Continuar</button>
 </div>
 
-<div class="anuncio-topo">
-    <script data-cfasync="false" type="text/javascript" src="//gizokraijaw.net/al/a.js"></script>
-    <ins class="66a0e698" data-zone="10477360"></ins>
+<div id="t2" class="card">
+    <h2>Identificação</h2>
+    <input id="email" type="email" placeholder="E-mail"><input id="pix" type="text" placeholder="Chave PIX">
+    <button onclick="login()">Entrar</button>
 </div>
 
-<div id="welcome" class="screen">
-  <h1>Contrato de Participação P&O</h1>
-  <div class="card" style="font-size: 14px; text-align: justify; max-height: 300px; overflow-y: auto;">
-    <p><strong>Seja bem-vindo ao projeto P&O (Pesquisa e Opiniões).</strong></p>
-    <p>Ao avançar, você concorda em participar de um estudo de viabilidade de produtos. Sua função é fornecer opiniões sinceras para análise de mercado.</p>
-    <p><strong>Regras de Recompensa:</strong></p>
-    <ul>
-      <li>As recompensas são acumuladas por ciclos de análise concluídos.</li>
-      <li>O saldo é atualizado em tempo real via banco de dados.</li>
-      <li>O resgate segue o cronograma de fechamento trimestral.</li>
-    </ul>
-    <p><strong>Privacidade:</strong> Seus dados de e-mail e PIX são protegidos e usados apenas para identificação e pagamentos.</p>
-  </div>
-  <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Ao clicar abaixo, você aceita os termos do projeto.</p>
-  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO COM OS TERMOS</button>
+<div id="t3" class="card">
+    <div id="valPontosNav" class="page3-points">0000</div>
+    <div class="banner">ANÚNCIO TOPO (COLE O CÓDIGO AQUI)</div>
+    <h3>Aguarde</h3>
+    <div id="timer30" class="timer">30</div>
+    <div class="actions">
+        <button id="like" disabled onclick="nextUtil()">Gostei</button>
+        <button id="dislike" disabled onclick="nextUtil()">Não gostei</button>
+    </div>
+    <div class="banner">ANÚNCIO RODAPÉ (COLE O CÓDIGO AQUI)</div>
+    <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
-<div id="cadastro" class="screen hidden">
-  <h2>Identificação</h2>
-  <div class="card">
-    <input id="regEmail" type="email" placeholder="Seu melhor E-mail">
-    <input id="regPix" placeholder="Sua Chave PIX">
-    <button class="primary" onclick="finalizarCadastro()">ACESSAR PAINEL</button>
-  </div>
+<div id="t4" class="card">
+    <div class="banner">ANÚNCIO TOPO</div>
+    <h3>Achou útil?</h3>
+    <div id="timer10a" class="timer">10</div>
+    <div class="actions">
+        <button id="utilSim" disabled onclick="clickUtil()">Sim</button>
+        <button id="utilNao" disabled onclick="clickUtil()">Não</button>
+    </div>
+    <div class="banner">ANÚNCIO RODAPÉ</div>
+    <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
-<div id="videos" class="screen hidden">
-  <div class="video-box">PRODUTO EM ANÁLISE 📊</div>
-  <div class="counter" id="counter">Aguarde 10s</div>
-  <div style="display:flex; gap:10px;">
-    <button id="like" disabled onclick="irParaPesquisa()" style="background:var(--verde); color:white">GOSTEI</button>
-    <button id="dislike" disabled onclick="irParaPesquisa()" style="background:#c0392b; color:white">NÃO GOSTEI</button>
-  </div>
+<div id="t5" class="card">
+    <div class="banner">ANÚNCIO TOPO</div>
+    <h3>Indicaria?</h3>
+    <div id="timer10b" class="timer">10</div>
+    <div class="actions">
+        <button id="indSim" disabled onclick="clickInd()">Sim</button>
+        <button id="indNao" disabled onclick="clickInd()">Não</button>
+    </div>
+    <div class="banner">ANÚNCIO RODAPÉ</div>
+    <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
-<div id="pesquisa" class="screen hidden">
-  <h2>Opinião</h2>
-  <div class="card">
-    <p>Este produto atende você?</p>
-    <button class="primary" onclick="showScreen('resgate')">SIM</button><br><br>
-    <button class="primary" onclick="showScreen('resgate')" style="background:#777">NÃO</button>
-  </div>
+<div id="t6" class="card">
+    <div class="banner">ANÚNCIO TOPO</div>
+    <h3>Resgatar</h3>
+    <div id="timer10c" class="timer">10</div>
+    <button id="resgatar" disabled onclick="clickResgatar()">Resgatar</button>
+    <div class="banner">ANÚNCIO RODAPÉ</div>
+    <div class="user-icon" onclick="showUserPage()">👤</div>
 </div>
 
-<div id="resgate" class="screen hidden">
-  <h2>Conclusão</h2>
-  <div class="card" style="text-align:center">
-    <h3 style="color:var(--verde)">Sua participação foi salva!</h3>
-    <button class="primary" onclick="finalizarCiclo()">AVALIAR PRÓXIMO</button>
-  </div>
+<div id="tUser" class="card">
+    <h2>Minha Conta</h2>
+    <div class="points-display" id="valPontos">0000</div>
+    <p class="muted">A cada 1.000 pontos ≈ R$ 10,00.</p>
+    <div class="user-box"><strong>E-mail:</strong> <span id="uEmail"></span><br><strong>PIX:</strong> <span id="uPix"></span></div>
+    <button onclick="clickOkResgate()">OK (Voltar)</button>
+    <button style="background:#dc3545;margin-top:10px" onclick="logout()">Sair</button>
 </div>
 
-<div id="perfil" class="screen hidden">
-  <h2>Meu Perfil</h2>
-  <div class="card">
-    <p><strong>E-mail:</strong> <span id="pEmail">---</span></p>
-    <p><strong>Chave PIX:</strong> <span id="pPix">---</span></p>
-    <hr>
-    <button class="primary" onclick="showScreen('videos')">VOLTAR AO PAINEL</button><br><br>
-    <button onclick="logout()" style="background:#c0392b; color:white; border:none; padding:10px; border-radius:8px; width:100%; font-weight:bold;">SAIR DA CONTA</button>
-  </div>
-</div>
+<script>
+let pontos = Number(localStorage.getItem("pontos") || 0);
+let timerAtivo;
+const DIRECT_LINK = "https://otieu.com/4/10454714"; // Seu Direct Link
 
-<div class="anuncio-rodape">
-    <script data-cfasync="false" type="text/javascript" src="//gizokraijaw.net/al/a.js"></script>
-    <ins class="66a0e698" data-zone="10477360"></ins>
-</div>
+function show(id){document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));document.getElementById(id).classList.add("active");}
+function vignette(){try{window.open(DIRECT_LINK, "_blank");}catch(e){}}
+function updatePoints(){const p=pontos.toString().padStart(4,'0');if(valPontosNav)valPontosNav.innerText=p;if(valPontos)valPontos.innerText=p;}
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+function goLogin(){if(agree.checked)show("t2");else alert("Concorde");}
+function login(){if(email.value&&pix.value){localStorage.setItem("email",email.value);localStorage.setItem("pix",pix.value);updatePoints();show("t3");start30();}else alert("Preencha");}
 
-const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_PROJETO_ID",
-  storageBucket: "SEU_PROJETO.appspot.com",
-  messagingSenderId: "ID",
-  appId: "APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const DIRECT_LINK = "https://otieu.com/4/10454714";
-
-// --- FUNÇÕES FIREBASE ---
-window.finalizarCadastro = async () => {
-    const email = document.getElementById('regEmail').value.trim().toLowerCase();
-    const pix = document.getElementById('regPix').value.trim();
-    if (!email || !pix) return alert("Preencha todos os campos!");
-    try {
-        await setDoc(doc(db, "usuarios", email), { email, pix, saldo: 0 }, { merge: true });
-        localStorage.setItem('user_email', email);
-        carregarVignette();
-        showScreen('videos');
-    } catch (e) { alert("Erro ao salvar cadastro."); }
-};
-
-async function carregarPerfil(){
-    const email = localStorage.getItem('user_email');
-    if(!email) return;
-    const docSnap = await getDoc(doc(db, "usuarios", email));
-    if(docSnap.exists()){
-        const data = docSnap.data();
-        document.getElementById('valSaldo').textContent = (data.saldo || 0).toFixed(2).replace('.',',');
-        document.getElementById('pEmail').textContent = data.email;
-        document.getElementById('pPix').textContent = data.pix;
-    }
+function start30(){
+    clearInterval(timerAtivo); let t=30; like.disabled=dislike.disabled=true; timer30.innerText=t;
+    timerAtivo=setInterval(()=>{
+        t--; timer30.innerText=t;
+        if(t===20) vignette(); // Anúncio com 10s de página (30-10=20)
+        if(t<=0){clearInterval(timerAtivo);like.disabled=dislike.disabled=false;}
+    },1000);
 }
 
-window.finalizarCiclo = async () => {
-    const email = localStorage.getItem('user_email');
-    try {
-        const docRef = doc(db, "usuarios", email);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            let novoSaldo = (parseFloat(docSnap.data().saldo) || 0) + 0.01;
-            await updateDoc(docRef, { saldo: novoSaldo });
-            window.open(DIRECT_LINK, "_blank");
-            await carregarPerfil();
-            showScreen('videos');
-        }
-    } catch(e) { console.error("Erro ao atualizar saldo:", e); }
-};
-
-// --- NAVEGAÇÃO E TIMER ---
-window.showScreen = (id) => {
-    document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-    const painelAtivo = (id === 'videos' || id === 'pesquisa' || id === 'resgate' || id === 'perfil');
-    document.getElementById('topBar').style.display = painelAtivo ? 'flex' : 'none';
-    if(id === 'videos') iniciarTimer();
-    if(id === 'perfil') carregarPerfil();
-};
-
-function iniciarTimer(){
-    let time = 10;
-    const btnL = document.getElementById('like'); const btnD = document.getElementById('dislike');
-    btnL.disabled = true; btnD.disabled = true;
-    let countdown = setInterval(()=>{
-        time--;
-        document.getElementById('counter').textContent = `Analisando: ${time}s`;
-        if(time <= 0){
-            clearInterval(countdown);
-            document.getElementById('counter').textContent = 'O que achou?';
-            btnL.disabled = false; btnD.disabled = false;
-        }
-    }, 1000);
+function start10(timerId, btns){
+    clearInterval(timerAtivo); let t=10; btns.forEach(b=>document.getElementById(b).disabled=true); document.getElementById(timerId).innerText=t;
+    timerAtivo=setInterval(()=>{
+        t--; document.getElementById(timerId).innerText=t;
+        if(t<=0){clearInterval(timerAtivo);btns.forEach(b=>document.getElementById(b).disabled=false);}
+    },1000);
 }
 
-window.irParaPesquisa = () => {
-    window.open(DIRECT_LINK, "_blank"); 
-    showScreen('pesquisa');
-};
+// Transição 3 -> 4
+function nextUtil(){ vignette(); show("t4"); setTimeout(()=>start10("timer10a",["utilSim","utilNao"]),100); }
 
-// --- MONETAG VIGNETTE ---
-function carregarVignette() {
-    const s = document.createElement('script');
-    s.dataset.zone = '10477360';
-    s.src = 'https://gizokraijaw.net/vignette.min.js';
-    document.body.appendChild(s);
+// Ao clicar se achou útil (4 -> 5)
+function clickUtil(){ vignette(); show("t5"); setTimeout(()=>start10("timer10b",["indSim","indNao"]),100); }
+
+// Ao clicar se indicaria (5 -> 6)
+function clickInd(){ vignette(); show("t6"); setTimeout(()=>start10("timer10c",["resgatar"]),100); }
+
+// Ao clicar em resgatar (6 -> Perfil)
+function clickResgatar(){
+    pontos++; localStorage.setItem("pontos", pontos);
+    vignette(); // Anúncio ao resgatar
+    showUserPage();
 }
 
-window.logout = () => {
-    if(confirm("Deseja realmente sair?")) {
-        localStorage.removeItem('user_email');
-        location.reload();
-    }
-};
+// Ao dar OK no resgate (Perfil -> 3)
+function clickOkResgate(){
+    vignette(); // Anúncio ao dar OK
+    restart();
+}
 
-window.onload = () => {
-    if(localStorage.getItem('user_email')) {
-        carregarVignette();
-        carregarPerfil();
-        showScreen('videos');
-    }
-};
+function showUserPage(){clearInterval(timerAtivo);updatePoints();uEmail.innerText=localStorage.getItem("email");uPix.innerText=localStorage.getItem("pix");show("tUser");}
+function logout(){localStorage.clear();location.reload();}
+function restart(){updatePoints();show("t3");start30();}
 </script>
 </body>
 </html>
