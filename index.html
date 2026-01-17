@@ -3,104 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P e O - Pesquisa e Opini√µes</title>
-<meta name="description" content="Ganhe recompensas respondendo pesquisas r√°pidas no projeto P&O.">
+<title>P e O - Pesquisa e Opiniıes</title>
+<meta name="description" content="Avalie produtos e ganhe recompensas no projeto P&O.">
 <meta name="monetag" content="d26d9bd450c596ece045b5d4672c7257">
-<link rel="manifest" href="./manifest.json?v=2">
+<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b3c5d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <style>
-:root{ --azul-claro:#e6f0fa; --azul-escuro:#0b3c5d; --dourado:#f1c40f; --verde:#1e8e3e; --cinza:#f5f5f5; }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+:root{ --azul-claro:#f0f4f8; --azul-escuro:#0b3c5d; --dourado:#f1c40f; --verde:#1e8e3e; }
+*{box-sizing:border-box;font-family:Arial, sans-serif}
 body{margin:0;background:var(--azul-claro);color:#333;padding-top:70px;padding-bottom: 70px;}
 .hidden{display:none}
-.screen{padding:20px}
-h1,h2,h3{color:var(--azul-escuro)}
-button{width:100%;padding:14px;border:none;border-radius:8px;font-size:16px;cursor:pointer}
-button:disabled{background:#ccc;cursor:not-allowed}
+.screen{padding:20px; text-align:center;}
+h1,h2{color:var(--azul-escuro); font-size: 22px;}
+button{width:100%;padding:16px;border:none;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold}
 .primary{background:var(--azul-escuro);color:#fff}
-.card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:16px}
+.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);margin-bottom:16px;text-align:left; line-height: 1.6;}
 input{width:100%;padding:12px;margin-top:6px;margin-bottom:12px;border-radius:6px;border:1px solid #ccc}
-.video-box{background:#000;height:180px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:28px;position:relative}
-.actions{display:flex;gap:20px;justify-content:center}
-.actions button{width:60px;height:60px;font-size:28px;border-radius:50%}
-.counter{text-align:center;font-size:14px;margin-bottom:8px;font-weight:bold}
-.nav{position:fixed;bottom:60px;left:0;width:100%;height:50px;background:#fff;border-top:1px solid #ccc;display:flex;z-index:999}
-.nav button{flex:1;border:none;background:none;font-size:14px}
+.video-box{background:#000;height:200px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:20px; border: 2px solid var(--azul-escuro)}
+.counter{text-align:center;font-size:18px;margin-bottom:10px;font-weight:bold;color:#e74c3c}
 #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
-.banner-fixed { width: 100%; text-align: center; background: #fff; display: none; overflow: hidden; }
-#banner-top { margin-top: -5px; margin-bottom: 10px; }
-#banner-bottom { position: fixed; bottom: 0; left: 0; height: 60px; z-index: 1001; border-top: 1px solid #ddd; }
+.info-box { background: #f9f9f9; padding: 10px; border-left: 4px solid var(--azul-escuro); font-size: 13px; margin-top: 10px; }
 </style>
 </head>
 <body>
 
 <div id="topBar">
-    <span style="font-weight:bold; font-size:18px;">P e O</span>
-    <span style="color:var(--dourado); font-weight:bold; font-size:18px;">R$ <span id="valSaldo">0,00</span></span>
+    <span style="font-weight:bold;">P e O</span>
+    <span style="color:var(--dourado);">Acumulado: R$ <span id="valSaldo">0,00</span></span>
 </div>
 
-<div id="banner-top" class="banner-fixed"><small style="color:#999">Publicidade</small></div>
-
 <div id="welcome" class="screen">
-  <h1>P e O - Pesquisa e Opini√µes</h1>
-  <p>Ganhe por sua opini√£o honesta.</p>
-  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO</button>
+  <h1>Contrato de ParticipaÁ„o P&O</h1>
+  <div class="card">
+    <p><strong>Veja os produtos de nossos parceiros:</strong></p>
+    <p>Ao utilizar nossa plataforma, vocÍ se compromete a avaliar e opinar sobre os an˙ncios exibidos de forma honesta.</p>
+    
+    <div class="info-box">
+        <strong>Ciclo de Resgate:</strong><br>
+        O ac˙mulo de recompensas por visualizaÁ„o e opini„o È contabilizado em conta e o <strong>pagamento È realizado trimestralmente</strong>.
+    </div>
+    
+    <p style="margin-top:15px;"><strong>Resumo do Processo:</strong><br>
+    ï Visualize o produto por 10 segundos.<br>
+    ï Emita sua opini„o sincera.<br>
+    ï Acumule para o prÛximo resgate.</p>
+  </div>
+  <button class="primary" onclick="gatilhoAnuncio('cadastro')">LI E CONCORDO COM OS TERMOS</button>
 </div>
 
 <div id="cadastro" class="screen hidden">
-  <h2>Cadastro</h2>
+  <h2>IdentificaÁ„o do Consultor</h2>
   <div class="card">
-    <input id="regEmail" type="email" placeholder="Seu melhor E-mail">
-    <input id="regPix" placeholder="Chave PIX para resgate">
-    <button class="primary" onclick="finalizarCadastro()">SALVAR E ENTRAR</button>
+    <label>Seu melhor E-mail:</label>
+    <input id="regEmail" type="email" placeholder="Para avisos e suporte">
+    <label>Chave para Resgate Futuro:</label>
+    <input id="regPix" placeholder="Informe sua chave PIX">
+    <button class="primary" onclick="finalizarCadastro()">SALVAR E ACESSAR</button>
   </div>
 </div>
 
 <div id="videos" class="screen hidden">
-  <div class="video-box">PUBLICIDADE üì∫</div>
-  <div class="counter" id="counter">Aguarde 30s</div>
-  <div class="actions">
-    <button id="like" disabled onclick="gatilhoAnuncio('pesquisa')">üëç</button>
-    <button id="dislike" disabled onclick="gatilhoAnuncio('pesquisa')">üëé</button>
+  <div class="video-box">AN¡LISE DE PRODUTO </div>
+  <div class="counter" id="counter">Aguarde 10s</div>
+  <div style="display:flex; gap:10px;">
+    <button id="like" disabled onclick="gatilhoAnuncio('pesquisa')" style="background:var(--verde); color:white">GOSTEI</button>
+    <button id="dislike" disabled onclick="gatilhoAnuncio('pesquisa')" style="background:#c0392b; color:white">N√O GOSTEI</button>
   </div>
 </div>
 
 <div id="pesquisa" class="screen hidden">
-  <h2>Pesquisa R√°pida</h2>
+  <h2>Opini„o Consultiva</h2>
   <div class="card">
-    <p>Voc√™ indicaria este servi√ßo para amigos ou familiares?</p>
-    <button class="primary" onclick="gatilhoAnuncio('resgate')">COM CERTEZA</button><br><br>
-    <button class="primary" onclick="gatilhoAnuncio('resgate')" style="background:#777">TALVEZ</button>
+    <p>Este produto atende ‡s suas necessidades atuais ou de sua famÌlia?</p>
+    <button class="primary" onclick="gatilhoAnuncio('resgate')">ATENDE PLENAMENTE</button><br><br>
+    <button class="primary" onclick="gatilhoAnuncio('resgate')" style="background:#777">N√O ATENDE</button>
   </div>
 </div>
 
 <div id="resgate" class="screen hidden">
-  <h2>Resgate</h2>
+  <h2>Saldo Atualizado</h2>
   <div class="card" style="text-align:center">
-    <h3 style="color:var(--verde)">Saldo: R$ 0,01</h3>
-    <p>Clique abaixo para processar seu pagamento.</p>
-    <button id="btnResgate" class="primary" onclick="tentarResgate()">RESGATAR AGORA</button>
+    <p>Sua opini„o foi registrada com sucesso.</p>
+    <h3 style="color:var(--verde)">Saldo em processamento trimestral.</h3>
+    <button id="btnResgate" class="primary" onclick="showScreen('videos')">AVALIAR PR”XIMO PRODUTO</button>
   </div>
 </div>
-
-<div id="perfil" class="screen hidden">
-  <h2>Seu Perfil</h2>
-  <div class="card">
-    <p><strong>E-mail:</strong> <span id="pEmail"></span></p>
-    <p><strong>PIX:</strong> <span id="pPix"></span></p>
-    <button class="primary" style="background:#c0392b" onclick="logout()">SAIR DA CONTA</button>
-  </div>
-</div>
-
-<div id="navBar" class="nav hidden">
-  <button onclick="showScreen('videos')">üé¨ In√≠cio</button>
-  <button onclick="showScreen('perfil')">üë§ Perfil</button>
-</div>
-
-<div id="banner-bottom" class="banner-fixed"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -112,102 +100,54 @@ const db = getFirestore(app);
 
 const ADS_LINK = "https://otieu.com/4/10454714";
 
-window.gatilhoAnuncio = (proximaTela) => {
-    window.open(ADS_LINK, "_blank"); 
-    if(proximaTela) showScreen(proximaTela);
-};
-
 window.showScreen = (id) => {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
-    const logado = (id !== 'welcome' && id !== 'cadastro');
-    document.getElementById('topBar').style.display = logado ? 'flex' : 'none';
-    document.getElementById('navBar').style.display = logado ? 'flex' : 'none';
-    document.getElementById('banner-top').style.display = logado ? 'block' : 'none';
-    document.getElementById('banner-bottom').style.display = logado ? 'block' : 'none';
+    document.getElementById('topBar').style.display = (id !== 'welcome' && id !== 'cadastro') ? 'flex' : 'none';
     if(id === 'videos') iniciarTimer();
-    if(id === 'perfil') carregarPerfil();
 };
 
-let timer;
 function iniciarTimer(){
-    clearInterval(timer);
-    let time = 30;
-    document.getElementById('like').disabled = true;
-    document.getElementById('dislike').disabled = true;
-    timer = setInterval(()=>{
+    let time = 10; // TIMER DE 10 SEGUNDOS
+    const btnL = document.getElementById('like');
+    const btnD = document.getElementById('dislike');
+    btnL.disabled = true; btnD.disabled = true;
+    
+    let countdown = setInterval(()=>{
         time--;
-        document.getElementById('counter').textContent = `Aguarde ${time}s`;
-        if(time === 20) window.open(ADS_LINK, "_blank");
+        document.getElementById('counter').textContent = `Analisando: ${time}s`;
         if(time <= 0){
-            clearInterval(timer);
-            document.getElementById('counter').textContent = 'O que achou deste an√∫ncio?';
-            document.getElementById('like').disabled = false;
-            document.getElementById('dislike').disabled = false;
+            clearInterval(countdown);
+            document.getElementById('counter').textContent = 'O que achou do produto?';
+            btnL.disabled = false; btnD.disabled = false;
         }
     },1000);
 }
 
+window.gatilhoAnuncio = (proxima) => {
+    window.open(ADS_LINK, "_blank"); // DISPARA O AN⁄NCIO
+    if(proxima) showScreen(proxima);
+};
+
 window.finalizarCadastro = async () => {
     const email = document.getElementById('regEmail').value.trim().toLowerCase();
     const pix = document.getElementById('regPix').value.trim();
-    if (!email || !pix) return alert("Preencha todos os campos!");
-    try {
-        await setDoc(doc(db, "usuarios", email), { email, pix, saldo: 0 }, { merge: true });
-        localStorage.setItem('user_email', email);
-        showScreen('videos');
-    } catch (e) { alert("Erro de conex√£o."); }
+    if(!email || !pix) return alert("Por favor, preencha seus dados.");
+    await setDoc(doc(db, "usuarios", email), { email, pix, saldo: 0 }, { merge: true });
+    localStorage.setItem('user_email', email);
+    showScreen('videos');
 };
-
-window.tentarResgate = () => {
-    gatilhoAnuncio(); 
-    const btn = document.getElementById('btnResgate');
-    btn.disabled = true;
-    btn.textContent = "Processando PIX...";
-    setTimeout(finalizarCiclo, 2000);
-};
-
-async function finalizarCiclo() {
-    const email = localStorage.getItem('user_email');
-    try {
-        const docRef = doc(db, "usuarios", email);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            let novoSaldo = (parseFloat(docSnap.data().saldo) || 0) + 0.01;
-            await updateDoc(docRef, { saldo: novoSaldo });
-            alert("R$ 0,01 enviado para sua conta!");
-            gatilhoAnuncio('videos'); 
-        }
-    } catch(e) { console.log(e); }
-    document.getElementById('btnResgate').disabled = false;
-    document.getElementById('btnResgate').textContent = "RESGATAR AGORA";
-}
-
-async function carregarPerfil(){
-    const email = localStorage.getItem('user_email');
-    if(!email) return;
-    const docSnap = await getDoc(doc(db, "usuarios", email));
-    if(docSnap.exists()){
-        const data = docSnap.data();
-        document.getElementById('valSaldo').textContent = (data.saldo || 0).toFixed(2).replace('.',',');
-        document.getElementById('pEmail').textContent = data.email;
-        document.getElementById('pPix').textContent = data.pix;
-    }
-}
-
-window.logout = () => { localStorage.clear(); location.reload(); };
 
 window.onload = () => {
     if(localStorage.getItem('user_email')) showScreen('videos');
-    else showScreen('welcome');
 };
 </script>
 
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js', { scope: './' })
-      .then(() => console.log("SW Registrado com sucesso!"))
-      .catch(err => console.log("Erro ao registrar SW:", err));
+      .then(() => console.log("SW Registrado!"))
+      .catch(err => console.log("Erro SW:", err));
   }
 </script>
 
