@@ -10,7 +10,8 @@
 <style>
 :root{ --azul-claro:#f0f4f8; --azul-escuro:#0b3c5d; --dourado:#f1c40f; --verde:#1e8e3e; }
 *{box-sizing:border-box;font-family:Arial, sans-serif}
-body{margin:0;background:var(--azul-claro);color:#333;padding-top:70px;padding-bottom: 70px;}
+/* Ajustei o padding-bottom para o banner do rodapé não cobrir nada */
+body{margin:0;background:var(--azul-claro);color:#333;padding-top:70px;padding-bottom: 100px;}
 .hidden{display:none}
 .screen{padding:20px; text-align:center;}
 h1,h2{color:var(--azul-escuro); font-size: 22px;}
@@ -21,6 +22,10 @@ input{width:100%;padding:15px;margin-bottom:12px;border:1px solid #ccc;border-ra
 .video-box{background:#000;height:200px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:12px;font-size:20px; border: 2px solid var(--azul-escuro)}
 .counter{text-align:center;font-size:18px;margin-bottom:10px;font-weight:bold;color:#e74c3c}
 #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
+
+/* ESTILO DOS BANNERS */
+.anuncio-topo { text-align: center; margin-bottom: 10px; min-height: 50px; }
+.anuncio-rodape { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; background: rgba(240, 244, 248, 0.9); padding: 5px 0; z-index: 999; border-top: 1px solid #ccc; }
 </style>
 </head>
 <body>
@@ -28,6 +33,10 @@ input{width:100%;padding:15px;margin-bottom:12px;border:1px solid #ccc;border-ra
 <div id="topBar">
     <span style="font-weight:bold;">P e O</span>
     <span style="color:var(--dourado);">R$ <span id="valSaldo">0,10</span></span>
+</div>
+
+<div class="anuncio-topo">
+    <script data-cfasync="false" async type="text/javascript" src="//gizokraijaw.net/al/a.js"></script>
 </div>
 
 <div id="welcome" class="screen">
@@ -77,10 +86,13 @@ input{width:100%;padding:15px;margin-bottom:12px;border:1px solid #ccc;border-ra
   </div>
 </div>
 
+<div class="anuncio-rodape">
+    <script data-cfasync="false" async type="text/javascript" src="//gizokraijaw.net/al/a.js"></script>
+</div>
+
 <script>
 const DIRECT_LINK = "https://otieu.com/4/10454714";
 
-// FUNÇÃO PARA CARREGAR O ANÚNCIO APENAS APÓS O LOGIN
 function carregarScriptMonetag() {
     (function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
 }
@@ -111,15 +123,9 @@ function iniciarTimer(){
 window.iniciarComAnuncio = () => {
     const email = document.getElementById('regEmail').value;
     if(!email) return alert("Digite seu e-mail");
-    
     localStorage.setItem('user_email', email);
-    
-    // Ativa o anúncio Monetag agora
     carregarScriptMonetag();
-    
-    // Abre o link direto uma vez como bônus
     window.open(DIRECT_LINK, "_blank");
-    
     showScreen('videos');
 };
 
