@@ -22,13 +22,14 @@
     #topBar{position:fixed;top:0;width:100%;height:65px;background:var(--azul-escuro);color:#fff;display:none;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
     .anuncio-topo { text-align: center; margin: 10px 0; min-height: 50px; width: 100%; background:#f9f9f9; }
     .anuncio-rodape { position: fixed; bottom: 0; left: 0; width: 100%; text-align: center; background: rgba(240, 244, 248, 0.95); padding: 5px 0; z-index: 999; border-top: 1px solid #ccc; min-height: 50px; }
+    ul { padding-left: 20px; }
 </style>
 </head>
 <body>
 
 <div id="topBar">
-    <span style="font-weight:bold;">P e O</span>
-    <span style="color:var(--dourado);">R$ <span id="valSaldo">0,00</span></span>
+    <button onclick="showScreen('perfil')" style="background:none; border:1px solid #fff; color:#fff; border-radius:4px; padding:4px 8px; font-size:12px; cursor:pointer; width:auto;">Perfil</button>
+    <span style="color:var(--dourado); font-weight:bold;">R$ <span id="valSaldo">0,00</span></span>
 </div>
 
 <div class="anuncio-topo">
@@ -38,8 +39,19 @@
 
 <div id="welcome" class="screen">
   <h1>Contrato de Participação P&O</h1>
-  <div class="card"><p>Analise produtos e acumule recompensas trimestrais.</p></div>
-  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO</button>
+  <div class="card" style="font-size: 14px; text-align: justify; max-height: 300px; overflow-y: auto;">
+    <p><strong>Seja bem-vindo ao projeto P&O (Pesquisa e Opiniões).</strong></p>
+    <p>Ao avançar, você concorda em participar de um estudo de viabilidade de produtos. Sua função é fornecer opiniões sinceras para análise de mercado.</p>
+    <p><strong>Regras de Recompensa:</strong></p>
+    <ul>
+      <li>As recompensas são acumuladas por ciclos de análise concluídos.</li>
+      <li>O saldo é atualizado em tempo real via banco de dados.</li>
+      <li>O resgate segue o cronograma de fechamento trimestral.</li>
+    </ul>
+    <p><strong>Privacidade:</strong> Seus dados de e-mail e PIX são protegidos e usados apenas para identificação e pagamentos.</p>
+  </div>
+  <p style="font-size: 12px; color: #666; margin-bottom: 10px;">Ao clicar abaixo, você aceita os termos do projeto.</p>
+  <button class="primary" onclick="showScreen('cadastro')">LI E CONCORDO COM OS TERMOS</button>
 </div>
 
 <div id="cadastro" class="screen hidden">
@@ -47,7 +59,7 @@
   <div class="card">
     <input id="regEmail" type="email" placeholder="Seu melhor E-mail">
     <input id="regPix" placeholder="Sua Chave PIX">
-    <button class="primary" onclick="salvarCadastro()">ACESSAR PAINEL</button>
+    <button class="primary" onclick="finalizarCadastro()">ACESSAR PAINEL</button>
   </div>
 </div>
 
@@ -77,39 +89,92 @@
   </div>
 </div>
 
+<div id="perfil" class="screen hidden">
+  <h2>Meu Perfil</h2>
+  <div class="card">
+    <p><strong>E-mail:</strong> <span id="pEmail">---</span></p>
+    <p><strong>Chave PIX:</strong> <span id="pPix">---</span></p>
+    <hr>
+    <button class="primary" onclick="showScreen('videos')">VOLTAR AO PAINEL</button><br><br>
+    <button onclick="logout()" style="background:#c0392b; color:white; border:none; padding:10px; border-radius:8px; width:100%; font-weight:bold;">SAIR DA CONTA</button>
+  </div>
+</div>
+
 <div class="anuncio-rodape">
     <script data-cfasync="false" type="text/javascript" src="//gizokraijaw.net/al/a.js"></script>
     <ins class="66a0e698" data-zone="10477360"></ins>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  projectId: "SEU_PROJETO_ID",
+  storageBucket: "SEU_PROJETO.appspot.com",
+  messagingSenderId: "ID",
+  appId: "APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 const DIRECT_LINK = "https://otieu.com/4/10454714";
-let saldoAtual = parseFloat(localStorage.getItem('saldo_usuario')) || 0.00;
 
-function atualizarDisplaySaldo() {
-    document.getElementById('valSaldo').textContent = saldoAtual.toFixed(2).replace('.', ',');
+// --- FUNÇÕES FIREBASE ---
+window.finalizarCadastro = async () => {
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const pix = document.getElementById('regPix').value.trim();
+    if (!email || !pix) return alert("Preencha todos os campos!");
+    try {
+        await setDoc(doc(db, "usuarios", email), { email, pix, saldo: 0 }, { merge: true });
+        localStorage.setItem('user_email', email);
+        carregarVignette();
+        showScreen('videos');
+    } catch (e) { alert("Erro ao salvar cadastro."); }
+};
+
+async function carregarPerfil(){
+    const email = localStorage.getItem('user_email');
+    if(!email) return;
+    const docSnap = await getDoc(doc(db, "usuarios", email));
+    if(docSnap.exists()){
+        const data = docSnap.data();
+        document.getElementById('valSaldo').textContent = (data.saldo || 0).toFixed(2).replace('.',',');
+        document.getElementById('pEmail').textContent = data.email;
+        document.getElementById('pPix').textContent = data.pix;
+    }
 }
 
-// Vignette CORRIGIDO
-function carregarVignette() {
-    const s = document.createElement('script');
-    s.dataset.zone = '10477360';
-    s.src = 'https://gizokraijaw.net/vignette.min.js';
-    document.body.appendChild(s);
-}
+window.finalizarCiclo = async () => {
+    const email = localStorage.getItem('user_email');
+    try {
+        const docRef = doc(db, "usuarios", email);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            let novoSaldo = (parseFloat(docSnap.data().saldo) || 0) + 0.01;
+            await updateDoc(docRef, { saldo: novoSaldo });
+            window.open(DIRECT_LINK, "_blank");
+            await carregarPerfil();
+            showScreen('videos');
+        }
+    } catch(e) { console.error("Erro ao atualizar saldo:", e); }
+};
 
+// --- NAVEGAÇÃO E TIMER ---
 window.showScreen = (id) => {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
-    const painelAtivo = (id === 'videos' || id === 'pesquisa' || id === 'resgate');
+    const painelAtivo = (id === 'videos' || id === 'pesquisa' || id === 'resgate' || id === 'perfil');
     document.getElementById('topBar').style.display = painelAtivo ? 'flex' : 'none';
     if(id === 'videos') iniciarTimer();
+    if(id === 'perfil') carregarPerfil();
 };
 
 function iniciarTimer(){
     let time = 10;
-    const btnL = document.getElementById('like'); 
-    const btnD = document.getElementById('dislike');
+    const btnL = document.getElementById('like'); const btnD = document.getElementById('dislike');
     btnL.disabled = true; btnD.disabled = true;
     let countdown = setInterval(()=>{
         time--;
@@ -122,31 +187,30 @@ function iniciarTimer(){
     }, 1000);
 }
 
-function salvarCadastro() {
-    const email = document.getElementById('regEmail').value;
-    if(!email) return alert("Digite seu e-mail");
-    localStorage.setItem('user_email', email);
-    carregarVignette(); 
-    showScreen('videos');
-}
-
-function irParaPesquisa() {
+window.irParaPesquisa = () => {
     window.open(DIRECT_LINK, "_blank"); 
     showScreen('pesquisa');
+};
+
+// --- MONETAG VIGNETTE ---
+function carregarVignette() {
+    const s = document.createElement('script');
+    s.dataset.zone = '10477360';
+    s.src = 'https://gizokraijaw.net/vignette.min.js';
+    document.body.appendChild(s);
 }
 
-window.finalizarCiclo = () => {
-    saldoAtual += 0.01;
-    localStorage.setItem('saldo_usuario', saldoAtual.toFixed(2)); 
-    atualizarDisplaySaldo(); // CORREÇÃO: Faz o saldo mudar na tela na hora
-    window.open(DIRECT_LINK, "_blank"); 
-    showScreen('videos');
+window.logout = () => {
+    if(confirm("Deseja realmente sair?")) {
+        localStorage.removeItem('user_email');
+        location.reload();
+    }
 };
 
 window.onload = () => {
-    atualizarDisplaySaldo();
     if(localStorage.getItem('user_email')) {
         carregarVignette();
+        carregarPerfil();
         showScreen('videos');
     }
 };
