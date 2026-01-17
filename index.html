@@ -85,5 +85,55 @@
     </div>
 </div>
 
+<script>
+    function showCard(id) {
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function goLogin() {
+        const checkbox = document.getElementById('agree');
+        if (checkbox.checked) {
+            showCard('t2');
+        } else {
+            alert("Você precisa aceitar os termos para continuar.");
+        }
+    }
+
+    function login() {
+        showCard('t3');
+        startTimer(30, 'timer30', ['like', 'dislike']);
+    }
+
+    function startTimer(seconds, displayId, buttonIds) {
+        let count = seconds;
+        const display = document.getElementById(displayId);
+        const timer = setInterval(() => {
+            count--;
+            display.textContent = count;
+            if (count <= 0) {
+                clearInterval(timer);
+                buttonIds.forEach(id => {
+                    const btn = document.getElementById(id);
+                    if(btn) btn.disabled = false;
+                });
+            }
+        }, 1000);
+    }
+
+    function nextUtil() {
+        showCard('t4');
+        startTimer(10, 'timer10a', ['utilSim', 'utilNao']);
+    }
+
+    function nextIndicaria() {
+        alert("Fim do fluxo.");
+    }
+
+    function showUserPage() {
+        alert("Perfil do usuário.");
+    }
+</script>
+
 </body>
 </html>
