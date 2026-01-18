@@ -43,9 +43,9 @@ s.src='https://gizokraijaw.net/vignette.min.js';
 <div id="t1" class="card active">
 <h2>Projeto P&O</h2>
 <p class="muted">
-Ao participar, você concorda com os termos do projeto P&O.  
-Os pontos acumulados possuem caráter promocional.  
-Resgates de brindes ou recompensas são realizados **trimestralmente**, conforme regras da plataforma.
+Ao participar, você concorda com os termos do projeto P&O.<br>
+Os pontos possuem caráter promocional.<br>
+Resgates são realizados <strong>trimestralmente</strong>.
 </p>
 <label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
 <button onclick="goLogin()">Continuar</button>
@@ -135,6 +135,32 @@ Resgate mínimo: <strong>5000 pontos</strong>
 <button onclick="showCard('t3')">Voltar</button>
 </div>
 
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
+  authDomain: "atitude-solidaria.firebaseapp.com",
+  projectId: "atitude-solidaria",
+  storageBucket: "atitude-solidaria.firebasestorage.app",
+  messagingSenderId: "651411468618",
+  appId: "1:651411468618:web:ba3a2fde60b3be1b69d1b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let uid = null;
+
+signInAnonymously(auth).then(cred=>{
+  uid = cred.user.uid;
+});
+</script>
+
 <script>
 let pontos = Number(localStorage.getItem('pontos_po')) || 0;
 let timer;
@@ -160,12 +186,22 @@ if(!agree.checked) return alert('Aceite os termos');
 showCard('t2');
 }
 
-function login(){
+async function login(){
 if(!email.value||!pix.value) return alert('Preencha tudo');
+
 localStorage.setItem('email',email.value);
 localStorage.setItem('pix',pix.value);
+
 uEmail.innerText=email.value;
 uPix.innerText=pix.value;
+
+await setDoc(doc(db,"usuarios",uid),{
+  email: email.value,
+  pix: pix.value,
+  pontos: pontos,
+  criadoEm: new Date()
+},{merge:true});
+
 showCard('t3');
 }
 
@@ -190,12 +226,17 @@ window.location.href='https://otieu.com/4/10454714';
 setTimeout(()=>showCard(p),800);
 }
 
-function resgatar(){
+async function resgatar(){
 pontos++;
 localStorage.setItem('pontos_po',pontos);
+updatePts();
+
+await updateDoc(doc(db,"usuarios",uid),{
+  pontos: increment(1)
+});
+
 btnResgate.style.display='none';
 ok.style.display='block';
-updatePts();
 }
 
 updatePts();
