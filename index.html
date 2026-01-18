@@ -15,10 +15,7 @@
         body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
         .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none !important;position:relative;min-height:550px;flex-direction:column;}
         .card.active{display:flex !important;}
-        
-        /* ICONE DE USUARIO VISIVEL */
         .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:100;}
-        
         h2,h3{text-align:center;margin:10px 0;}
         button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
         button[disabled]{opacity:.5;cursor:not-allowed}
@@ -66,8 +63,7 @@
 
     <div id="t4" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">
-            </div>
+        <div class="ad-area"></div>
         <h3>Este conteudo foi util?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
@@ -78,8 +74,7 @@
 
     <div id="t5" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">
-             </div>
+        <div class="ad-area"></div>
         <h3>Voce indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
@@ -155,9 +150,10 @@
                 tempo--;
                 display.innerText = tempo;
                 
-                // Gatilho Monetag (Vignette) aos 10 segundos de tela (timer no 20)
                 if(temGatilho && tempo === 20) {
-                   if (typeof show_8741357 === 'function') { show_8741357().catch(()=>{}); }
+                    // Tenta chamar a função pelo ID da zona atual (10477360)
+                    const func = window['show_10477360'] || window['show_8741357'];
+                    if (typeof func === 'function') { func().catch(()=>{}); }
                 }
                 
                 if(tempo <= 0) {
@@ -168,9 +164,13 @@
         }
 
         function triggerVignetteAndNext(proximaTela) {
-            if (typeof show_8741357 === 'function') {
-                show_8741357().then(() => { showCard(proximaTela); }).catch(() => { showCard(proximaTela); });
-            } else { showCard(proximaTela); }
+            const func = window['show_10477360'] || window['show_8741357'];
+            if (typeof func === 'function') {
+                func().then(() => { showCard(proximaTela); }).catch(() => { showCard(proximaTela); });
+            } else { 
+                document.body.click(); // Força clique para tentar disparar o script
+                showCard(proximaTela); 
+            }
         }
 
         function executarResgate() {
