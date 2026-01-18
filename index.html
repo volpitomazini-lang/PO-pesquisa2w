@@ -6,9 +6,8 @@
     <title>P&O - Projeto Oficial</title>
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0b3c5d">
+    <meta name="referrer" content="always">
     
-    <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
     <style>
         :root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
         *{box-sizing:border-box;font-family:Arial,sans-serif}
@@ -25,12 +24,12 @@
         .actions{display:flex;gap:10px;margin-bottom: 20px;}
         .actions button{flex:1}
         .ad-area{flex-grow: 1; background: #fafafa; border: 1px dashed #ddd; margin: 10px 0; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 8px; overflow: hidden;}
-        .footer-banner{margin-top: auto; padding-top: 10px; border-top: 1px solid #eee; text-align: center; min-height: 50px;}
         .muted{color:var(--muted);font-size:13px;text-align:center;line-height:1.4}
         .check-area{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:14px;}
     </style>
 </head>
 <body>
+    <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <div id="t1" class="card active">
         <h2>Projeto P&O</h2>
@@ -62,7 +61,7 @@
 
     <div id="t4" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area"></div>
+        <div class="ad-area">Anuncio</div>
         <h3>Este conteudo foi util?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
@@ -73,7 +72,7 @@
 
     <div id="t5" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area"></div>
+        <div class="ad-area">Anuncio</div>
         <h3>Voce indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
@@ -112,17 +111,25 @@
         let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
         let tempoAtivo;
 
-        // FUNCAO UNIVERSAL PARA DISPARAR QUALQUER ANUNCIO MONETAG CARREGADO
+        // Funcao reforçada para disparar a Vignette
         function dispararVignette(callback) {
-            let encontrado = false;
-            for (let prop in window) {
-                if (prop.startsWith('show_') && typeof window[prop] === 'function') {
-                    window[prop]().then(() => { if(callback) callback(); }).catch(() => { if(callback) callback(); });
-                    encontrado = true;
-                    break;
+            console.log("Tentando disparar anuncio...");
+            
+            // Tenta disparar pela funcao padrao da zona Monetag
+            if (typeof show_10477360 === 'function') {
+                show_10477360().then(() => { if(callback) callback(); }).catch(() => { if(callback) callback(); });
+            } else {
+                // Se nao encontrar a funcao, varre todas as funcoes show_ da pagina
+                let disparou = false;
+                for (let prop in window) {
+                    if (prop.startsWith('show_') && typeof window[prop] === 'function') {
+                        window[prop]().finally(() => { if(callback) callback(); });
+                        disparou = true;
+                        break;
+                    }
                 }
+                if (!disparou && callback) callback();
             }
-            if (!encontrado && callback) callback();
         }
 
         function updatePointsDisplay() {
@@ -159,7 +166,7 @@
                 tempo--;
                 display.innerText = tempo;
                 
-                // GATILHO AUTOMATICO 10s (Timer no 20)
+                // Gatilho aos 10s (timer no 20)
                 if(temGatilho && tempo === 20) { dispararVignette(); }
                 
                 if(tempo <= 0) {
@@ -169,7 +176,9 @@
             }, 1000);
         }
 
-        function chamarAnuncioEMudar(proxima) { dispararVignette(() => showCard(proxima)); }
+        function chamarAnuncioEMudar(proxima) {
+            dispararVignette(() => showCard(proxima));
+        }
 
         function executarResgate() {
             pontos++; localStorage.setItem('pontos_po', pontos);
