@@ -1,14 +1,12 @@
-<script>
-/* Controle de telas */
+/* CONTROLE DE TELAS */
 function showCard(id) {
-  document.querySelectorAll('.card').forEach(card => {
-    card.classList.remove('active');
-  });
+  if (window.intervaloAtivo) clearInterval(window.intervaloAtivo);
+  document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
   const el = document.getElementById(id);
   if (el) el.classList.add('active');
 }
 
-/* Tela 1 -> Tela 2 */
+/* TELA 1 -> TELA 2 (ACORDO) */
 function goLogin() {
   const agree = document.getElementById('agree');
   if (!agree || !agree.checked) {
@@ -18,7 +16,7 @@ function goLogin() {
   showCard('t2');
 }
 
-/* Tela 2 -> Tela 3 */
+/* TELA 2 -> TELA 3 (LOGIN) */
 function login() {
   const email = document.getElementById('email')?.value.trim();
   const pix = document.getElementById('pix')?.value.trim();
@@ -28,72 +26,58 @@ function login() {
     return;
   }
 
+  // Preenche os dados na tela de usuário (Perfil)
+  const dispEmail = document.getElementById('dispEmail');
+  const dispPix = document.getElementById('dispPix');
+  if(dispEmail) dispEmail.innerText = email;
+  if(dispPix) dispPix.innerText = pix;
+
   showCard('t3');
-  startTimer30();
+  startTimer(30, 'timer30', ['like', 'dislike'], true);
 }
 
-/* Timer 30s */
-function startTimer30() {
-  let time = 30;
-  const timer = document.getElementById('timer30');
-  const like = document.getElementById('like');
-  const dislike = document.getElementById('dislike');
+/* TIMER UNIFICADO (COM GATILHO MONETAG) */
+function startTimer(segundos, displayId, btnIds, temVignette) {
+  let time = segundos;
+  const timerEl = document.getElementById(displayId);
+  
+  btnIds.forEach(id => {
+    const btn = document.getElementById(id);
+    if(btn) btn.disabled = true;
+  });
 
-  like.disabled = true;
-  dislike.disabled = true;
+  if(timerEl) timerEl.textContent = time;
 
-  timer.textContent = time;
-
-  const interval = setInterval(() => {
+  window.intervaloAtivo = setInterval(() => {
     time--;
-    timer.textContent = time;
+    if(timerEl) timerEl.textContent = time;
+
+    // Gatilho Crítico: 10 segundos na T3 (exibe anúncio)
+    if (temVignette && time === 20) {
+      window.dispatchEvent(new Event('click'));
+    }
 
     if (time <= 0) {
-      clearInterval(interval);
-      like.disabled = false;
-      dislike.disabled = false;
+      clearInterval(window.intervaloAtivo);
+      btnIds.forEach(id => {
+        const btn = document.getElementById(id);
+        if(btn) btn.disabled = false;
+      });
     }
   }, 1000);
 }
 
-/* Tela 3 -> Tela 4 */
-function nextUtil() {
-  showCard('t4');
-  startTimer10();
+/* TRANSIÇÕES DE TELA */
+function proximaEtapa(proximaTela) {
+  window.dispatchEvent(new Event('click')); // Trigger Monetag
+  showCard(proximaTela);
+  
+  // Configura os timers específicos de cada tela após a T3
+  if(proximaTela === 't4') startTimer(10, 'timer10a', ['utilSim', 'utilNao'], false);
+  if(proximaTela === 't5') startTimer(10, 'timer10b', ['indSim', 'indNao'], false);
+  if(proximaTela === 't6') startTimer(10, 'timer10c', ['btnResgate'], false);
 }
 
-/* Timer 10s */
-function startTimer10() {
-  let time = 10;
-  const timer = document.getElementById('timer10a');
-  const yes = document.getElementById('utilSim');
-  const no = document.getElementById('utilNao');
-
-  yes.disabled = true;
-  no.disabled = true;
-
-  timer.textContent = time;
-
-  const interval = setInterval(() => {
-    time--;
-    timer.textContent = time;
-
-    if (time <= 0) {
-      clearInterval(interval);
-      yes.disabled = false;
-      no.disabled = false;
-    }
-  }, 1000);
-}
-
-/* Tela 4 -> Volta */
-function nextIndicaria() {
-  showCard('t3');
-  startTimer30();
-}
-
-/* Página do usuário (se existir) */
 function showUserPage() {
-  alert('Página do usuário em desenvolvimento');
+  showCard('t_user');
 }
-</script>

@@ -3,137 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P&O</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#4a7cff">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+    <title>P&O - Projeto Oficial</title>
     
+    <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
     <style>
-        :root{--bg:#f6f8fb;--card:#ffffff;--primary:#4a7cff;--text:#2c2c2c;--muted:#777;}
+        :root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
         *{box-sizing:border-box;font-family:Arial,sans-serif}
-        body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;}
-        .card{width:95%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;padding-bottom:80px;}
-        .card.active{display:block}
-        .user-icon{position:absolute;bottom:15px;right:15px;cursor:pointer;background:#eef2ff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:20px;border:1px solid #ddd;}
+        body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
+        .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;min-height: 500px;display: flex;flex-direction: column;}
+        .active{display:flex}
+        .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:#eef2ff;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:18px;border:1px solid #ddd;z-index:10;}
         h2,h3{text-align:center;margin:10px 0;}
-        button{width:100%;padding:14px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;cursor:pointer;margin-top:10px;}
+        button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
         button[disabled]{opacity:.5;cursor:not-allowed}
-        input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;}
-        .timer{font-size:32px;text-align:center;margin:15px 0}
-        .page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);margin-bottom:10px}
-        .actions{display:flex;gap:10px}
+        input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:10px;}
+        .timer{font-size:35px;text-align:center;margin:15px 0; font-weight:bold; color:var(--primary);}
+        .page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);margin-bottom:15px}
+        .actions{display:flex;gap:10px;margin-bottom: 20px;}
         .actions button{flex:1}
-        .banner{background:#eef2ff;text-align:center;padding:10px;border-radius:10px;margin:10px 0;font-size:12px;min-height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-        .points-display{font-size:48px;font-weight:bold;color:var(--primary);text-align:center;margin:10px 0}
-        .user-box{background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px}
-        .muted{color:var(--muted);font-size:13px;text-align:center}
+        .smart-tag-area{flex-grow: 1; display: flex; align-items: center; justify-content: center; background: #fcfcfc; border: 1px dashed #eee; margin: 10px 0; border-radius: 8px; min-height: 150px;}
+        .footer-banner{margin-top: auto; padding-top: 15px; border-top: 1px solid #eee; text-align: center; min-height: 60px;}
+        .user-box{background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px;border:1px solid #eee;}
+        .muted{color:var(--muted);font-size:13px;text-align:center;line-height:1.4}
+        .check-area{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:14px;}
     </style>
 </head>
 <body>
 
-<div id="t1" class="card active">
-    <h2>Bem-vindo</h2>
-    <p class="muted">
-        Ao continuar, voce concorda em participar da plataforma de avaliacoes,
-        onde recebera pontos por interagir com anuncios e conteudos exibidos.
-        Os pontos acumulados possuem natureza de recompensa promocional e sua
-        conversao ocorre conforme criterios internos da plataforma.
-    </p>
-    <label>
-        <input type="checkbox" id="agree">
-        Li e concordo com os termos de uso
-    </label>
-    <button onclick="goLogin()">Continuar</button>
-</div>
-
-<div id="t2" class="card">
-    <h2>Identificacao</h2>
-    <input id="email" type="email" placeholder="E-mail">
-    <input id="pix" type="text" placeholder="Chave PIX">
-    <button onclick="login()">Entrar</button>
-</div>
-
-<div id="t3" class="card">
-    <div id="valPontosNav" class="page-points">0000</div>
-    <div class="banner">
-        <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <div id="t1" class="card active">
+        <h2>Projeto P&O</h2>
+        <p class="muted">Ao prosseguir, você concorda com os termos de uso e a política de privacidade da plataforma de pesquisas O&P.</p>
+        <div class="check-area">
+            <input type="checkbox" id="agree">
+            <label for="agree">Aceito os termos e condições</label>
+        </div>
+        <button onclick="goLogin()">Avançar</button>
     </div>
-    <h3>Aguarde</h3>
-    <div id="timer30" class="timer">30</div>
-    <div class="actions">
-        <button id="like" disabled onclick="nextUtil()">Gostei</button>
-        <button id="dislike" disabled onclick="nextUtil()">Nao gostei</button>
+
+    <div id="t2" class="card">
+        <h2>Acesso</h2>
+        <input id="email" type="email" placeholder="Digite seu E-mail">
+        <input id="pix" type="text" placeholder="Chave PIX (CPF, E-mail ou Celular)">
+        <button onclick="login()">Entrar no Sistema</button>
     </div>
-    <div class="banner">
-        <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+    <div id="t3" class="card">
+        <div class="user-icon" onclick="showUserPage()">👤</div>
+        <div class="page-points pts-display">0000</div>
+        <div class="smart-tag-area">
+            <span class="muted">Smart Tag 1</span>
+        </div>
+        <h3>Avalie este conteúdo</h3>
+        <div id="timer30" class="timer">30</div>
+        <div class="actions">
+            <button id="like" disabled onclick="triggerVignetteAndNext('t4')">Gostei</button>
+            <button id="dislike" disabled onclick="triggerVignetteAndNext('t4')">Não gostei</button>
+        </div>
+        <div class="footer-banner">
+            <span class="muted">Banner Rodapé</span>
+        </div>
     </div>
-    <div class="user-icon" onclick="showUserPage()">👤</div>
-</div>
 
-<div id="t4" class="card">
-    <div class="banner">
-        <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <div id="t4" class="card">
+        <div class="page-points pts-display">0000</div>
+        <div class="smart-tag-area"><span class="muted">Espaço Livre</span></div>
+        <h3>Este conteúdo foi útil?</h3>
+        <div id="timer10a" class="timer">10</div>
+        <div class="actions">
+            <button id="uSim" disabled onclick="triggerVignetteAndNext('t5')">Sim</button>
+            <button id="uNao" disabled onclick="triggerVignetteAndNext('t5')">Não</button>
+        </div>
+        <div class="footer-banner"><span class="muted">Banner Rodapé</span></div>
     </div>
-    <h3>Achou util?</h3>
-    <div id="timer10a" class="timer">10</div>
-    <div class="actions">
-        <button id="utilSim" disabled onclick="nextIndicaria()">Sim</button>
-        <button id="utilNao" disabled onclick="nextIndicaria()">Nao</button>
+
+    <div id="t5" class="card">
+        <div class="page-points pts-display">0000</div>
+        <div class="smart-tag-area"><span class="muted">Espaço Livre</span></div>
+        <h3>Você indicaria o P&O?</h3>
+        <div id="timer10b" class="timer">10</div>
+        <div class="actions">
+            <button id="iSim" disabled onclick="triggerVignetteAndNext('t6')">Sim</button>
+            <button id="iNao" disabled onclick="triggerVignetteAndNext('t6')">Não</button>
+        </div>
+        <div class="footer-banner"><span class="muted">Banner Rodapé</span></div>
     </div>
-    <div class="banner">
-        <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+    <div id="t6" class="card">
+        <div class="page-points pts-display">0000</div>
+        <div class="smart-tag-area">
+             <span class="muted">Smart Tag 2</span>
+        </div>
+        <h3>Concluir Avaliação</h3>
+        <div id="timer10c" class="timer">10</div>
+        <div id="resgateArea">
+            <button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
+        </div>
+        <div id="sucessoArea" style="display:none; text-align:center;">
+            <p style="color: green; font-weight: bold;">+1 Ponto Adicionado!</p>
+            <button onclick="finalizarCiclo()">Voltar ao Início</button>
+        </div>
+        <div class="footer-banner"><span class="muted">Banner Rodapé</span></div>
     </div>
-</div>
 
-<script>
-    function showCard(id) {
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
+    <div id="t_user" class="card">
+        <h2>Perfil do Consultor</h2>
+        <div class="user-box">
+            <p><strong>E-mail:</strong> <span id="dispEmail"></span></p>
+            <p><strong>PIX:</strong> <span id="dispPix"></span></p>
+        </div>
+        <div class="page-points pts-display">0000</div>
+        <p class="muted">O resgate mínimo é de 5000 pontos.</p>
+        <button onclick="showCard('t3')" style="background:#888;">Voltar</button>
+    </div>
 
-    function goLogin() {
-        const checkbox = document.getElementById('agree');
-        if (checkbox.checked) {
-            showCard('t2');
-        } else {
-            alert("Você precisa aceitar os termos para continuar.");
-        }
-    }
-
-    function login() {
-        showCard('t3');
-        startTimer(30, 'timer30', ['like', 'dislike']);
-    }
-
-    function startTimer(seconds, displayId, buttonIds) {
-        let count = seconds;
-        const display = document.getElementById(displayId);
-        const timer = setInterval(() => {
-            count--;
-            display.textContent = count;
-            if (count <= 0) {
-                clearInterval(timer);
-                buttonIds.forEach(id => {
-                    const btn = document.getElementById(id);
-                    if(btn) btn.disabled = false;
-                });
-            }
-        }, 1000);
-    }
-
-    function nextUtil() {
-        showCard('t4');
-        startTimer(10, 'timer10a', ['utilSim', 'utilNao']);
-    }
-
-    function nextIndicaria() {
-        alert("Fim do fluxo.");
-    }
-
-    function showUserPage() {
-        alert("Perfil do usuário.");
-    }
-</script>
+    <script src="./script.js"></script>
 
 </body>
 </html>
