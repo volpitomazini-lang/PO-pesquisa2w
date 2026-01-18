@@ -111,24 +111,18 @@
         let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
         let tempoAtivo;
 
-        // Funcao reforçada para disparar a Vignette
-        function dispararVignette(callback) {
-            console.log("Tentando disparar anuncio...");
+        // FUNCAO DE DISPARO FORCADA - USA O ID DA ZONA DIRETO
+        function dispararAnuncio(callback) {
+            console.log("Tentando disparar zona 10477360");
             
-            // Tenta disparar pela funcao padrao da zona Monetag
-            if (typeof show_10477360 === 'function') {
-                show_10477360().then(() => { if(callback) callback(); }).catch(() => { if(callback) callback(); });
+            // Tenta todas as variações possíveis que a Monetag cria
+            const f = window['show_10477360'] || window['show_8741357'] || window.show_vignette;
+
+            if (typeof f === 'function') {
+                f().then(() => { if(callback) callback(); }).catch(() => { if(callback) callback(); });
             } else {
-                // Se nao encontrar a funcao, varre todas as funcoes show_ da pagina
-                let disparou = false;
-                for (let prop in window) {
-                    if (prop.startsWith('show_') && typeof window[prop] === 'function') {
-                        window[prop]().finally(() => { if(callback) callback(); });
-                        disparou = true;
-                        break;
-                    }
-                }
-                if (!disparou && callback) callback();
+                // Se o script falhar, apenas segue o fluxo para nao travar o app
+                if(callback) callback();
             }
         }
 
@@ -162,12 +156,15 @@
             let tempo = segundos;
             const display = document.getElementById(displayId);
             botoesIds.forEach(id => document.getElementById(id).disabled = true);
+            
             tempoAtivo = setInterval(() => {
                 tempo--;
                 display.innerText = tempo;
                 
-                // Gatilho aos 10s (timer no 20)
-                if(temGatilho && tempo === 20) { dispararVignette(); }
+                // GATILHO AUTOMATICO AOS 10 SEGUNDOS (Timer chega em 20)
+                if(temGatilho && tempo === 20) {
+                    dispararAnuncio();
+                }
                 
                 if(tempo <= 0) {
                     clearInterval(tempoAtivo);
@@ -177,7 +174,9 @@
         }
 
         function chamarAnuncioEMudar(proxima) {
-            dispararVignette(() => showCard(proxima));
+            dispararAnuncio(() => {
+                showCard(proxima);
+            });
         }
 
         function executarResgate() {
