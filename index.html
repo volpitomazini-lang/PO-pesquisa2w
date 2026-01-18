@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P&O - Projeto Oficial</title>
     
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0b3c5d">
+    
     <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <style>
         :root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
         *{box-sizing:border-box;font-family:Arial,sans-serif}
         body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-        .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;min-height: 500px;display: flex;flex-direction: column;}
-        .active{display:flex}
+        .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none !important;position:relative;min-height:500px;flex-direction:column;}
+        .card.active{display:flex !important;}
         .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:#eef2ff;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:18px;border:1px solid #ddd;z-index:10;}
         h2,h3{text-align:center;margin:10px 0;}
         button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
@@ -24,7 +27,6 @@
         .actions button{flex:1}
         .smart-tag-area{flex-grow: 1; display: flex; align-items: center; justify-content: center; background: #fcfcfc; border: 1px dashed #eee; margin: 10px 0; border-radius: 8px; min-height: 150px;}
         .footer-banner{margin-top: auto; padding-top: 15px; border-top: 1px solid #eee; text-align: center; min-height: 60px;}
-        .user-box{background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px;border:1px solid #eee;}
         .muted{color:var(--muted);font-size:13px;text-align:center;line-height:1.4}
         .check-area{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:14px;}
     </style>
@@ -33,12 +35,12 @@
 
     <div id="t1" class="card active">
         <h2>Projeto P&O</h2>
-        <p class="muted">Ao prosseguir, vocÃª concorda com os termos de uso e a polÃ­tica de privacidade da plataforma de pesquisas O&P.</p>
+        <p class="muted">Ao continuar, você concorda em participar da plataforma de avaliações. Os pontos acumulados possuem natureza promocional conforme as regras do projeto O&P.</p>
         <div class="check-area">
             <input type="checkbox" id="agree">
-            <label for="agree">Aceito os termos e condiÃ§Ãµes</label>
+            <label for="agree">Li e concordo com os termos</label>
         </div>
-        <button onclick="goLogin()">AvanÃ§ar</button>
+        <button onclick="goLogin()">Continuar</button>
     </div>
 
     <div id="t2" class="card">
@@ -49,75 +51,146 @@
     </div>
 
     <div id="t3" class="card">
-        <div class="user-icon" onclick="showUserPage()">ðŸ‘¤</div>
+        <div class="user-icon" onclick="showUserPage()"></div>
         <div class="page-points pts-display">0000</div>
-        <div class="smart-tag-area">
-            <span class="muted">Smart Tag 1</span>
-        </div>
-        <h3>Avalie este conteÃºdo</h3>
+        <div class="smart-tag-area"><span class="muted">Smart Tag 1</span></div>
+        <h3>Avalie este conteúdo</h3>
         <div id="timer30" class="timer">30</div>
         <div class="actions">
-            <button id="like" disabled onclick="triggerVignetteAndNext('t4')">Gostei</button>
-            <button id="dislike" disabled onclick="triggerVignetteAndNext('t4')">NÃ£o gostei</button>
+            <button id="like" disabled onclick="proximaEtapa('t4')">Gostei</button>
+            <button id="dislike" disabled onclick="proximaEtapa('t4')">Não gostei</button>
         </div>
-        <div class="footer-banner">
-            <span class="muted">Banner RodapÃ©</span>
-        </div>
+        <div class="footer-banner"><span class="muted">Banner Rodapé</span></div>
     </div>
 
     <div id="t4" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="smart-tag-area"><span class="muted">EspaÃ§o Livre</span></div>
-        <h3>Este conteÃºdo foi Ãºtil?</h3>
+        <div class="smart-tag-area"><span class="muted">Espaço Livre</span></div>
+        <h3>Este conteúdo foi útil?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
-            <button id="uSim" disabled onclick="triggerVignetteAndNext('t5')">Sim</button>
-            <button id="uNao" disabled onclick="triggerVignetteAndNext('t5')">NÃ£o</button>
+            <button id="uSim" disabled onclick="proximaEtapa('t5')">Sim</button>
+            <button id="uNao" disabled onclick="proximaEtapa('t5')">Não</button>
         </div>
-        <div class="footer-banner"><span class="muted">Banner RodapÃ©</span></div>
     </div>
 
     <div id="t5" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="smart-tag-area"><span class="muted">EspaÃ§o Livre</span></div>
-        <h3>VocÃª indicaria o P&O?</h3>
+        <div class="smart-tag-area"><span class="muted">Espaço Livre</span></div>
+        <h3>Você indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
-            <button id="iSim" disabled onclick="triggerVignetteAndNext('t6')">Sim</button>
-            <button id="iNao" disabled onclick="triggerVignetteAndNext('t6')">NÃ£o</button>
+            <button id="iSim" disabled onclick="proximaEtapa('t6')">Sim</button>
+            <button id="iNao" disabled onclick="proximaEtapa('t6')">Não</button>
         </div>
-        <div class="footer-banner"><span class="muted">Banner RodapÃ©</span></div>
     </div>
 
     <div id="t6" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="smart-tag-area">
-             <span class="muted">Smart Tag 2</span>
-        </div>
-        <h3>Concluir AvaliaÃ§Ã£o</h3>
+        <div class="smart-tag-area"><span class="muted">Smart Tag 2</span></div>
+        <h3>Concluir Avaliação</h3>
         <div id="timer10c" class="timer">10</div>
         <div id="resgateArea">
             <button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
         </div>
         <div id="sucessoArea" style="display:none; text-align:center;">
             <p style="color: green; font-weight: bold;">+1 Ponto Adicionado!</p>
-            <button onclick="finalizarCiclo()">Voltar ao InÃ­cio</button>
+            <button onclick="finalizarCiclo()">Voltar ao Início</button>
         </div>
-        <div class="footer-banner"><span class="muted">Banner RodapÃ©</span></div>
     </div>
 
     <div id="t_user" class="card">
         <h2>Perfil do Consultor</h2>
-        <div class="user-box">
+        <div style="background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;">
             <p><strong>E-mail:</strong> <span id="dispEmail"></span></p>
             <p><strong>PIX:</strong> <span id="dispPix"></span></p>
         </div>
         <div class="page-points pts-display">0000</div>
-        <p class="muted">O resgate mÃ­nimo Ã© de 5000 pontos.</p>
+        <p class="muted" style="margin-top:20px;">O resgate mínimo é de 5000 pontos acumulados no sistema O&P para conversão em saldo.</p>
         <button onclick="showCard('t3')" style="background:#888;">Voltar</button>
     </div>
 
-    <script src="./script.js"></script>
+    <script>
+        let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
+        let tempoAtivo;
 
+        function updatePointsDisplay() {
+            document.querySelectorAll('.pts-display').forEach(el => {
+                el.innerText = pontos.toString().padStart(4, '0');
+            });
+        }
+
+        function showCard(id) {
+            if(tempoAtivo) clearInterval(tempoAtivo);
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            updatePointsDisplay();
+
+            if(id === 't3') startTimer(30, 'timer30', ['like', 'dislike']);
+            if(id === 't4') startTimer(10, 'timer10a', ['uSim', 'uNao']);
+            if(id === 't5') startTimer(10, 'timer10b', ['iSim', 'iNao']);
+            if(id === 't6') startTimer(10, 'timer10c', ['btnResgate']);
+        }
+
+        function goLogin() {
+            if(document.getElementById('agree').checked) showCard('t2');
+            else alert("Aceite os termos para continuar.");
+        }
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const pix = document.getElementById('pix').value;
+            if(email && pix) {
+                localStorage.setItem('user_email', email);
+                localStorage.setItem('user_pix', pix);
+                document.getElementById('dispEmail').innerText = email;
+                document.getElementById('dispPix').innerText = pix;
+                showCard('t3');
+            } else alert("Preencha os campos.");
+        }
+
+        function startTimer(segundos, displayId, botoesIds) {
+            let tempo = segundos;
+            const display = document.getElementById(displayId);
+            botoesIds.forEach(id => document.getElementById(id).disabled = true);
+            tempoAtivo = setInterval(() => {
+                tempo--;
+                display.innerText = tempo;
+                if(tempo <= 0) {
+                    clearInterval(tempoAtivo);
+                    botoesIds.forEach(id => document.getElementById(id).disabled = false);
+                }
+            }, 1000);
+        }
+
+        function proximaEtapa(proximaTela) {
+            if (typeof show_8741357 === 'function') {
+                show_8741357().then(() => { showCard(proximaTela); });
+            } else {
+                showCard(proximaTela);
+            }
+        }
+
+        function executarResgate() {
+            pontos++;
+            localStorage.setItem('pontos_po', pontos);
+            document.getElementById('resgateArea').style.display = 'none';
+            document.getElementById('sucessoArea').style.display = 'block';
+            updatePointsDisplay();
+        }
+
+        function finalizarCiclo() {
+            document.getElementById('resgateArea').style.display = 'block';
+            document.getElementById('sucessoArea').style.display = 'none';
+            showCard('t3');
+        }
+
+        function showUserPage() { showCard('t_user'); }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+        window.onload = updatePointsDisplay;
+    </script>
 </body>
 </html>
