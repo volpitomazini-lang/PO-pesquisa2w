@@ -15,7 +15,10 @@
         body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
         .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none !important;position:relative;min-height:550px;flex-direction:column;}
         .card.active{display:flex !important;}
-        .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:#eef2ff;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:18px;border:1px solid #ddd;z-index:10;}
+        
+        /* ICONE DE USUARIO CORRIGIDO */
+        .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:100;}
+        
         h2,h3{text-align:center;margin:10px 0;}
         button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
         button[disabled]{opacity:.5;cursor:not-allowed}
@@ -34,7 +37,7 @@
 
     <div id="t1" class="card active">
         <h2>Projeto P&O</h2>
-        <p class="muted">Ao continuar, você concorda em participar da plataforma de avaliações. Os pontos acumulados possuem natureza promocional conforme as regras do projeto O&P.</p>
+        <p class="muted">Ao continuar, voce concorda em participar da plataforma de avaliacoes. Os pontos acumulados possuem natureza promocional conforme as regras do projeto O&P.</p>
         <div class="check-area">
             <input type="checkbox" id="agree">
             <label for="agree">Li e concordo com os termos</label>
@@ -44,68 +47,68 @@
 
     <div id="t2" class="card">
         <h2>Acesso</h2>
-        <input id="email" type="email" placeholder="Digite seu E-mail">
-        <input id="pix" type="text" placeholder="Chave PIX (CPF, E-mail ou Celular)">
+        <input id="email" type="email" placeholder="Digite seu Email">
+        <input id="pix" type="text" placeholder="Chave PIX (CPF, Email ou Celular)">
         <button onclick="login()">Entrar no Sistema</button>
     </div>
 
     <div id="t3" class="card">
         <div class="user-icon" onclick="showUserPage()">👤</div>
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaço Publicitário<br>(Smart Tag)</div>
-        <h3>Avalie este conteúdo</h3>
+        <div class="ad-area">Espaco Publicitario<br>(Smart Tag)</div>
+        <h3>Avalie este conteudo</h3>
         <div id="timer30" class="timer">30</div>
         <div class="actions">
-            <button id="like" disabled onclick="proximaEtapa('t4')">Gostei</button>
-            <button id="dislike" disabled onclick="proximaEtapa('t4')">Não gostei</button>
+            <button id="like" disabled onclick="triggerVignetteAndNext('t4')">Gostei</button>
+            <button id="dislike" disabled onclick="triggerVignetteAndNext('t4')">Nao gostei</button>
         </div>
-        <div class="footer-banner">Anúncio de Rodapé</div>
+        <div class="footer-banner">Anuncio de Rodape</div>
     </div>
 
     <div id="t4" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaço Publicitário</div>
-        <h3>Este conteúdo foi útil?</h3>
+        <div class="ad-area">Espaco Publicitario</div>
+        <h3>Este conteudo foi util?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
-            <button id="uSim" disabled onclick="proximaEtapa('t5')">Sim</button>
-            <button id="uNao" disabled onclick="proximaEtapa('t5')">Não</button>
+            <button id="uSim" disabled onclick="triggerVignetteAndNext('t5')">Sim</button>
+            <button id="uNao" disabled onclick="triggerVignetteAndNext('t5')">Nao</button>
         </div>
     </div>
 
     <div id="t5" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaço Publicitário</div>
-        <h3>Você indicaria este produto?</h3>
+        <div class="ad-area">Espaco Publicitario</div>
+        <h3>Voce indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
-            <button id="iSim" disabled onclick="proximaEtapa('t6')">Sim</button>
-            <button id="iNao" disabled onclick="proximaEtapa('t6')">Não</button>
+            <button id="iSim" disabled onclick="triggerVignetteAndNext('t6')">Sim</button>
+            <button id="iNao" disabled onclick="triggerVignetteAndNext('t6')">Nao</button>
         </div>
     </div>
 
     <div id="t6" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaço Publicitário</div>
-        <h3>Concluir Avaliação</h3>
+        <div class="ad-area">Espaco Publicitario</div>
+        <h3>Concluir Avaliacao</h3>
         <div id="timer10c" class="timer">10</div>
         <div id="resgateArea">
             <button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
         </div>
         <div id="sucessoArea" style="display:none; text-align:center;">
             <p style="color: green; font-weight: bold;">+1 Ponto Adicionado!</p>
-            <button onclick="finalizarCiclo()">Voltar ao Início</button>
+            <button onclick="finalizarCiclo()">Voltar ao Inicio</button>
         </div>
     </div>
 
     <div id="t_user" class="card">
         <h2>Perfil do Consultor</h2>
         <div style="background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;">
-            <p><strong>E-mail:</strong> <span id="dispEmail"></span></p>
+            <p><strong>Email:</strong> <span id="dispEmail"></span></p>
             <p><strong>PIX:</strong> <span id="dispPix"></span></p>
         </div>
         <div class="page-points pts-display">0000</div>
-        <p class="muted" style="margin-top:20px;">O resgate mínimo é de 5000 pontos acumulados no sistema O&P para conversão em saldo.</p>
+        <p class="muted" style="margin-top:20px;">O resgate minimo e de 5000 pontos acumulados no sistema O&P para conversao em saldo.</p>
         <button onclick="showCard('t3')" style="background:#888;">Voltar</button>
     </div>
 
@@ -124,24 +127,19 @@
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             updatePointsDisplay();
-
             if(id === 't3') startTimer(30, 'timer30', ['like', 'dislike'], true);
             if(id === 't4') startTimer(10, 'timer10a', ['uSim', 'uNao'], false);
             if(id === 't5') startTimer(10, 'timer10b', ['iSim', 'iNao'], false);
             if(id === 't6') startTimer(10, 'timer10c', ['btnResgate'], false);
         }
 
-        function goLogin() {
-            if(document.getElementById('agree').checked) showCard('t2');
-            else alert("Aceite os termos para continuar.");
-        }
+        function goLogin() { if(document.getElementById('agree').checked) showCard('t2'); else alert("Aceite os termos."); }
 
         function login() {
             const email = document.getElementById('email').value;
             const pix = document.getElementById('pix').value;
             if(email && pix) {
-                localStorage.setItem('user_email', email);
-                localStorage.setItem('user_pix', pix);
+                localStorage.setItem('user_email', email); localStorage.setItem('user_pix', pix);
                 document.getElementById('dispEmail').innerText = email;
                 document.getElementById('dispPix').innerText = pix;
                 showCard('t3');
@@ -152,16 +150,12 @@
             let tempo = segundos;
             const display = document.getElementById(displayId);
             botoesIds.forEach(id => document.getElementById(id).disabled = true);
-            
             tempoAtivo = setInterval(() => {
                 tempo--;
                 display.innerText = tempo;
-
-                // Gatilho Monetag aos 10 segundos de tela (quando timer chega em 20)
                 if(temGatilho && tempo === 20) {
-                    window.dispatchEvent(new Event('click'));
+                   if (typeof show_8741357 === 'function') { show_8741357().catch(()=>{}); }
                 }
-
                 if(tempo <= 0) {
                     clearInterval(tempoAtivo);
                     botoesIds.forEach(id => document.getElementById(id).disabled = false);
@@ -169,14 +163,14 @@
             }, 1000);
         }
 
-        function proximaEtapa(proximaTela) {
-            window.dispatchEvent(new Event('click')); // Trigger adicional ao clicar
-            showCard(proximaTela);
+        function triggerVignetteAndNext(proximaTela) {
+            if (typeof show_8741357 === 'function') {
+                show_8741357().then(() => { showCard(proximaTela); }).catch(() => { showCard(proximaTela); });
+            } else { showCard(proximaTela); }
         }
 
         function executarResgate() {
-            pontos++;
-            localStorage.setItem('pontos_po', pontos);
+            pontos++; localStorage.setItem('pontos_po', pontos);
             document.getElementById('resgateArea').style.display = 'none';
             document.getElementById('sucessoArea').style.display = 'block';
             updatePointsDisplay();
@@ -190,9 +184,7 @@
 
         function showUserPage() { showCard('t_user'); }
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(() => {});
-        }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(() => {}); }
         window.onload = updatePointsDisplay;
     </script>
 </body>
