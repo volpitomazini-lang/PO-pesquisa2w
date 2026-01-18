@@ -4,81 +4,101 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P&O - Projeto Oficial</title>
+
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b3c5d">
+<meta name="referrer" content="always">
 
 <style>
-:root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
+:root{--bg:#f6f8fb;--card:#fff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
 *{box-sizing:border-box;font-family:Arial,sans-serif}
 body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-.card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;min-height:550px;flex-direction:column;position:relative;}
-.card.active{display:flex;}
-.user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;}
-h2,h3{text-align:center}
-button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;margin-top:10px}
-button:disabled{opacity:.5}
-input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd}
-.timer{font-size:35px;text-align:center;margin:15px 0;font-weight:bold;color:var(--primary);}
-.page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;min-height:550px;flex-direction:column;position:relative}
+.card.active{display:flex}
+h2,h3{text-align:center;margin:10px 0}
+button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+button[disabled]{opacity:.5}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0}
+.timer{font-size:34px;text-align:center;margin:15px 0;font-weight:bold;color:var(--primary)}
 .actions{display:flex;gap:10px}
 .actions button{flex:1}
-.ad-area{flex:1;border:1px dashed #ddd;margin:10px 0;display:flex;align-items:center;justify-content:center;border-radius:8px}
-.muted{text-align:center;font-size:13px;color:var(--muted)}
-.check-area{display:flex;gap:10px;margin:15px 0}
+.muted{font-size:13px;color:var(--muted);line-height:1.4;text-align:center}
+.ad-area{flex-grow:1;border:1px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:10px 0;overflow:hidden}
+.page-points{text-align:center;font-size:26px;font-weight:bold;color:var(--primary)}
+.user-icon{position:absolute;top:15px;right:15px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
 </style>
 </head>
 
 <body>
 
+<!-- VIGNETTE -->
+<script>
+(function(s){
+s.dataset.zone='10477360';
+s.src='https://gizokraijaw.net/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
+
+<!-- TELA 1 -->
 <div id="t1" class="card active">
 <h2>Projeto P&O</h2>
 <p class="muted">
-Ao continuar, você concorda com os termos do projeto P&O.
-Os pontos possuem natureza promocional.
-Os resgates de brindes ou recompensas ocorrem de forma trimestral,
-respeitando o saldo mínimo exigido.
+Ao participar, você concorda com os termos do projeto P&O.  
+Os pontos acumulados possuem caráter promocional.  
+Resgates de brindes ou recompensas são realizados **trimestralmente**, conforme regras da plataforma.
 </p>
-<div class="check-area">
-<input type="checkbox" id="agree">
-<label for="agree">Li e concordo com os termos</label>
-</div>
+<label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
 <button onclick="goLogin()">Continuar</button>
 </div>
 
+<!-- TELA 2 -->
 <div id="t2" class="card">
 <h2>Acesso</h2>
-<input id="email" type="email" placeholder="Digite seu Email">
+<input id="email" type="email" placeholder="E-mail">
 <input id="pix" type="text" placeholder="Chave PIX">
 <button onclick="login()">Entrar</button>
 </div>
 
+<!-- TELA 3 -->
 <div id="t3" class="card">
-<div class="user-icon" onclick="showUserPage()">👤</div>
-<div class="page-points pts-display">0000</div>
-<div class="ad-area">Anúncio</div>
-<h3>Avalie este conteúdo</h3>
+<div class="user-icon" onclick="showCard('t_user')">👤</div>
+<div class="page-points pts">0000</div>
+
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
+
+<h3>Avalie o conteúdo</h3>
 <div id="timer30" class="timer">30</div>
+
 <div class="actions">
 <button id="like" disabled onclick="next('t4')">Gostei</button>
 <button id="dislike" disabled onclick="next('t4')">Não gostei</button>
 </div>
 </div>
 
+<!-- TELA 4 -->
 <div id="t4" class="card">
-<div class="page-points pts-display">0000</div>
-<div class="ad-area">Anúncio</div>
-<h3>Este conteúdo foi útil?</h3>
+<div class="page-points pts">0000</div>
+
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
+
+<h3>Achou útil?</h3>
 <div id="timer10a" class="timer">10</div>
+
 <div class="actions">
 <button id="uSim" disabled onclick="next('t5')">Sim</button>
 <button id="uNao" disabled onclick="next('t5')">Não</button>
 </div>
 </div>
 
+<!-- TELA 5 -->
 <div id="t5" class="card">
-<div class="page-points pts-display">0000</div>
+<div class="page-points pts">0000</div>
 <div class="ad-area">Anúncio</div>
-<h3>Você indicaria este produto?</h3>
+<h3>Indicaria?</h3>
 <div id="timer10b" class="timer">10</div>
 <div class="actions">
 <button id="iSim" disabled onclick="next('t6')">Sim</button>
@@ -86,60 +106,53 @@ respeitando o saldo mínimo exigido.
 </div>
 </div>
 
+<!-- TELA 6 -->
 <div id="t6" class="card">
-<div class="page-points pts-display">0000</div>
-<div class="ad-area">Anúncio</div>
-<h3>Concluir Avaliação</h3>
+<div class="page-points pts">0000</div>
+<h3>Resgate</h3>
 <div id="timer10c" class="timer">10</div>
-<button id="btnResgate" disabled onclick="resgatar()">Resgatar Agora</button>
+
+<button id="btnResgate" disabled onclick="resgatar()">Resgatar</button>
+
+<div id="ok" style="display:none;text-align:center;color:green;font-weight:bold">
++1 ponto adicionado
+<button onclick="showCard('t3')">Voltar</button>
+</div>
 </div>
 
+<!-- USUÁRIO -->
 <div id="t_user" class="card">
-<h2>Perfil do Usuário</h2>
-<p>Email: <span id="dispEmail"></span></p>
-<p>PIX: <span id="dispPix"></span></p>
+<h2>Perfil</h2>
+<p><strong>Email:</strong> <span id="uEmail"></span></p>
+<p><strong>PIX:</strong> <span id="uPix"></span></p>
+
 <p class="muted">
-1000 pontos equivalem a R$10,00.<br>
-Resgate mínimo: 5000 pontos.
+1000 pontos = R$10,00<br>
+Resgate mínimo: <strong>5000 pontos</strong>
 </p>
-<div class="page-points pts-display">0000</div>
+
+<div class="page-points pts">0000</div>
 <button onclick="showCard('t3')">Voltar</button>
 </div>
 
 <script>
-let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
+let pontos = Number(localStorage.getItem('pontos_po')) || 0;
 let timer;
 
-function updatePoints(){
-document.querySelectorAll('.pts-display').forEach(e=>{
-e.innerText=pontos.toString().padStart(4,'0');
-});
+function updatePts(){
+document.querySelectorAll('.pts').forEach(e=>e.innerText=pontos.toString().padStart(4,'0'));
 }
 
 function showCard(id){
-if(timer) clearInterval(timer);
+clearInterval(timer);
 document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+updatePts();
 
-if(id==='t3') startTimer(30,'timer30',['like','dislike']);
+if(id==='t3') startTimer(30,'timer30',['like','dislike'],true);
 if(id==='t4') startTimer(10,'timer10a',['uSim','uNao']);
 if(id==='t5') startTimer(10,'timer10b',['iSim','iNao']);
-if(id==='t6') startTimer(10,'timer10c',['btnResgate']); // ✅ CORREÇÃO
-updatePoints();
-}
-
-function startTimer(seg,id,btns){
-let t=seg;
-const el=document.getElementById(id);
-btns.forEach(b=>document.getElementById(b).disabled=true);
-timer=setInterval(()=>{
-t--;
-el.innerText=t;
-if(t<=0){
-clearInterval(timer);
-btns.forEach(b=>document.getElementById(b).disabled=false);
-}
-},1000);
+if(id==='t6') startTimer(10,'timer10c',['btnResgate']);
 }
 
 function goLogin(){
@@ -148,29 +161,44 @@ showCard('t2');
 }
 
 function login(){
-if(!email.value||!pix.value) return alert('Preencha os campos');
+if(!email.value||!pix.value) return alert('Preencha tudo');
 localStorage.setItem('email',email.value);
 localStorage.setItem('pix',pix.value);
-dispEmail.innerText=email.value;
-dispPix.innerText=pix.value;
+uEmail.innerText=email.value;
+uPix.innerText=pix.value;
 showCard('t3');
 }
 
-function next(id){ showCard(id); }
+function startTimer(s,id,btns,dl){
+let t=s;
+const d=document.getElementById(id);
+btns.forEach(b=>document.getElementById(b).disabled=true);
+
+timer=setInterval(()=>{
+t--;
+d.innerText=t;
+if(dl && t===20) window.location.href='https://otieu.com/4/10454714';
+if(t<=0){
+clearInterval(timer);
+btns.forEach(b=>document.getElementById(b).disabled=false);
+}
+},1000);
+}
+
+function next(p){
+window.location.href='https://otieu.com/4/10454714';
+setTimeout(()=>showCard(p),800);
+}
 
 function resgatar(){
 pontos++;
 localStorage.setItem('pontos_po',pontos);
-showCard('t3');
+btnResgate.style.display='none';
+ok.style.display='block';
+updatePts();
 }
 
-function showUserPage(){ showCard('t_user'); }
-
-window.onload=()=>{
-dispEmail.innerText=localStorage.getItem('email')||'';
-dispPix.innerText=localStorage.getItem('pix')||'';
-updatePoints();
-};
+updatePts();
 </script>
 
 </body>
