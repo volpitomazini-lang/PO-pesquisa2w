@@ -1,160 +1,168 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P&O - Projeto Oficial</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#0b3c5d">
-    
-    <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P&O - Projeto Oficial</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0b3c5d">
+<meta name="referrer" content="always">
 
-    <style>
-        :root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
-        *{box-sizing:border-box;font-family:Arial,sans-serif}
-        body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-        .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none !important;position:relative;min-height:550px;flex-direction:column;}
-        .card.active{display:flex !important;}
-        .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;z-index:100;}
-        h2,h3{text-align:center;margin:10px 0;}
-        button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
-        button[disabled]{opacity:.5;cursor:not-allowed}
-        input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:10px;}
-        .timer{font-size:35px;text-align:center;margin:15px 0; font-weight:bold; color:var(--primary);}
-        .page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);margin-bottom:15px}
-        .actions{display:flex;gap:10px;margin-bottom: 20px;}
-        .actions button{flex:1}
-        .ad-area{flex-grow: 1; background: #fafafa; border: 1px dashed #ddd; margin: 10px 0; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 8px; overflow: hidden;}
-        .muted{color:var(--muted);font-size:13px;text-align:center;line-height:1.4}
-        .check-area{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:14px;}
-    </style>
+<style>
+:root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:var(--bg);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;position:relative;min-height:550px;flex-direction:column;}
+.card.active{display:flex}
+.user-icon{position:absolute;top:15px;right:15px;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer}
+h2,h3{text-align:center;margin:10px 0}
+button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;margin-top:10px}
+button[disabled]{opacity:.5}
+input{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ddd}
+.timer{font-size:34px;text-align:center;color:var(--primary)}
+.page-points{text-align:center;font-size:24px;font-weight:bold;color:var(--primary)}
+.actions{display:flex;gap:10px}
+.actions button{flex:1}
+.ad-area{flex-grow:1;border:1px dashed #ddd;margin:10px 0;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.muted{font-size:13px;color:var(--muted);text-align:center;line-height:1.4}
+.check-area{display:flex;gap:10px;margin:15px 0}
+</style>
 </head>
+
 <body>
 
-    <div id="t1" class="card active">
-        <h2>Projeto P&O</h2>
-        <p class="muted">Ao continuar, voce concorda em participar da plataforma de avaliacoes. Os pontos acumulados possuem natureza promocional conforme as regras do projeto O&P.</p>
-        <div class="check-area">
-            <input type="checkbox" id="agree">
-            <label for="agree">Li e concordo com os termos</label>
-        </div>
-        <button onclick="goLogin()">Continuar</button>
-    </div>
+<!-- VIGNETTE -->
+<script>
+(function(s){
+  s.dataset.zone='10477360';
+  s.src='https://gizokraijaw.net/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
 
-    <div id="t2" class="card">
-        <h2>Acesso</h2>
-        <input id="email" type="email" placeholder="Digite seu Email">
-        <input id="pix" type="text" placeholder="Chave PIX (CPF, Email ou Celular)">
-        <button onclick="login()">Entrar no Sistema</button>
-    </div>
+<div id="t1" class="card active">
+<h2>Projeto P&O</h2>
+<p class="muted">
+Ao continuar, voce concorda em participar do Projeto P&O, uma plataforma de avaliacoes promocionais.
+A participacao e voluntaria e ocorre por meio da interacao com conteudos e anuncios exibidos.
+Os pontos acumulados possuem natureza promocional e nao representam pagamento direto.
+O resgate de brindes ou recompensas ocorre de forma trimestral.
+</p>
+<div class="check-area">
+<input type="checkbox" id="agree"> Li e concordo com os termos
+</div>
+<button onclick="goLogin()">Continuar</button>
+</div>
 
-    <div id="t3" class="card">
-        <div class="user-icon" onclick="showCard('t_user')"></div>
-        <div class="page-points pts-display">0000</div>
-        <div class="ad-area">
-            <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-        </div>
-        <div id="timer30" class="timer">30</div>
-        <div class="actions">
-            <button id="like" disabled onclick="chamarAnuncio('t4')">Gostei</button>
-            <button id="dislike" disabled onclick="chamarAnuncio('t4')">Nao gostei</button>
-        </div>
-    </div>
+<div id="t2" class="card">
+<h2>Acesso</h2>
+<p class="muted">
+Informe seu email e chave PIX para identificacao interna e validacao futura de resgates.
+</p>
+<input id="email" placeholder="Email">
+<input id="pix" placeholder="Chave PIX">
+<button onclick="login()">Entrar</button>
+</div>
 
-    <div id="t4" class="card">
-        <div class="page-points pts-display">0000</div>
-        <h3>Este conteudo foi util?</h3>
-        <div id="timer10a" class="timer">10</div>
-        <div class="actions">
-            <button id="uSim" disabled onclick="chamarAnuncio('t5')">Sim</button>
-            <button id="uNao" disabled onclick="chamarAnuncio('t5')">Nao</button>
-        </div>
-    </div>
+<div id="t3" class="card">
+<div class="user-icon" onclick="showCard('t_user')">👤</div>
+<div class="page-points pts">0000</div>
 
-    <div id="t5" class="card">
-        <div class="page-points pts-display">0000</div>
-        <h3>Voce indicaria este produto?</h3>
-        <div id="timer10b" class="timer">10</div>
-        <div class="actions">
-            <button id="iSim" disabled onclick="chamarAnuncio('t6')">Sim</button>
-            <button id="iNao" disabled onclick="chamarAnuncio('t6')">Nao</button>
-        </div>
-    </div>
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10479113';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
 
-    <div id="t6" class="card">
-        <div class="page-points pts-display">0000</div>
-        <div class="ad-area">
-            <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-        </div>
-        <div id="timer10c" class="timer">10</div>
-        <button id="btnResgate" disabled onclick="executarResgate()">Resgatar Pontos</button>
-    </div>
+<h3>Avalie este conteudo</h3>
+<div id="timer30" class="timer">30</div>
 
-    <div id="t_user" class="card">
-        <h2>Perfil do Consultor</h2>
-        <button onclick="showCard('t3')">Voltar</button>
-    </div>
+<div class="actions">
+<button id="like" disabled onclick="next('t4')">Gostei</button>
+<button id="dislike" disabled onclick="next('t4')">Nao gostei</button>
+</div>
+</div>
 
-    <script>
-        let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
-        let tempoAtivo;
+<div id="t4" class="card">
+<div class="page-points pts">0000</div>
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
+<h3>Este conteudo foi util?</h3>
+<div id="timer10a" class="timer">10</div>
+<div class="actions">
+<button id="uSim" disabled onclick="next('t5')">Sim</button>
+<button id="uNao" disabled onclick="next('t5')">Nao</button>
+</div>
+</div>
 
-        function updatePointsDisplay() {
-            document.querySelectorAll('.pts-display').forEach(el => el.innerText = pontos.toString().padStart(4, '0'));
-        }
+<div id="t5" class="card">
+<div class="page-points pts">0000</div>
+<div class="ad-area"></div>
+<h3>Voce indicaria este produto?</h3>
+<div id="timer10b" class="timer">10</div>
+<div class="actions">
+<button id="iSim" disabled onclick="next('t6')">Sim</button>
+<button id="iNao" disabled onclick="next('t6')">Nao</button>
+</div>
+</div>
 
-        function showCard(id) {
-            if(tempoAtivo) clearInterval(tempoAtivo);
-            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            updatePointsDisplay();
-            if(id === 't3') startTimer(30, 'timer30', ['like', 'dislike'], true);
-            if(id === 't4') startTimer(10, 'timer10a', ['uSim', 'uNao'], false);
-            if(id === 't5') startTimer(10, 'timer10b', ['iSim', 'iNao'], false);
-            if(id === 't6') startTimer(10, 'timer10c', ['btnResgate'], false);
-        }
+<div id="t6" class="card">
+<div class="page-points pts">0000</div>
+<div class="ad-area"></div>
+<h3>Concluir Avaliacao</h3>
+<div id="timer10c" class="timer">10</div>
+<button disabled>Resgatar</button>
+</div>
 
-        function goLogin() {
-            if(document.getElementById('agree').checked) showCard('t2');
-            else alert("Aceite os termos.");
-        }
+<div id="t_user" class="card">
+<h2>Perfil do Usuario</h2>
+<p class="muted">
+Cada 1000 pontos equivalem a 10,00 em valor promocional.
+O resgate esta disponivel a partir de 5000 pontos acumulados.
+</p>
+<div class="page-points pts">0000</div>
+<button onclick="showCard('t3')" style="background:#777">Voltar</button>
+</div>
 
-        function login() {
-            if(document.getElementById('email').value && document.getElementById('pix').value) showCard('t3');
-            else alert("Preencha os campos.");
-        }
+<script>
+let timer;
 
-        function startTimer(segundos, displayId, botoesIds, temGatilho) {
-            let tempo = segundos;
-            const display = document.getElementById(displayId);
-            botoesIds.forEach(id => document.getElementById(id).disabled = true);
-            tempoAtivo = setInterval(() => {
-                tempo--;
-                display.innerText = tempo;
-                if(temGatilho && tempo === 20) {
-                    if(typeof show_10477360 === 'function') show_10477360().catch(()=>{});
-                }
-                if(tempo <= 0) {
-                    clearInterval(tempoAtivo);
-                    botoesIds.forEach(id => document.getElementById(id).disabled = false);
-                }
-            }, 1000);
-        }
+function showCard(id){
+ if(timer) clearInterval(timer);
+ document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ if(id==='t3') startTimer(30,'timer30',['like','dislike'],true);
+ if(id==='t4') startTimer(10,'timer10a',['uSim','uNao']);
+ if(id==='t5') startTimer(10,'timer10b',['iSim','iNao']);
+}
 
-        function chamarAnuncio(proxima) {
-            if(typeof show_10477360 === 'function') {
-                show_10477360().then(() => showCard(proxima)).catch(() => showCard(proxima));
-            } else { showCard(proxima); }
-        }
+function goLogin(){
+ if(agree.checked) showCard('t2');
+ else alert('Aceite os termos');
+}
 
-        function executarResgate() {
-            pontos++;
-            localStorage.setItem('pontos_po', pontos);
-            alert("Ponto adicionado com sucesso!");
-            showCard('t3');
-        }
+function login(){
+ if(email.value && pix.value) showCard('t3');
+ else alert('Preencha os campos');
+}
 
-        window.onload = updatePointsDisplay;
-    </script>
+function startTimer(sec,id,btns,trigger){
+ let t=sec,el=document.getElementById(id);
+ btns.forEach(b=>document.getElementById(b).disabled=true);
+ el.innerText=t;
+ timer=setInterval(()=>{
+   t--; el.innerText=t;
+   if(trigger && t===20 && window.show_vignette) window.show_vignette();
+   if(t<=0){
+     clearInterval(timer);
+     btns.forEach(b=>document.getElementById(b).disabled=false);
+   }
+ },1000);
+}
+
+function next(nextId){
+ window.open('https://otieu.com/4/10454714','_blank');
+ showCard(nextId);
+}
+</script>
+
 </body>
 </html>
