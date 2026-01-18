@@ -42,7 +42,7 @@
     <div id="t2" class="card">
         <h2>Acesso</h2>
         <input id="email" type="email" placeholder="Digite seu Email">
-        <input id="pix" type="text" placeholder="Chave PIX (CPF, Email ou Celular)">
+        <input id="pix" type="text" placeholder="Chave PIX">
         <button onclick="login()">Entrar no Sistema</button>
     </div>
 
@@ -55,10 +55,9 @@
         <h3>Avalie este conteudo</h3>
         <div id="timer30" class="timer">30</div>
         <div class="actions">
-            <button id="like" disabled onclick="triggerVignetteAndNext('t4')">Gostei</button>
-            <button id="dislike" disabled onclick="triggerVignetteAndNext('t4')">Nao gostei</button>
+            <button id="like" disabled onclick="chamarAnuncioEMudar('t4')">Gostei</button>
+            <button id="dislike" disabled onclick="chamarAnuncioEMudar('t4')">Nao gostei</button>
         </div>
-        <div class="footer-banner">Anuncio de Rodape</div>
     </div>
 
     <div id="t4" class="card">
@@ -67,8 +66,8 @@
         <h3>Este conteudo foi util?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
-            <button id="uSim" disabled onclick="triggerVignetteAndNext('t5')">Sim</button>
-            <button id="uNao" disabled onclick="triggerVignetteAndNext('t5')">Nao</button>
+            <button id="uSim" disabled onclick="chamarAnuncioEMudar('t5')">Sim</button>
+            <button id="uNao" disabled onclick="chamarAnuncioEMudar('t5')">Nao</button>
         </div>
     </div>
 
@@ -78,8 +77,8 @@
         <h3>Voce indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
-            <button id="iSim" disabled onclick="triggerVignetteAndNext('t6')">Sim</button>
-            <button id="iNao" disabled onclick="triggerVignetteAndNext('t6')">Nao</button>
+            <button id="iSim" disabled onclick="chamarAnuncioEMudar('t6')">Sim</button>
+            <button id="iNao" disabled onclick="chamarAnuncioEMudar('t6')">Nao</button>
         </div>
     </div>
 
@@ -106,13 +105,25 @@
             <p><strong>PIX:</strong> <span id="dispPix"></span></p>
         </div>
         <div class="page-points pts-display">0000</div>
-        <p class="muted" style="margin-top:20px;">O resgate minimo e de 5000 pontos acumulados no sistema O&P para conversao em saldo.</p>
         <button onclick="showCard('t3')" style="background:#888;">Voltar</button>
     </div>
 
     <script>
         let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
         let tempoAtivo;
+
+        // FUNCAO UNIVERSAL PARA DISPARAR QUALQUER ANUNCIO MONETAG CARREGADO
+        function dispararVignette(callback) {
+            let encontrado = false;
+            for (let prop in window) {
+                if (prop.startsWith('show_') && typeof window[prop] === 'function') {
+                    window[prop]().then(() => { if(callback) callback(); }).catch(() => { if(callback) callback(); });
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado && callback) callback();
+        }
 
         function updatePointsDisplay() {
             document.querySelectorAll('.pts-display').forEach(el => el.innerText = pontos.toString().padStart(4, '0'));
@@ -132,12 +143,10 @@
         function goLogin() { if(document.getElementById('agree').checked) showCard('t2'); else alert("Aceite os termos."); }
 
         function login() {
-            const email = document.getElementById('email').value;
-            const pix = document.getElementById('pix').value;
-            if(email && pix) {
-                localStorage.setItem('user_email', email); localStorage.setItem('user_pix', pix);
-                document.getElementById('dispEmail').innerText = email;
-                document.getElementById('dispPix').innerText = pix;
+            const e = document.getElementById('email').value, p = document.getElementById('pix').value;
+            if(e && p) {
+                localStorage.setItem('user_email', e); localStorage.setItem('user_pix', p);
+                document.getElementById('dispEmail').innerText = e; document.getElementById('dispPix').innerText = p;
                 showCard('t3');
             } else alert("Preencha os campos.");
         }
@@ -150,11 +159,8 @@
                 tempo--;
                 display.innerText = tempo;
                 
-                if(temGatilho && tempo === 20) {
-                    // Tenta chamar a função pelo ID da zona atual (10477360)
-                    const func = window['show_10477360'] || window['show_8741357'];
-                    if (typeof func === 'function') { func().catch(()=>{}); }
-                }
+                // GATILHO AUTOMATICO 10s (Timer no 20)
+                if(temGatilho && tempo === 20) { dispararVignette(); }
                 
                 if(tempo <= 0) {
                     clearInterval(tempoAtivo);
@@ -163,15 +169,7 @@
             }, 1000);
         }
 
-        function triggerVignetteAndNext(proximaTela) {
-            const func = window['show_10477360'] || window['show_8741357'];
-            if (typeof func === 'function') {
-                func().then(() => { showCard(proximaTela); }).catch(() => { showCard(proximaTela); });
-            } else { 
-                document.body.click(); // Força clique para tentar disparar o script
-                showCard(proximaTela); 
-            }
-        }
+        function chamarAnuncioEMudar(proxima) { dispararVignette(() => showCard(proxima)); }
 
         function executarResgate() {
             pontos++; localStorage.setItem('pontos_po', pontos);
