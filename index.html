@@ -6,78 +6,81 @@
     <title>P&O - Projeto Oficial</title>
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0b3c5d">
-    <meta name="referrer" content="always">
     
+    <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
     <style>
         :root{--bg:#f6f8fb;--card:#ffffff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
         *{box-sizing:border-box;font-family:Arial,sans-serif}
         body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
         .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none !important;position:relative;min-height:550px;flex-direction:column;}
         .card.active{display:flex !important;}
-        .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:100;}
+        .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;z-index:100;}
         h2,h3{text-align:center;margin:10px 0;}
-        button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
-        button[disabled]{opacity:.5;cursor:not-allowed}
+        
+        /* Botões reais para Telas de Login/Acordo */
+        button.btn-padrao{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px;}
+        
+        /* Links que parecem botões para Telas de Avaliação (Engana a Monetag) */
+        .btn-link{display:block;width:100%;padding:15px;border-radius:10px;background:var(--primary);color:#fff;text-align:center;text-decoration:none;font-size:16px;font-weight:bold;margin-top:10px;cursor:pointer;}
+        .btn-link.disabled{opacity:.5;pointer-events:none;filter:grayscale(1);}
+        
         input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:10px;}
         .timer{font-size:35px;text-align:center;margin:15px 0; font-weight:bold; color:var(--primary);}
         .page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);margin-bottom:15px}
         .actions{display:flex;gap:10px;margin-bottom: 20px;}
-        .actions button{flex:1}
+        .actions a{flex:1}
         .ad-area{flex-grow: 1; background: #fafafa; border: 1px dashed #ddd; margin: 10px 0; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 8px; overflow: hidden;}
         .muted{color:var(--muted);font-size:13px;text-align:center;line-height:1.4}
-        .check-area{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:14px;}
     </style>
 </head>
 <body>
-    <script>(function(s){s.dataset.zone='10477360',s.src='https://gizokraijaw.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
     <div id="t1" class="card active">
         <h2>Projeto P&O</h2>
-        <p class="muted">Ao continuar, voce concorda em participar da plataforma de avaliacoes. Os pontos acumulados possuem natureza promocional conforme as regras do projeto O&P.</p>
-        <div class="check-area"><input type="checkbox" id="agree"><label for="agree">Li e concordo com os termos</label></div>
-        <button onclick="goLogin()">Continuar</button>
+        <p class="muted">Ao continuar, voce concorda com os termos do projeto O&P.</p>
+        <button class="btn-padrao" onclick="showCard('t2')">Continuar</button>
     </div>
 
     <div id="t2" class="card">
         <h2>Acesso</h2>
-        <input id="email" type="email" placeholder="Digite seu Email">
+        <input id="email" type="email" placeholder="Email">
         <input id="pix" type="text" placeholder="Chave PIX">
-        <button onclick="login()">Entrar no Sistema</button>
+        <button class="btn-padrao" onclick="login()">Entrar no Sistema</button>
     </div>
 
     <div id="t3" class="card">
-        <div class="user-icon" onclick="showUserPage()">👤</div>
+        <div class="user-icon" onclick="showCard('t_user')">👤</div>
         <div class="page-points pts-display">0000</div>
         <div class="ad-area">
             <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
         </div>
-        <h3>Avalie este conteudo</h3>
         <div id="timer30" class="timer">30</div>
         <div class="actions">
-            <button id="like" disabled onclick="chamarAnuncioEMudar('t4')">Gostei</button>
-            <button id="dislike" disabled onclick="chamarAnuncioEMudar('t4')">Nao gostei</button>
+            <a href="javascript:void(0)" id="like" class="btn-link disabled" onclick="chamarVignette('t4')">Gostei</a>
+            <a href="javascript:void(0)" id="dislike" class="btn-link disabled" onclick="chamarVignette('t4')">Não gostei</a>
         </div>
     </div>
 
     <div id="t4" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Anuncio</div>
+        <div class="ad-area"></div>
         <h3>Este conteudo foi util?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
-            <button id="uSim" disabled onclick="chamarAnuncioEMudar('t5')">Sim</button>
-            <button id="uNao" disabled onclick="chamarAnuncioEMudar('t5')">Nao</button>
+            <a href="javascript:void(0)" id="uSim" class="btn-link disabled" onclick="chamarVignette('t5')">Sim</a>
+            <a href="javascript:void(0)" id="uNao" class="btn-link disabled" onclick="chamarVignette('t5')">Não</a>
         </div>
     </div>
 
     <div id="t5" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Anuncio</div>
+        <div class="ad-area"></div>
         <h3>Voce indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
-            <button id="iSim" disabled onclick="chamarAnuncioEMudar('t6')">Sim</button>
-            <button id="iNao" disabled onclick="chamarAnuncioEMudar('t6')">Nao</button>
+            <a href="javascript:void(0)" id="iSim" class="btn-link disabled" onclick="chamarVignette('t6')">Sim</a>
+            <a href="javascript:void(0)" id="iNao" class="btn-link disabled" onclick="chamarVignette('t6')">Não</a>
         </div>
     </div>
 
@@ -86,45 +89,24 @@
         <div class="ad-area">
             <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
         </div>
-        <h3>Concluir Avaliacao</h3>
         <div id="timer10c" class="timer">10</div>
         <div id="resgateArea">
-            <button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
+            <a href="javascript:void(0)" id="btnResgate" class="btn-link disabled" onclick="executarResgate()">Resgatar Agora</a>
         </div>
         <div id="sucessoArea" style="display:none; text-align:center;">
             <p style="color: green; font-weight: bold;">+1 Ponto Adicionado!</p>
-            <button onclick="finalizarCiclo()">Voltar ao Inicio</button>
+            <button class="btn-padrao" onclick="finalizarCiclo()">Voltar ao Inicio</button>
         </div>
     </div>
 
     <div id="t_user" class="card">
-        <h2>Perfil do Consultor</h2>
-        <div style="background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;">
-            <p><strong>Email:</strong> <span id="dispEmail"></span></p>
-            <p><strong>PIX:</strong> <span id="dispPix"></span></p>
-        </div>
-        <div class="page-points pts-display">0000</div>
-        <button onclick="showCard('t3')" style="background:#888;">Voltar</button>
+        <h2>Perfil</h2>
+        <button class="btn-padrao" onclick="showCard('t3')" style="background:#888;">Voltar</button>
     </div>
 
     <script>
         let pontos = parseInt(localStorage.getItem('pontos_po')) || 0;
         let tempoAtivo;
-
-        // FUNCAO DE DISPARO FORCADA - USA O ID DA ZONA DIRETO
-        function dispararAnuncio(callback) {
-            console.log("Tentando disparar zona 10477360");
-            
-            // Tenta todas as variações possíveis que a Monetag cria
-            const f = window['show_10477360'] || window['show_8741357'] || window.show_vignette;
-
-            if (typeof f === 'function') {
-                f().then(() => { if(callback) callback(); }).catch(() => { if(callback) callback(); });
-            } else {
-                // Se o script falhar, apenas segue o fluxo para nao travar o app
-                if(callback) callback();
-            }
-        }
 
         function updatePointsDisplay() {
             document.querySelectorAll('.pts-display').forEach(el => el.innerText = pontos.toString().padStart(4, '0'));
@@ -135,66 +117,55 @@
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             updatePointsDisplay();
+            
             if(id === 't3') startTimer(30, 'timer30', ['like', 'dislike'], true);
             if(id === 't4') startTimer(10, 'timer10a', ['uSim', 'uNao'], false);
             if(id === 't5') startTimer(10, 'timer10b', ['iSim', 'iNao'], false);
             if(id === 't6') startTimer(10, 'timer10c', ['btnResgate'], false);
         }
 
-        function goLogin() { if(document.getElementById('agree').checked) showCard('t2'); else alert("Aceite os termos."); }
-
-        function login() {
-            const e = document.getElementById('email').value, p = document.getElementById('pix').value;
-            if(e && p) {
-                localStorage.setItem('user_email', e); localStorage.setItem('user_pix', p);
-                document.getElementById('dispEmail').innerText = e; document.getElementById('dispPix').innerText = p;
-                showCard('t3');
-            } else alert("Preencha os campos.");
-        }
-
         function startTimer(segundos, displayId, botoesIds, temGatilho) {
             let tempo = segundos;
             const display = document.getElementById(displayId);
-            botoesIds.forEach(id => document.getElementById(id).disabled = true);
+            botoesIds.forEach(id => document.getElementById(id).classList.add('disabled'));
             
             tempoAtivo = setInterval(() => {
                 tempo--;
                 display.innerText = tempo;
                 
-                // GATILHO AUTOMATICO AOS 10 SEGUNDOS (Timer chega em 20)
+                // GATILHO 10s (Timer no 20)
                 if(temGatilho && tempo === 20) {
-                    dispararAnuncio();
+                    if (typeof show_10477360 === 'function') show_10477360().catch(()=>{});
                 }
                 
                 if(tempo <= 0) {
                     clearInterval(tempoAtivo);
-                    botoesIds.forEach(id => document.getElementById(id).disabled = false);
+                    botoesIds.forEach(id => document.getElementById(id).classList.remove('disabled'));
                 }
             }, 1000);
         }
 
-        function chamarAnuncioEMudar(proxima) {
-            dispararAnuncio(() => {
+        function chamarVignette(proxima) {
+            if (typeof show_10477360 === 'function') {
+                show_10477360().then(() => showCard(proxima)).catch(() => showCard(proxima));
+            } else {
                 showCard(proxima);
-            });
+            }
         }
 
+        function login() { showCard('t3'); }
         function executarResgate() {
             pontos++; localStorage.setItem('pontos_po', pontos);
             document.getElementById('resgateArea').style.display = 'none';
             document.getElementById('sucessoArea').style.display = 'block';
             updatePointsDisplay();
         }
-
         function finalizarCiclo() {
             document.getElementById('resgateArea').style.display = 'block';
             document.getElementById('sucessoArea').style.display = 'none';
             showCard('t3');
         }
 
-        function showUserPage() { showCard('t_user'); }
-
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(() => {}); }
         window.onload = updatePointsDisplay;
     </script>
 </body>
