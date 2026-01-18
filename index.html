@@ -16,7 +16,7 @@
         .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none !important;position:relative;min-height:550px;flex-direction:column;}
         .card.active{display:flex !important;}
         
-        /* ICONE DE USUARIO CORRIGIDO */
+        /* ICONE DE USUARIO VISIVEL */
         .user-icon{position:absolute;top:15px;right:15px;cursor:pointer;background:var(--primary);color:#fff;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:22px;box-shadow:0 4px 8px rgba(0,0,0,0.2);z-index:100;}
         
         h2,h3{text-align:center;margin:10px 0;}
@@ -27,7 +27,7 @@
         .page-points{font-size:24px;font-weight:bold;text-align:center;color:var(--primary);margin-bottom:15px}
         .actions{display:flex;gap:10px;margin-bottom: 20px;}
         .actions button{flex:1}
-        .ad-area{flex-grow: 1; background: #fafafa; border: 1px dashed #ddd; margin: 10px 0; display: flex; align-items: center; justify-content: center; text-align: center; color: #aaa; font-size: 12px; border-radius: 8px;}
+        .ad-area{flex-grow: 1; background: #fafafa; border: 1px dashed #ddd; margin: 10px 0; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 8px; overflow: hidden;}
         .footer-banner{margin-top: auto; padding-top: 10px; border-top: 1px solid #eee; text-align: center; min-height: 50px;}
         .muted{color:var(--muted);font-size:13px;text-align:center;line-height:1.4}
         .check-area{display:flex;align-items:center;gap:10px;margin:15px 0;font-size:14px;}
@@ -38,10 +38,7 @@
     <div id="t1" class="card active">
         <h2>Projeto P&O</h2>
         <p class="muted">Ao continuar, voce concorda em participar da plataforma de avaliacoes. Os pontos acumulados possuem natureza promocional conforme as regras do projeto O&P.</p>
-        <div class="check-area">
-            <input type="checkbox" id="agree">
-            <label for="agree">Li e concordo com os termos</label>
-        </div>
+        <div class="check-area"><input type="checkbox" id="agree"><label for="agree">Li e concordo com os termos</label></div>
         <button onclick="goLogin()">Continuar</button>
     </div>
 
@@ -55,7 +52,9 @@
     <div id="t3" class="card">
         <div class="user-icon" onclick="showUserPage()">👤</div>
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaco Publicitario<br>(Smart Tag)</div>
+        <div class="ad-area">
+            <script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+        </div>
         <h3>Avalie este conteudo</h3>
         <div id="timer30" class="timer">30</div>
         <div class="actions">
@@ -67,7 +66,8 @@
 
     <div id="t4" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaco Publicitario</div>
+        <div class="ad-area">
+            </div>
         <h3>Este conteudo foi util?</h3>
         <div id="timer10a" class="timer">10</div>
         <div class="actions">
@@ -78,7 +78,8 @@
 
     <div id="t5" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaco Publicitario</div>
+        <div class="ad-area">
+             </div>
         <h3>Voce indicaria este produto?</h3>
         <div id="timer10b" class="timer">10</div>
         <div class="actions">
@@ -89,7 +90,9 @@
 
     <div id="t6" class="card">
         <div class="page-points pts-display">0000</div>
-        <div class="ad-area">Espaco Publicitario</div>
+        <div class="ad-area">
+            <script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+        </div>
         <h3>Concluir Avaliacao</h3>
         <div id="timer10c" class="timer">10</div>
         <div id="resgateArea">
@@ -117,9 +120,7 @@
         let tempoAtivo;
 
         function updatePointsDisplay() {
-            document.querySelectorAll('.pts-display').forEach(el => {
-                el.innerText = pontos.toString().padStart(4, '0');
-            });
+            document.querySelectorAll('.pts-display').forEach(el => el.innerText = pontos.toString().padStart(4, '0'));
         }
 
         function showCard(id) {
@@ -153,9 +154,12 @@
             tempoAtivo = setInterval(() => {
                 tempo--;
                 display.innerText = tempo;
+                
+                // Gatilho Monetag (Vignette) aos 10 segundos de tela (timer no 20)
                 if(temGatilho && tempo === 20) {
                    if (typeof show_8741357 === 'function') { show_8741357().catch(()=>{}); }
                 }
+                
                 if(tempo <= 0) {
                     clearInterval(tempoAtivo);
                     botoesIds.forEach(id => document.getElementById(id).disabled = false);
