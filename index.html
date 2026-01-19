@@ -107,7 +107,6 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <div class="ad-area">
 <script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
-
 <h3>Concluir Avaliacao</h3>
 <div id="timer10c" class="timer">10</div>
 <div id="resgateArea">
@@ -137,6 +136,7 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 </div>
 
 <script>
+// LÓGICA DE NAVEGAÇÃO E DIRECT LINKS
 let pontos = Number(localStorage.getItem('pontos_po')) || 0;
 let timer;
 
@@ -169,9 +169,9 @@ function login(){
     localStorage.setItem('email',e);
     localStorage.setItem('pix',p);
     showCard('t3');
+    if(window.syncFirebase) window.syncFirebase(e, p, pontos);
 }
 
-// TIMER E DIRECT LINK
 function startTimer(segundos, displayId, botoesIds, dl){
     let tempo=segundos;
     const display=document.getElementById(displayId);
@@ -179,7 +179,7 @@ function startTimer(segundos, displayId, botoesIds, dl){
     timer=setInterval(()=>{
         tempo--; 
         if(display) display.innerText=tempo;
-        if(dl && tempo===20) window.open('https://otieu.com', '_blank'); // Direct link
+        if(dl && tempo===20) window.open('https://otieu.com/4/10454714', '_blank');
         if(tempo<=0){
             clearInterval(timer); 
             botoesIds.forEach(id=>document.getElementById(id).disabled=false);
@@ -187,8 +187,8 @@ function startTimer(segundos, displayId, botoesIds, dl){
     },1000);
 }
 
-function nextUtil(){ window.open('https://otieu.com', '_blank'); showCard('t4'); }
-function nextIndicaria(){ window.open('https://otieu.com', '_blank'); showCard('t5'); }
+function nextUtil(){ window.open('https://otieu.com/4/10454714', '_blank'); showCard('t4'); }
+function nextIndicaria(){ window.open('https://otieu.com/4/10454714', '_blank'); showCard('t5'); }
 
 function executarResgate(){
     pontos++; 
@@ -196,6 +196,7 @@ function executarResgate(){
     updatePointsDisplay(); 
     document.getElementById('btnResgate').style.display='none'; 
     document.getElementById('sucessoArea').style.display='block';
+    if(window.syncPoints) window.syncPoints(pontos);
 }
 
 function finalizarCiclo(){
@@ -208,6 +209,37 @@ function logout(){ localStorage.clear(); showCard('t1'); }
 function showUserPage(){ showCard('t_user'); }
 
 updatePointsDisplay();
+</script>
+
+<!-- FIREBASE MÓDULO -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
+authDomain: "atitude-solidaria.firebaseapp.com",
+projectId: "atitude-solidaria",
+storageBucket: "atitude-solidaria.firebasestorage.app",
+messagingSenderId: "651411468618",
+appId: "1:651411468618:web:ba3a2fde60b3be1b69d1b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let uid = null;
+
+onAuthStateChanged(auth, u => { if(u) uid = u.uid; });
+
+window.syncFirebase = (email, pix, pts) => {
+    if(uid) setDoc(doc(db, "usuarios", uid), {email, pix, pontos: pts}, {merge: true});
+};
+
+window.syncPoints = (pts) => {
+    if(uid) updateDoc(doc(db, "usuarios", uid), {pontos: pts});
+};
 </script>
 
 </body>
