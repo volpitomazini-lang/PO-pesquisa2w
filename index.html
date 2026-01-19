@@ -26,6 +26,8 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px
 .ad-area{flex-grow:1;border:1px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:10px 0;overflow:hidden}
 .page-points{text-align:center;font-size:26px;font-weight:bold;color:var(--primary)}
 .user-icon{position:absolute;top:15px;right:15px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
+.link{font-size:12px;text-align:center;margin-top:8px}
+.link a{color:#0b3c5d;text-decoration:none}
 </style>
 </head>
 
@@ -45,12 +47,17 @@ s.src='https://gizokraijaw.net/vignette.min.js';
 <p class="muted">
 Ao participar, você concorda com os termos do projeto P&O.<br>
 Os pontos possuem caráter promocional.<br>
-Resgates são realizados <strong>trimestralmente</strong>.<br><br>
+Resgates são realizados <strong>trimestralmente</strong>.
+</p>
+
+<label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
+
+<div class="link">
 <a href="https://volpitomazini-lang.github.io/politica-privacidade/" target="_blank">
 Política de Privacidade
 </a>
-</p>
-<label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
+</div>
+
 <button onclick="goLogin()">Continuar</button>
 </div>
 
@@ -58,203 +65,4 @@ Política de Privacidade
 <div id="t2" class="card">
 <h2>Acesso</h2>
 <input id="email" type="email" placeholder="E-mail">
-<input id="pix" type="text" placeholder="Chave PIX">
-<button onclick="login()">Entrar</button>
-</div>
-
-<!-- TELA 3 -->
-<div id="t3" class="card">
-<div class="user-icon" onclick="showCard('t_user')"></div>
-<div class="page-points pts">0000</div>
-
-<div class="ad-area">
-<script>(function(s){s.dataset.zone='10479113',s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
-</div>
-
-<h3>Avalie o conteúdo</h3>
-<div id="timer30" class="timer">30</div>
-
-<div class="actions">
-<button id="like" disabled onclick="next('t4')">Gostei</button>
-<button id="dislike" disabled onclick="next('t4')">Não gostei</button>
-</div>
-</div>
-
-<!-- TELA 4 -->
-<div id="t4" class="card">
-<div class="page-points pts">0000</div>
-
-<div class="ad-area">
-<script>(function(s){s.dataset.zone='10460180',s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
-</div>
-
-<h3>Achou útil?</h3>
-<div id="timer10a" class="timer">10</div>
-
-<div class="actions">
-<button id="uSim" disabled onclick="next('t5')">Sim</button>
-<button id="uNao" disabled onclick="next('t5')">Não</button>
-</div>
-</div>
-
-<!-- TELA 5 -->
-<div id="t5" class="card">
-<div class="page-points pts">0000</div>
-<div class="ad-area">Anúncio</div>
-<h3>Indicaria?</h3>
-<div id="timer10b" class="timer">10</div>
-<div class="actions">
-<button id="iSim" disabled onclick="next('t6')">Sim</button>
-<button id="iNao" disabled onclick="next('t6')">Não</button>
-</div>
-</div>
-
-<!-- TELA 6 -->
-<div id="t6" class="card">
-<div class="page-points pts">0000</div>
-<h3>Resgate</h3>
-<div id="timer10c" class="timer">10</div>
-<button id="btnResgate" disabled onclick="resgatar()">Resgatar</button>
-<div id="ok" style="display:none;text-align:center;color:green;font-weight:bold">
-+1 ponto adicionado
-<button onclick="showCard('t3')">Voltar</button>
-</div>
-</div>
-
-<!-- PERFIL -->
-<div id="t_user" class="card">
-<h2>Perfil</h2>
-<p><strong>Email:</strong> <span id="uEmail"></span></p>
-<p><strong>PIX:</strong> <span id="uPix"></span></p>
-
-<p class="muted">
-1000 pontos = R$10,00<br>
-Resgate mínimo: <strong>5000 pontos</strong>
-</p>
-
-<div class="page-points pts">0000</div>
-
-<button onclick="showCard('t3')">Voltar</button>
-<button style="background:#999" onclick="logout()">Sair da conta</button>
-</div>
-
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInAnonymously, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
-  authDomain: "atitude-solidaria.firebaseapp.com",
-  projectId: "atitude-solidaria",
-  storageBucket: "atitude-solidaria.firebasestorage.app",
-  messagingSenderId: "651411468618",
-  appId: "1:651411468618:web:ba3a2fde60b3be1b69d1b3"
-};
-
-window.app = initializeApp(firebaseConfig);
-window.auth = getAuth(app);
-window.db = getFirestore(app);
-
-window.uid = null;
-
-signInAnonymously(auth).then(cred=>{
-  uid = cred.user.uid;
-});
-</script>
-
-<script>
-let pontos = Number(localStorage.getItem('pontos_po')) || 0;
-let timer;
-
-function updatePts(){
-document.querySelectorAll('.pts').forEach(e=>e.innerText=pontos.toString().padStart(4,'0'));
-}
-
-function showCard(id){
-clearInterval(timer);
-document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-updatePts();
-
-if(id==='t3') startTimer(30,'timer30',['like','dislike'],true);
-if(id==='t4') startTimer(10,'timer10a',['uSim','uNao']);
-if(id==='t5') startTimer(10,'timer10b',['iSim','iNao']);
-if(id==='t6') startTimer(10,'timer10c',['btnResgate']);
-}
-
-function goLogin(){
-if(!agree.checked) return alert('Aceite os termos');
-showCard('t2');
-}
-
-async function login(){
-if(!email.value||!pix.value) return alert('Preencha tudo');
-
-localStorage.setItem('email',email.value);
-localStorage.setItem('pix',pix.value);
-
-uEmail.innerText=email.value;
-uPix.innerText=pix.value;
-
-await setDoc(doc(db,"usuarios",uid),{
-  email: email.value,
-  pix: pix.value,
-  pontos: pontos,
-  criadoEm: new Date()
-},{merge:true});
-
-showCard('t3');
-}
-
-function startTimer(s,id,btns,dl){
-let t=s;
-const d=document.getElementById(id);
-btns.forEach(b=>document.getElementById(b).disabled=true);
-
-timer=setInterval(()=>{
-t--;
-d.innerText=t;
-if(dl && t===20) window.location.href='https://otieu.com/4/10454714';
-if(t<=0){
-clearInterval(timer);
-btns.forEach(b=>document.getElementById(b).disabled=false);
-}
-},1000);
-}
-
-function next(p){
-window.location.href='https://otieu.com/4/10454714';
-setTimeout(()=>showCard(p),800);
-}
-
-async function resgatar(){
-pontos++;
-localStorage.setItem('pontos_po',pontos);
-updatePts();
-
-await updateDoc(doc(db,"usuarios",uid),{
-  pontos: increment(1)
-});
-
-btnResgate.style.display='none';
-ok.style.display='block';
-}
-
-function logout(){
-if(confirm('Deseja realmente sair?')){
-localStorage.removeItem('email');
-localStorage.removeItem('pix');
-auth.signOut().finally(()=>{
-uid=null;
-showCard('t2');
-});
-}
-}
-
-updatePts();
-</script>
-
-</body>
-</html>
+<input
