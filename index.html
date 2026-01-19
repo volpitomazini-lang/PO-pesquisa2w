@@ -1,240 +1,236 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P&O - Projeto Oficial</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#0b3c5d">
-    <style>
-        :root{--bg:#f6f8fb;--card:#fff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
-        *{box-sizing:border-box;font-family:Arial,sans-serif}
-        body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
-        .card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;min-height:550px;flex-direction:column;position:relative}
-        .card.active{display:flex}
-        h2,h3{text-align:center;margin:10px 0}
-        button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
-        button[disabled]{opacity:.5}
-        input{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0}
-        .timer{font-size:34px;text-align:center;margin:15px 0;font-weight:bold;color:var(--primary)}
-        .actions{display:flex;gap:10px}
-        .actions button{flex:1}
-        .muted{font-size:13px;color:var(--muted);line-height:1.4;text-align:center}
-        .ad-area{flex-grow:1;border:1px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:10px 0;overflow:hidden}
-        .page-points{text-align:center;font-size:26px;font-weight:bold;color:var(--primary)}
-        .user-icon{position:absolute;top:15px;right:15px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
-        .privacidade-link { display: block; margin-top: 10px; font-size: 12px; color: var(--primary); text-align: center; text-decoration: none; font-weight: bold; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P&O - Projeto Oficial</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0b3c5d">
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;min-height:550px;flex-direction:column;position:relative}
+.card.active{display:flex}
+h2,h3{text-align:center;margin:10px 0}
+button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+button[disabled]{opacity:.5}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0}
+.timer{font-size:34px;text-align:center;margin:15px 0;font-weight:bold;color:var(--primary)}
+.actions{display:flex;gap:10px}
+.actions button{flex:1}
+.muted{font-size:13px;color:var(--muted);line-height:1.4;text-align:center}
+.ad-area{flex-grow:1;border:1px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:10px 0;overflow:hidden}
+.page-points{text-align:center;font-size:26px;font-weight:bold;color:var(--primary)}
+.user-icon{position:absolute;top:15px;right:15px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
+</style>
 </head>
 <body>
 
+<!-- VIGNETTE -->
+<script>(function(s){s.dataset.zone='10477360';s.src='https://gizokraijaw.net';})(document.body.appendChild(document.createElement('script')));</script>
+
 <!-- TELA 1 -->
 <div id="t1" class="card active">
-    <h2>Projeto P&O</h2>
-    <p class="muted">
-        Ao participar, voce concorda com os termos do projeto P&O.<br>
-        Os pontos acumulados possuem caracter promocional.
-    </p>
-    <label style="display: block; text-align: center; margin-bottom: 10px;">
-        <input type="checkbox" id="agree_termos"> Li e concordo com os termos
-    </label>
-    <a href="https://volpitomazini-lang.github.io" target="_blank" class="privacidade-link">Ver Política de Privacidade</a>
-    <button onclick="tentarIrParaLogin()">Continuar</button>
+<h2>Projeto P&O</h2>
+<p class="muted">
+Ao participar, voce concorda com os termos do projeto P&O.<br>
+Os pontos acumulados possuem caracter promocional.<br>
+Resgates de brindes ou recompensas sao realizados trimestralmente.
+</p>
+<label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
+<button onclick="goLogin()">Continuar</button>
 </div>
 
 <!-- TELA 2 -->
 <div id="t2" class="card">
-    <h2>Acesso</h2>
-    <input id="email" type="email" placeholder="E-mail">
-    <input id="pix" type="text" placeholder="Chave PIX">
-    <button onclick="login()">Entrar</button>
+<h2>Acesso</h2>
+<input id="email" type="email" placeholder="E-mail">
+<input id="pix" type="text" placeholder="Chave PIX">
+<button onclick="login()">Entrar</button>
 </div>
 
 <!-- TELA 3 -->
 <div id="t3" class="card">
-    <div class="user-icon" onclick="showUserPage()"></div>
-    <div class="page-points pts-display">0000</div>
-    <div class="ad-area">
-        <!-- Script de Anúncio -->
-        <script>(function(s){s.dataset.zone='10479113';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
-    </div>
-    <h3>Avalie o conteudo</h3>
-    <div id="timer30" class="timer">30</div>
-    <div class="actions">
-        <button id="like" disabled onclick="nextStep('t4')">Gostei</button>
-        <button id="dislike" disabled onclick="nextStep('t4')">Nao gostei</button>
-    </div>
+<div class="user-icon" onclick="showUserPage()"></div>
+<div class="page-points pts-display">0000</div>
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10479113';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
+<h3>Avalie o conteudo</h3>
+<div id="timer30" class="timer">30</div>
+<div class="actions">
+<button id="like" disabled onclick="nextUtil()">Gostei</button>
+<button id="dislike" disabled onclick="nextUtil()">Nao gostei</button>
+</div>
 </div>
 
 <!-- TELA 4 -->
 <div id="t4" class="card">
-    <div class="page-points pts-display">0000</div>
-    <div class="ad-area">Anúncio Ativo</div>
-    <h3>Achou util?</h3>
-    <div id="timer10a" class="timer">10</div>
-    <div class="actions">
-        <button id="uSim" disabled onclick="nextStep('t5')">Sim</button>
-        <button id="uNao" disabled onclick="nextStep('t5')">Nao</button>
-    </div>
+<div class="page-points pts-display">0000</div>
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
+<h3>Achou util?</h3>
+<div id="timer10a" class="timer">10</div>
+<div class="actions">
+<button id="uSim" disabled onclick="nextIndicaria()">Sim</button>
+<button id="uNao" disabled onclick="nextIndicaria()">Nao</button>
+</div>
 </div>
 
 <!-- TELA 5 -->
 <div id="t5" class="card">
-    <div class="page-points pts-display">0000</div>
-    <div class="ad-area">Anúncio Ativo</div>
-    <h3>Voce indicaria?</h3>
-    <div id="timer10b" class="timer">10</div>
-    <div class="actions">
-        <button id="iSim" disabled onclick="nextStep('t6')">Sim</button>
-        <button id="iNao" disabled onclick="nextStep('t6')">Nao</button>
-    </div>
+<div class="page-points pts-display">0000</div>
+<div class="ad-area">Anuncio</div>
+<h3>Voce indicaria este produto?</h3>
+<div id="timer10b" class="timer">10</div>
+<div class="actions">
+<button id="iSim" disabled onclick="showCard('t6')">Sim</button>
+<button id="iNao" disabled onclick="showCard('t6')">Nao</button>
+</div>
 </div>
 
 <!-- TELA 6 -->
 <div id="t6" class="card">
-    <div class="page-points pts-display">0000</div>
-    <div class="ad-area">Anúncio Concluído</div>
-    <h3>Concluir Avaliação</h3>
-    <div id="timer10c" class="timer">10</div>
-    <div id="resgateArea">
-        <button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
-    </div>
-    <div id="sucessoArea" style="display:none; text-align:center;">
-        <p style="color: green; font-weight: bold;">+1 Ponto Adicionado!</p>
-        <button onclick="finalizarCiclo()">Nova Avaliação</button>
-    </div>
+<div class="page-points pts-display">0000</div>
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
+<h3>Concluir Avaliacao</h3>
+<div id="timer10c" class="timer">10</div>
+<div id="resgateArea">
+<button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
+</div>
+<div id="sucessoArea" style="display:none; text-align:center;">
+<p style="color: green; font-weight: bold;">+1 Ponto Adicionado!</p>
+<button onclick="finalizarCiclo()">Voltar ao Inicio</button>
+</div>
 </div>
 
-<!-- PERFIL USUÁRIO -->
+<!-- USUARIO -->
 <div id="t_user" class="card">
-    <h2>Perfil do Consultor</h2>
-    <div style="background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px">
-        <p><strong>Email:</strong> <span id="dispEmail"></span></p>
-        <p><strong>PIX:</strong> <span id="dispPix"></span></p>
-    </div>
-    <p class="muted">1000 pontos = R$10,00<br>Resgate minimo: 5000 pontos</p>
-    <div class="page-points pts-display">0000</div>
-    <button onclick="showCard('t3')">Voltar</button>
-    <button onclick="logout()" style="background:#888;">Sair</button>
+<h2>Perfil do Consultor</h2>
+<div style="background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px">
+<p><strong>Email:</strong> <span id="dispEmail"></span></p>
+<p><strong>PIX:</strong> <span id="dispPix"></span></p>
+</div>
+<p class="muted">
+1000 pontos = R$10,00<br>
+Resgate minimo: 5000 pontos
+</p>
+<div class="page-points pts-display">0000</div>
+
+<!-- LINK PEDIDO -->
+<a href="https://volpitomazini-lang.github.io" target="_blank" style="display:block; text-align:center; font-size:12px; color:var(--primary); margin-bottom:15px; text-decoration:none; font-weight:bold;">Política de Privacidade</a>
+
+<button onclick="showCard('t3')">Voltar</button>
+<button onclick="logout()" style="background:#888;">Sair</button>
 </div>
 
-<!-- SCRIPT DE NAVEGAÇÃO IMEDIATA (EVITA TRAVA NA T1) -->
 <script>
-    function tentarIrParaLogin() {
-        const check = document.getElementById('agree_termos');
-        if (!check.checked) {
-            alert("Você precisa aceitar os termos.");
-            return;
-        }
-        // Se a função showCard ainda não carregou no módulo, faz a troca manual
-        if (typeof window.showCard === 'function') {
-            window.showCard('t2');
-        } else {
-            document.getElementById('t1').classList.remove('active');
-            document.getElementById('t2').classList.add('active');
-        }
-    }
-</script>
+let pontos = Number(localStorage.getItem('pontos_po')) || 0;
+let timer;
 
-<!-- LÓGICA DO FIREBASE E APP -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com";
-    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com";
-    import { getFirestore, doc, setDoc, updateDoc, increment } from "https://www.gstatic.com";
+function updatePointsDisplay(){
+    document.querySelectorAll('.pts-display').forEach(e=>e.innerText=pontos.toString().padStart(4,'0'));
+}
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
-        authDomain: "atitude-solidaria.firebaseapp.com",
-        projectId: "atitude-solidaria",
-        storageBucket: "atitude-solidaria.firebasestorage.app",
-        messagingSenderId: "651411468618",
-        appId: "1:651411468618:web:ba3a2fde60b3be1b69d1b3"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    let uid = null;
-    let pontos = Number(localStorage.getItem('pontos_po')) || 0;
-    let timer;
-
-    onAuthStateChanged(auth, u => { if(u) uid = u.uid; });
-
-    // Funções Globais anexadas ao Window para o HTML enxergar
-    window.showCard = (id) => {
-        clearInterval(timer);
-        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-        const target = document.getElementById(id);
-        if(target) target.classList.add('active');
-        updatePointsDisplay();
-
-        if(id==='t3') startTimer(30,'timer30',['like','dislike'], true);
-        if(id==='t4') startTimer(10,'timer10a',['uSim','uNao'], false);
-        if(id==='t5') startTimer(10,'timer10b',['iSim','iNao'], false);
-        if(id==='t6') startTimer(10,'timer10c',['btnResgate'], false);
-    };
-
-    window.login = async () => {
-        const emailVal = document.getElementById('email').value;
-        const pixVal = document.getElementById('pix').value;
-        if(!emailVal || !pixVal) return alert("Preencha todos os campos.");
-
-        document.getElementById('dispEmail').innerText = emailVal;
-        document.getElementById('dispPix').innerText = pixVal;
-        localStorage.setItem('email', emailVal);
-        localStorage.setItem('pix', pixVal);
-
-        window.showCard('t3');
-        if(uid) await setDoc(doc(db, "usuarios", uid), {email: emailVal, pix: pixVal, pontos: pontos}, {merge: true});
-    };
-
-    window.nextStep = (id) => {
-        window.open('https://otieu.com', '_blank');
-        window.showCard(id);
-    };
-
-    window.executarResgate = async () => {
-        pontos++;
-        localStorage.setItem('pontos_po', pontos);
-        updatePointsDisplay();
-        document.getElementById('btnResgate').style.display = 'none';
-        document.getElementById('sucessoArea').style.display = 'block';
-        if(uid) await updateDoc(doc(db, "usuarios", uid), { pontos: increment(1) });
-    };
-
-    window.finalizarCiclo = () => {
-        document.getElementById('btnResgate').style.display = 'block';
-        document.getElementById('sucessoArea').style.display = 'none';
-        window.showCard('t3');
-    };
-
-    window.logout = () => { localStorage.clear(); location.reload(); };
-    window.showUserPage = () => window.showCard('t_user');
-
-    function startTimer(seg, dispId, btns, isVignette){
-        let t = seg;
-        const d = document.getElementById(dispId);
-        btns.forEach(id => { if(document.getElementById(id)) document.getElementById(id).disabled = true; });
-        
-        timer = setInterval(() => {
-            t--;
-            if(d) d.innerText = t;
-            if(isVignette && t === 20) window.open('https://otieu.com', '_blank');
-            if(t <= 0){
-                clearInterval(timer);
-                btns.forEach(id => { if(document.getElementById(id)) document.getElementById(id).disabled = false; });
-            }
-        }, 1000);
-    }
-
-    function updatePointsDisplay(){
-        document.querySelectorAll('.pts-display').forEach(e => e.innerText = pontos.toString().padStart(4,'0'));
-    }
-
-    // Inicialização
+function showCard(id){
+    clearInterval(timer);
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
     updatePointsDisplay();
+    if(id==='t3') startTimer(30,'timer30',['like','dislike'],true);
+    if(id==='t4') startTimer(10,'timer10a',['uSim','uNao'],false);
+    if(id==='t5') startTimer(10,'timer10b',['iSim','iNao'],false);
+    if(id==='t6') startTimer(10,'timer10c',['btnResgate'],false);
+}
+
+function goLogin(){
+    if(!document.getElementById('agree').checked){alert("Aceite os termos"); return;}
+    showCard('t2');
+}
+
+function login(){
+    const emailVal = document.getElementById('email').value;
+    const pixVal = document.getElementById('pix').value;
+    if(!emailVal || !pixVal){alert("Preencha os campos"); return;}
+    document.getElementById('dispEmail').innerText=emailVal; 
+    document.getElementById('dispPix').innerText=pixVal;
+    localStorage.setItem('email',emailVal); 
+    localStorage.setItem('pix',pixVal);
+    showCard('t3');
+    if(window.syncFirebase) window.syncFirebase(emailVal, pixVal, pontos);
+}
+
+function startTimer(segundos, displayId, botoesIds, dl){
+    let tempo=segundos;
+    const display=document.getElementById(displayId);
+    botoesIds.forEach(id=>document.getElementById(id).disabled=true);
+    timer=setInterval(()=>{
+        tempo--; 
+        if(display) display.innerText=tempo;
+        if(dl && tempo===20) window.open('https://otieu.com', '_blank');
+        if(tempo<=0){
+            clearInterval(timer); 
+            botoesIds.forEach(id=>document.getElementById(id).disabled=false);
+        }
+    },1000);
+}
+
+function nextUtil(){ window.open('https://otieu.com', '_blank'); showCard('t4'); }
+function nextIndicaria(){ window.open('https://otieu.com', '_blank'); showCard('t5'); }
+
+function executarResgate(){
+    pontos++; 
+    localStorage.setItem('pontos_po',pontos); 
+    updatePointsDisplay(); 
+    document.getElementById('btnResgate').style.display='none'; 
+    document.getElementById('sucessoArea').style.display='block';
+    if(window.syncPoints) window.syncPoints(pontos);
+}
+
+function finalizarCiclo(){
+    document.getElementById('btnResgate').style.display='block';
+    document.getElementById('sucessoArea').style.display='none';
+    showCard('t3');
+}
+
+function logout(){ localStorage.clear(); showCard('t1'); }
+function showUserPage(){ showCard('t_user'); }
+
+updatePointsDisplay();
 </script>
 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com";
+import { getFirestore, doc, setDoc, updateDoc } from "https://www.gstatic.com";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
+authDomain: "atitude-solidaria.firebaseapp.com",
+projectId: "atitude-solidaria",
+storageBucket: "atitude-solidaria.firebasestorage.app",
+messagingSenderId: "651411468618",
+appId: "1:651411468618:web:ba3a2fde60b3be1b69d1b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let uid = null;
+
+onAuthStateChanged(auth, u => { if(u) uid = u.uid; });
+
+window.syncFirebase = (email, pix, pts) => {
+    if(uid) setDoc(doc(db, "usuarios", uid), {email, pix, pontos: pts}, {merge: true});
+};
+
+window.syncPoints = (pts) => {
+    if(uid) updateDoc(doc(db, "usuarios", uid), {pontos: pts});
+};
+</script>
 </body>
 </html>
