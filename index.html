@@ -28,7 +28,12 @@ input{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px
 <body>
 
 <!-- VIGNETTE -->
-<script>(function(s){s.dataset.zone='10477360';s.src='https://gizokraijaw.net';})(document.body.appendChild(document.createElement('script')));</script>
+<script>
+(function(s){
+s.dataset.zone='10477360';
+s.src='https://gizokraijaw.net/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
 
 <!-- TELA 1 -->
 <div id="t1" class="card active">
@@ -54,9 +59,12 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <div id="t3" class="card">
 <div class="user-icon" onclick="showUserPage()"></div>
 <div class="page-points pts-display">0000</div>
+
+<!-- BANNER 10479113 -->
 <div class="ad-area">
-<script>(function(s){s.dataset.zone='10479113';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10479113';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
+
 <h3>Avalie o conteudo</h3>
 <div id="timer30" class="timer">30</div>
 <div class="actions">
@@ -68,9 +76,12 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <!-- TELA 4 -->
 <div id="t4" class="card">
 <div class="page-points pts-display">0000</div>
+
+<!-- BANNER 10460180 -->
 <div class="ad-area">
-<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
+
 <h3>Achou util?</h3>
 <div id="timer10a" class="timer">10</div>
 <div class="actions">
@@ -82,7 +93,9 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <!-- TELA 5 -->
 <div id="t5" class="card">
 <div class="page-points pts-display">0000</div>
-<div class="ad-area">Anuncio</div>
+<div class="ad-area">
+<script>(function(s){s.dataset.zone='10477360';s.src='https://gizokraijaw.net/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
+</div>
 <h3>Voce indicaria este produto?</h3>
 <div id="timer10b" class="timer">10</div>
 <div class="actions">
@@ -94,9 +107,12 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <!-- TELA 6 -->
 <div id="t6" class="card">
 <div class="page-points pts-display">0000</div>
+
+<!-- BANNER 10460180 -->
 <div class="ad-area">
-<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com'})(document.body.appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
+
 <h3>Concluir Avaliacao</h3>
 <div id="timer10c" class="timer">10</div>
 <div id="resgateArea">
@@ -115,20 +131,17 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <p><strong>Email:</strong> <span id="dispEmail"></span></p>
 <p><strong>PIX:</strong> <span id="dispPix"></span></p>
 </div>
-<p class="muted">
-1000 pontos = R$10,00<br>
-Resgate minimo: 5000 pontos
-</p>
+<p class="muted">1000 pontos = R$10,00<br>Resgate minimo: 5000 pontos</p>
 <div class="page-points pts-display">0000</div>
 
-<!-- LINK PEDIDO -->
-<a href="https://volpitomazini-lang.github.io" target="_blank" style="display:block; text-align:center; font-size:12px; color:var(--primary); margin-bottom:15px; text-decoration:none; font-weight:bold;">Política de Privacidade</a>
+<a href="https://volpitomazini-lang.github.io/politica-privacidade/" target="_blank" style="display:block; text-align:center; font-size:12px; color:var(--primary); margin-bottom:15px; text-decoration:none; font-weight:bold;">Politica de Privacidade</a>
 
 <button onclick="showCard('t3')">Voltar</button>
 <button onclick="logout()" style="background:#888;">Sair</button>
 </div>
 
 <script>
+// LOGICA PRINCIPAL
 let pontos = Number(localStorage.getItem('pontos_po')) || 0;
 let timer;
 
@@ -153,15 +166,14 @@ function goLogin(){
 }
 
 function login(){
-    const emailVal = document.getElementById('email').value;
-    const pixVal = document.getElementById('pix').value;
-    if(!emailVal || !pixVal){alert("Preencha os campos"); return;}
-    document.getElementById('dispEmail').innerText=emailVal; 
-    document.getElementById('dispPix').innerText=pixVal;
-    localStorage.setItem('email',emailVal); 
-    localStorage.setItem('pix',pixVal);
+    const e = document.getElementById('email').value;
+    const p = document.getElementById('pix').value;
+    if(!e || !p){alert("Preencha os campos"); return;}
+    document.getElementById('dispEmail').innerText=e;
+    document.getElementById('dispPix').innerText=p;
+    localStorage.setItem('email',e);
+    localStorage.setItem('pix',p);
     showCard('t3');
-    if(window.syncFirebase) window.syncFirebase(emailVal, pixVal, pontos);
 }
 
 function startTimer(segundos, displayId, botoesIds, dl){
@@ -171,7 +183,7 @@ function startTimer(segundos, displayId, botoesIds, dl){
     timer=setInterval(()=>{
         tempo--; 
         if(display) display.innerText=tempo;
-        if(dl && tempo===20) window.open('https://otieu.com', '_blank');
+        if(dl && tempo===20) window.open('https://otieu.com','_blank');
         if(tempo<=0){
             clearInterval(timer); 
             botoesIds.forEach(id=>document.getElementById(id).disabled=false);
@@ -179,8 +191,8 @@ function startTimer(segundos, displayId, botoesIds, dl){
     },1000);
 }
 
-function nextUtil(){ window.open('https://otieu.com', '_blank'); showCard('t4'); }
-function nextIndicaria(){ window.open('https://otieu.com', '_blank'); showCard('t5'); }
+function nextUtil(){ window.open('https://otieu.com','_blank'); showCard('t4'); }
+function nextIndicaria(){ window.open('https://otieu.com','_blank'); showCard('t5'); }
 
 function executarResgate(){
     pontos++; 
@@ -188,7 +200,6 @@ function executarResgate(){
     updatePointsDisplay(); 
     document.getElementById('btnResgate').style.display='none'; 
     document.getElementById('sucessoArea').style.display='block';
-    if(window.syncPoints) window.syncPoints(pontos);
 }
 
 function finalizarCiclo(){
@@ -203,34 +214,5 @@ function showUserPage(){ showCard('t_user'); }
 updatePointsDisplay();
 </script>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com";
-import { getFirestore, doc, setDoc, updateDoc } from "https://www.gstatic.com";
-
-const firebaseConfig = {
-apiKey: "AIzaSyCA_Vatr685QLHRI6M-X2Xt_0mH_YM-IeA",
-authDomain: "atitude-solidaria.firebaseapp.com",
-projectId: "atitude-solidaria",
-storageBucket: "atitude-solidaria.firebasestorage.app",
-messagingSenderId: "651411468618",
-appId: "1:651411468618:web:ba3a2fde60b3be1b69d1b3"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-let uid = null;
-
-onAuthStateChanged(auth, u => { if(u) uid = u.uid; });
-
-window.syncFirebase = (email, pix, pts) => {
-    if(uid) setDoc(doc(db, "usuarios", uid), {email, pix, pontos: pts}, {merge: true});
-};
-
-window.syncPoints = (pts) => {
-    if(uid) updateDoc(doc(db, "usuarios", uid), {pontos: pts});
-};
-</script>
 </body>
 </html>
