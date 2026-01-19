@@ -60,7 +60,6 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <div class="user-icon" onclick="showUserPage()"></div>
 <div class="page-points pts-display">0000</div>
 
-<!-- BANNER 10479113 -->
 <div class="ad-area">
 <script>(function(s){s.dataset.zone='10479113';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
@@ -77,7 +76,6 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <div id="t4" class="card">
 <div class="page-points pts-display">0000</div>
 
-<!-- BANNER 10460180 -->
 <div class="ad-area">
 <script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
@@ -93,9 +91,7 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <!-- TELA 5 -->
 <div id="t5" class="card">
 <div class="page-points pts-display">0000</div>
-<div class="ad-area">
-<script>(function(s){s.dataset.zone='10477360';s.src='https://gizokraijaw.net/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
-</div>
+<div class="ad-area">Anuncio</div>
 <h3>Voce indicaria este produto?</h3>
 <div id="timer10b" class="timer">10</div>
 <div class="actions">
@@ -108,7 +104,6 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <div id="t6" class="card">
 <div class="page-points pts-display">0000</div>
 
-<!-- BANNER 10460180 -->
 <div class="ad-area">
 <script>(function(s){s.dataset.zone='10460180';s.src='https://nap5k.com/tag.min.js'})(document.body.appendChild(document.createElement('script')))</script>
 </div>
@@ -134,6 +129,7 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 <p class="muted">1000 pontos = R$10,00<br>Resgate minimo: 5000 pontos</p>
 <div class="page-points pts-display">0000</div>
 
+<!-- LINK POLÍTICA -->
 <a href="https://volpitomazini-lang.github.io/politica-privacidade/" target="_blank" style="display:block; text-align:center; font-size:12px; color:var(--primary); margin-bottom:15px; text-decoration:none; font-weight:bold;">Politica de Privacidade</a>
 
 <button onclick="showCard('t3')">Voltar</button>
@@ -141,7 +137,6 @@ Resgates de brindes ou recompensas sao realizados trimestralmente.
 </div>
 
 <script>
-// LOGICA PRINCIPAL
 let pontos = Number(localStorage.getItem('pontos_po')) || 0;
 let timer;
 
@@ -176,6 +171,7 @@ function login(){
     showCard('t3');
 }
 
+// TIMER E DIRECT LINK
 function startTimer(segundos, displayId, botoesIds, dl){
     let tempo=segundos;
     const display=document.getElementById(displayId);
@@ -183,7 +179,7 @@ function startTimer(segundos, displayId, botoesIds, dl){
     timer=setInterval(()=>{
         tempo--; 
         if(display) display.innerText=tempo;
-        if(dl && tempo===20) window.open('https://otieu.com','_blank');
+        if(dl && tempo===20) window.open('https://otieu.com', '_blank'); // Direct link
         if(tempo<=0){
             clearInterval(timer); 
             botoesIds.forEach(id=>document.getElementById(id).disabled=false);
@@ -191,8 +187,8 @@ function startTimer(segundos, displayId, botoesIds, dl){
     },1000);
 }
 
-function nextUtil(){ window.open('https://otieu.com','_blank'); showCard('t4'); }
-function nextIndicaria(){ window.open('https://otieu.com','_blank'); showCard('t5'); }
+function nextUtil(){ window.open('https://otieu.com', '_blank'); showCard('t4'); }
+function nextIndicaria(){ window.open('https://otieu.com', '_blank'); showCard('t5'); }
 
 function executarResgate(){
     pontos++; 
