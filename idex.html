@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P&O - Projeto Oficial</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0b3c5d">
+
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--primary:#0b3c5d;--text:#2c2c2c;--muted:#777;}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:10px;}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:16px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08);display:none;min-height:550px;flex-direction:column;position:relative}
+.card.active{display:flex}
+h2,h3{text-align:center;margin:10px 0}
+button{width:100%;padding:15px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+button[disabled]{opacity:.5}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0}
+.timer{font-size:34px;text-align:center;margin:15px 0;font-weight:bold;color:var(--primary)}
+.actions{display:flex;gap:10px}
+.actions button{flex:1}
+.muted{font-size:13px;color:var(--muted);line-height:1.4;text-align:center}
+.ad-area{flex-grow:1;border:1px dashed #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;margin:10px 0;overflow:hidden}
+.page-points{text-align:center;font-size:26px;font-weight:bold;color:var(--primary)}
+
+.user-icon{
+    position:absolute;
+    bottom:90px;
+    right:15px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
+    z-index:20;
+}
+</style>
+</head>
+
+<body>
+
+<!-- VIGNETTE -->
+<script>
+(function(s){
+s.dataset.zone='10477360';
+s.src='https://gizokraijaw.net/vignette.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
+
+<!-- TELA 1 -->
+<div id="t1" class="card active">
+<h2>Projeto P&O</h2>
+<p class="muted">
+Ao participar, voce concorda com os termos do projeto P&O.<br>
+Os pontos acumulados possuem caracter promocional.<br>
+Resgates de brindes ou recompensas sao realizados trimestralmente.
+</p>
+<label><input type="checkbox" id="agree"> Li e concordo com os termos</label>
+<button onclick="goLogin()">Continuar</button>
+</div>
+
+<!-- TELA 2 -->
+<div id="t2" class="card">
+<h2>Acesso</h2>
+<input id="email" type="email" placeholder="E-mail">
+<input id="pix" type="text" placeholder="Chave PIX">
+<button onclick="login()">Entrar</button>
+</div>
+
+<!-- TELA 3 -->
+<div id="t3" class="card">
+<div class="user-icon" onclick="showUserPage()"></div>
+<div class="page-points pts-display">0000</div>
+
+<div class="ad-area">
+<script>
+(function(s){
+s.dataset.zone='10479113';
+s.src='https://nap5k.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
+</div>
+
+<h3>Avalie o conteudo</h3>
+<div id="timer30" class="timer">30</div>
+<div class="actions">
+<button id="like" disabled onclick="nextUtil()">Gostei</button>
+<button id="dislike" disabled onclick="nextUtil()">Nao gostei</button>
+</div>
+</div>
+
+<!-- TELA 4 -->
+<div id="t4" class="card">
+<div class="page-points pts-display">0000</div>
+
+<div class="ad-area">
+<script>
+(function(s){
+s.dataset.zone='10460180';
+s.src='https://nap5k.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
+</div>
+
+<h3>Achou util?</h3>
+<div id="timer10a" class="timer">10</div>
+<div class="actions">
+<button id="uSim" disabled onclick="nextIndicaria()">Sim</button>
+<button id="uNao" disabled onclick="nextIndicaria()">Nao</button>
+</div>
+</div>
+
+<!-- TELA 5 -->
+<div id="t5" class="card">
+<div class="page-points pts-display">0000</div>
+<div class="ad-area">Anuncio</div>
+<h3>Voce indicaria este produto?</h3>
+<div id="timer10b" class="timer">10</div>
+<div class="actions">
+<button id="iSim" disabled onclick="showCard('t6')">Sim</button>
+<button id="iNao" disabled onclick="showCard('t6')">Nao</button>
+</div>
+</div>
+
+<!-- TELA 6 -->
+<div id="t6" class="card">
+<div class="page-points pts-display">0000</div>
+
+<div class="ad-area">
+<script>
+(function(s){
+s.dataset.zone='10460180';
+s.src='https://nap5k.com/tag.min.js';
+})(document.body.appendChild(document.createElement('script')));
+</script>
+</div>
+
+<h3>Concluir Avaliacao</h3>
+<div id="timer10c" class="timer">10</div>
+<div id="resgateArea">
+<button id="btnResgate" disabled onclick="executarResgate()">Resgatar Agora</button>
+</div>
+<div id="sucessoArea" style="display:none;text-align:center;">
+<p style="color:green;font-weight:bold;">+1 Ponto Adicionado!</p>
+<button onclick="finalizarCiclo()">Voltar ao Inicio</button>
+</div>
+</div>
+
+<!-- USUARIO -->
+<div id="t_user" class="card">
+<h2>Perfil do Consultor</h2>
+<div style="background:#f9f9f9;padding:15px;border-radius:10px;margin:15px 0;font-size:14px">
+<p><strong>Email:</strong> <span id="dispEmail"></span></p>
+<p><strong>PIX:</strong> <span id="dispPix"></span></p>
+</div>
+<p class="muted">1000 pontos = R$10,00<br>Resgate minimo: 5000 pontos</p>
+<div class="page-points pts-display">0000</div>
+
+<a href="https://volpitomazini-lang.github.io/politica-privacidade/" target="_blank"
+style="display:block;text-align:center;font-size:12px;color:var(--primary);margin-bottom:15px;text-decoration:none;font-weight:bold;">
+Politica de Privacidade
+</a>
+
+<button onclick="showCard('t3')">Voltar</button>
+<button onclick="logout()" style="background:#888;">Sair</button>
+</div>
+
+<script>
+let pontos = Number(localStorage.getItem('pontos_po')) || 0;
+let timer;
+
+function updatePointsDisplay(){
+ document.querySelectorAll('.pts-display')
+ .forEach(e=>e.innerText=pontos.toString().padStart(4,'0'));
+}
+
+function showCard(id){
+ clearInterval(timer);
+ document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ updatePointsDisplay();
+ if(id==='t3') startTimer(30,'timer30',['like','dislike'],true);
+ if(id==='t4') startTimer(10,'timer10a',['uSim','uNao'],false);
+ if(id==='t5') startTimer(10,'timer10b',['iSim','iNao'],false);
+ if(id==='t6') startTimer(10,'timer10c',['btnResgate'],false);
+}
+
+function goLogin(){
+ if(!agree.checked){alert("Aceite os termos");return;}
+ showCard('t2');
+}
+
+function login(){
+ const e=email.value,p=pix.value;
+ if(!e||!p){alert("Preencha os campos");return;}
+ dispEmail.innerText=e;dispPix.innerText=p;
+ localStorage.setItem('email',e);
+ localStorage.setItem('pix',p);
+ showCard('t3');
+}
+
+function startTimer(s,id,b,dl){
+ let t=s,d=document.getElementById(id);
+ b.forEach(x=>document.getElementById(x).disabled=true);
+ timer=setInterval(()=>{
+  t--; if(d)d.innerText=t;
+  if(dl&&t===20)window.open('https://otieu.com/4/10454714','_blank');
+  if(t<=0){clearInterval(timer);b.forEach(x=>document.getElementById(x).disabled=false);}
+ },1000);
+}
+
+function nextUtil(){window.open('https://otieu.com/4/10454714','_blank');showCard('t4');}
+function nextIndicaria(){window.open('https://otieu.com/4/10454714','_blank');showCard('t5');}
+function executarResgate(){pontos++;localStorage.setItem('pontos_po',pontos);updatePointsDisplay();btnResgate.style.display='none';sucessoArea.style.display='block';}
+function finalizarCiclo(){btnResgate.style.display='block';sucessoArea.style.display='none';showCard('t3');}
+function logout(){localStorage.clear();showCard('t1');}
+function showUserPage(){showCard('t_user');}
+
+updatePointsDisplay();
+</script>
+
+</body>
+</html>
